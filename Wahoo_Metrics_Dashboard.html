@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wahoo Metrics Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            background: #f5f5f5;
+            transition: background 0.3s;
+        }
+        
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        body.dark-mode header {
+            background: #2a2a2a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            color: #0066cc;
+        }
+        
+        .header-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        body.dark-mode .header-info {
+            color: #aaa;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        select, button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            background: white;
+            color: #333;
+            transition: all 0.2s;
+        }
+        
+        body.dark-mode select, body.dark-mode button {
+            background: #333;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+        
+        select:hover, button:hover {
+            border-color: #0066cc;
+            box-shadow: 0 2px 4px rgba(0,102,204,0.2);
+        }
+        
+        .toggle-dark {
+            width: 2.5rem;
+            padding: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .widget {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        body.dark-mode .widget {
+            background: #2a2a2a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .widget:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .widget h2 {
+            font-size: 1.3rem;
+            color: #0066cc;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+        
+        body.dark-mode .widget h2 {
+            border-color: #444;
+        }
+        
+        .metric-display {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-label {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        body.dark-mode .metric-label {
+            color: #aaa;
+        }
+        
+        .metric-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .status-balanced { background: #e8f5e9; color: #2e7d32; }
+        .status-normal { background: #e3f2fd; color: #1565c0; }
+        .status-stressed { background: #fce4ec; color: #c2185b; }
+        .status-low { background: #fff3e0; color: #e65100; }
+        .status-high { background: #f3e5f5; color: #6a1b9a; }
+        .status-well { background: #c8e6c9; color: #1b5e20; }
+        .status-partial { background: #ffe0b2; color: #e65100; }
+        
+        body.dark-mode .status-balanced { background: #1b5e20; color: #81c784; }
+        body.dark-mode .status-normal { background: #0d47a1; color: #64b5f6; }
+        body.dark-mode .status-stressed { background: #880e4f; color: #f48fb1; }
+        body.dark-mode .status-low { background: #e65100; color: #ffb74d; }
+        body.dark-mode .status-high { background: #4a148c; color: #ce93d8; }
+        body.dark-mode .status-well { background: #1b5e20; color: #81c784; }
+        body.dark-mode .status-partial { background: #e65100; color: #ffb74d; }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin: 1rem 0;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-box {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        body.dark-mode .stat-box {
+            background: #333;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        body.dark-mode .stat-label {
+            color: #aaa;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        th {
+            background: #f5f5f5;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        body.dark-mode th {
+            background: #333;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+        
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        
+        body.dark-mode td {
+            border-color: #444;
+        }
+        
+        tr:hover {
+            background: #f9f9f9;
+        }
+        
+        body.dark-mode tr:hover {
+            background: #333;
+        }
+        
+        .activity-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .badge-running { background: #ef4444; }
+        .badge-cycling { background: #3b82f6; }
+        .badge-strength { background: #8b5cf6; }
+        .badge-recovery { background: #10b981; }
+        .badge-rest { background: #9ca3af; }
+        
+        .pagination {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .pagination button {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        body.dark-mode .page-info {
+            color: #aaa;
+        }
+        
+        .info-banner {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        body.dark-mode .info-banner {
+            background: #003d4d;
+            color: #80deea;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 3rem;
+        }
+        
+        body.dark-mode footer {
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            h1 { font-size: 1.5rem; }
+            header { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+            .metric-value { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>📊 Wahoo Metrics Dashboard</h1>
+                <div class="header-info">
+                    <p id="sync-info">Last updated: June 13, 2024 | Sample Data</p>
+                </div>
+            </div>
+            <div class="controls">
+                <select id="dateRange" onchange="updateCharts()">
+                    <option value="7">Last 7 days</option>
+                    <option value="14">Last 14 days</option>
+                    <option value="30" selected>Last 30 days</option>
+                </select>
+                <button class="toggle-dark" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+            </div>
+        </header>
+
+        <div class="info-banner">
+            <strong>ℹ️ Note:</strong> This dashboard displays <strong>sample data</strong> for demonstration purposes. All metrics are simulated based on realistic Wahoo Chest Strap patterns. In production, this would connect to real Wahoo API endpoints with authenticated user data.
+        </div>
+
+        <div class="grid">
+            <!-- Heart Rate Widget -->
+            <div class="widget">
+                <h2>❤️ Heart Rate</h2>
+                <div class="metric-display">
+                    <div class="metric-value" id="currentHR" style="color: #ef4444;">72</div>
+                    <div class="metric-label">BPM</div>
+                    <div class="metric-status status-normal">Aerobic Zone</div>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="restingHR">56</div>
+                        <div class="stat-label">Resting</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="maxHR">162</div>
+                        <div class="stat-label">Max</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="avgHR">72</div>
+                        <div class="stat-label">Average</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="hrChart"></canvas>
+                </div>
+            </div>
+
+            <!-- HRV Widget -->
+            <div class="widget">
+                <h2>🫀 HRV (Heart Rate Variability)</h2>
+                <div class="metric-display">
+                    <div class="metric-value" id="currentHRV" style="color: #9333ea;">42</div>
+                    <div class="metric-label">RMSSD (ms)</div>
+                    <div class="metric-status status-balanced">Balanced</div>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="avgHRV">42</div>
+                        <div class="stat-label">30-day avg</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="hrvChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Strain Widget -->
+            <div class="widget">
+                <h2>⚡ Daily Strain Score</h2>
+                <div class="metric-display">
+                    <div class="metric-value" id="currentStrain" style="color: #dc2626;">68</div>
+                    <span style="font-size: 1.2rem; color: #666;">/100</span>
+                    <div class="metric-status status-high">High</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="strainChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recovery Widget -->
+            <div class="widget">
+                <h2>✅ Recovery Score</h2>
+                <div class="metric-display">
+                    <div class="metric-value" id="currentRecovery" style="color: #3b82f6;">65</div>
+                    <span style="font-size: 1.2rem; color: #666;">%</span>
+                    <div class="metric-status status-partial">Partially Recovered</div>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" style="font-size: 1.2rem;">47%</div>
+                        <div class="stat-label">Sleep</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" style="font-size: 1.2rem;">31%</div>
+                        <div class="stat-label">HRV</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" style="font-size: 1.2rem;">22%</div>
+                        <div class="stat-label">RHR</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="recoveryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity History -->
+        <div class="widget" style="margin-bottom: 2rem;">
+            <h2>🏃 Activity History</h2>
+            <div class="page-info">
+                <span id="pageInfo">Page 1 of 1</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Activity</th>
+                        <th>Duration</th>
+                        <th>Avg HR</th>
+                        <th>Max HR</th>
+                        <th>Calories</th>
+                        <th>Distance</th>
+                    </tr>
+                </thead>
+                <tbody id="activityTable">
+                    <!-- Populated by JavaScript -->
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button onclick="prevPage()">← Previous</button>
+                <button onclick="nextPage()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🏥 Wahoo Metrics Dashboard v1.0 | thenxt-doo (Cortex-Scrum)</p>
+        <p>Sample data for demonstration | Not real user metrics</p>
+    </footer>
+
+    <script>
+        // Sample Data (30-day period)
+        const sampleData = {
+            heartRateSeries: [
+                { date: '2024-05-15', resting_hr: 58, avg_hr: 70, max_hr: 158, hrv: 42 },
+                { date: '2024-05-16', resting_hr: 57, avg_hr: 72, max_hr: 165, hrv: 40 },
+                { date: '2024-05-17', resting_hr: 59, avg_hr: 78, max_hr: 172, hrv: 38 },
+                { date: '2024-05-18', resting_hr: 56, avg_hr: 74, max_hr: 168, hrv: 35 },
+                { date: '2024-05-19', resting_hr: 58, avg_hr: 68, max_hr: 152, hrv: 44 },
+                { date: '2024-05-20', resting_hr: 57, avg_hr: 71, max_hr: 160, hrv: 45 },
+                { date: '2024-05-21', resting_hr: 55, avg_hr: 69, max_hr: 158, hrv: 48 },
+                { date: '2024-05-22', resting_hr: 58, avg_hr: 76, max_hr: 170, hrv: 39 },
+                { date: '2024-05-23', resting_hr: 56, avg_hr: 73, max_hr: 165, hrv: 41 },
+                { date: '2024-05-24', resting_hr: 59, avg_hr: 79, max_hr: 175, hrv: 36 },
+                { date: '2024-05-25', resting_hr: 57, avg_hr: 68, max_hr: 150, hrv: 50 },
+                { date: '2024-05-26', resting_hr: 58, avg_hr: 72, max_hr: 162, hrv: 43 },
+                { date: '2024-05-27', resting_hr: 55, avg_hr: 70, max_hr: 158, hrv: 46 },
+                { date: '2024-05-28', resting_hr: 57, avg_hr: 77, max_hr: 169, hrv: 37 },
+                { date: '2024-05-29', resting_hr: 58, avg_hr: 75, max_hr: 167, hrv: 40 },
+                { date: '2024-05-30', resting_hr: 56, avg_hr: 71, max_hr: 161, hrv: 44 },
+                { date: '2024-05-31', resting_hr: 59, avg_hr: 68, max_hr: 155, hrv: 47 },
+                { date: '2024-06-01', resting_hr: 57, avg_hr: 74, max_hr: 166, hrv: 41 },
+                { date: '2024-06-02', resting_hr: 58, avg_hr: 79, max_hr: 173, hrv: 35 },
+                { date: '2024-06-03', resting_hr: 55, avg_hr: 72, max_hr: 159, hrv: 45 },
+                { date: '2024-06-04', resting_hr: 57, avg_hr: 70, max_hr: 154, hrv: 48 },
+                { date: '2024-06-05', resting_hr: 56, avg_hr: 73, max_hr: 163, hrv: 42 },
+                { date: '2024-06-06', resting_hr: 58, avg_hr: 77, max_hr: 170, hrv: 38 },
+                { date: '2024-06-07', resting_hr: 59, avg_hr: 81, max_hr: 178, hrv: 33 },
+                { date: '2024-06-08', resting_hr: 57, avg_hr: 68, max_hr: 148, hrv: 51 },
+                { date: '2024-06-09', resting_hr: 56, avg_hr: 71, max_hr: 157, hrv: 46 },
+                { date: '2024-06-10', resting_hr: 58, avg_hr: 75, max_hr: 164, hrv: 42 },
+                { date: '2024-06-11', resting_hr: 57, avg_hr: 72, max_hr: 160, hrv: 44 },
+                { date: '2024-06-12', resting_hr: 55, avg_hr: 74, max_hr: 165, hrv: 40 },
+                { date: '2024-06-13', resting_hr: 56, avg_hr: 72, max_hr: 162, hrv: 42 }
+            ],
+            strainSeries: [
+                { date: '2024-05-15', strain: 52, zone: 'Moderate' },
+                { date: '2024-05-16', strain: 68, zone: 'High' },
+                { date: '2024-05-17', strain: 75, zone: 'High' },
+                { date: '2024-05-18', strain: 62, zone: 'Moderate' },
+                { date: '2024-05-19', strain: 35, zone: 'Low' },
+                { date: '2024-05-20', strain: 48, zone: 'Moderate' },
+                { date: '2024-05-21', strain: 56, zone: 'Moderate' },
+                { date: '2024-05-22', strain: 71, zone: 'High' },
+                { date: '2024-05-23', strain: 59, zone: 'Moderate' },
+                { date: '2024-05-24', strain: 78, zone: 'High' },
+                { date: '2024-05-25', strain: 28, zone: 'Low' },
+                { date: '2024-05-26', strain: 45, zone: 'Moderate' },
+                { date: '2024-05-27', strain: 52, zone: 'Moderate' },
+                { date: '2024-05-28', strain: 69, zone: 'High' },
+                { date: '2024-05-29', strain: 63, zone: 'Moderate' },
+                { date: '2024-05-30', strain: 41, zone: 'Moderate' },
+                { date: '2024-05-31', strain: 32, zone: 'Low' },
+                { date: '2024-06-01', strain: 58, zone: 'Moderate' },
+                { date: '2024-06-02', strain: 82, zone: 'High' },
+                { date: '2024-06-03', strain: 39, zone: 'Moderate' },
+                { date: '2024-06-04', strain: 28, zone: 'Low' },
+                { date: '2024-06-05', strain: 54, zone: 'Moderate' },
+                { date: '2024-06-06', strain: 72, zone: 'High' },
+                { date: '2024-06-07', strain: 85, zone: 'Very High' },
+                { date: '2024-06-08', strain: 22, zone: 'Low' },
+                { date: '2024-06-09', strain: 48, zone: 'Moderate' },
+                { date: '2024-06-10', strain: 61, zone: 'Moderate' },
+                { date: '2024-06-11', strain: 55, zone: 'Moderate' },
+                { date: '2024-06-12', strain: 65, zone: 'Moderate' },
+                { date: '2024-06-13', strain: 68, zone: 'High' }
+            ],
+            recoverySeries: [
+                { date: '2024-05-15', score: 58 },
+                { date: '2024-05-16', score: 62 },
+                { date: '2024-05-17', score: 55 },
+                { date: '2024-05-18', score: 68 },
+                { date: '2024-05-19', score: 72 },
+                { date: '2024-05-20', score: 65 },
+                { date: '2024-05-21', score: 59 },
+                { date: '2024-05-22', score: 63 },
+                { date: '2024-05-23', score: 67 },
+                { date: '2024-05-24', score: 52 },
+                { date: '2024-05-25', score: 78 },
+                { date: '2024-05-26', score: 71 },
+                { date: '2024-05-27', score: 65 },
+                { date: '2024-05-28', score: 58 },
+                { date: '2024-05-29', score: 63 },
+                { date: '2024-05-30', score: 69 },
+                { date: '2024-05-31', score: 75 },
+                { date: '2024-06-01', score: 62 },
+                { date: '2024-06-02', score: 48 },
+                { date: '2024-06-03', score: 73 },
+                { date: '2024-06-04', score: 76 },
+                { date: '2024-06-05', score: 68 },
+                { date: '2024-06-06', score: 55 },
+                { date: '2024-06-07', score: 45 },
+                { date: '2024-06-08', score: 82 },
+                { date: '2024-06-09', score: 75 },
+                { date: '2024-06-10', score: 65 },
+                { date: '2024-06-11', score: 70 },
+                { date: '2024-06-12', score: 62 },
+                { date: '2024-06-13', score: 65 }
+            ],
+            activities: [
+                { date: '2024-06-13', type: 'Running', duration: 45, avg_hr: 155, max_hr: 165, calories: 580, distance: 7.2 },
+                { date: '2024-06-12', type: 'Cycling', duration: 60, avg_hr: 140, max_hr: 158, calories: 720, distance: 22.5 },
+                { date: '2024-06-11', type: 'Strength', duration: 50, avg_hr: 125, max_hr: 145, calories: 350, distance: 0 },
+                { date: '2024-06-10', type: 'Running', duration: 40, avg_hr: 160, max_hr: 168, calories: 520, distance: 6.5 },
+                { date: '2024-06-09', type: 'Recovery', duration: 30, avg_hr: 95, max_hr: 110, calories: 180, distance: 3.2 },
+                { date: '2024-06-08', type: 'Rest Day', duration: 0, avg_hr: 0, max_hr: 0, calories: 0, distance: 0 },
+                { date: '2024-06-07', type: 'Cycling', duration: 75, avg_hr: 145, max_hr: 165, calories: 810, distance: 28.0 },
+                { date: '2024-06-06', type: 'Running', duration: 50, avg_hr: 158, max_hr: 172, calories: 650, distance: 8.0 },
+                { date: '2024-06-05', type: 'Strength', duration: 55, avg_hr: 130, max_hr: 150, calories: 400, distance: 0 },
+                { date: '2024-06-04', type: 'Recovery', duration: 25, avg_hr: 98, max_hr: 108, calories: 150, distance: 2.8 }
+            ]
+        };
+
+        let charts = {};
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        function getChartColor(value) {
+            if (value < 60) return '#10b981'; // Green
+            if (value < 100) return '#3b82f6'; // Blue
+            if (value < 140) return '#f59e0b'; // Yellow
+            return '#dc2626'; // Red
+        }
+
+        function updateCharts() {
+            const dateRange = parseInt(document.getElementById('dateRange').value);
+            const filtered = sampleData.heartRateSeries.slice(-dateRange);
+            
+            // Update metrics
+            const latest = sampleData.heartRateSeries[sampleData.heartRateSeries.length - 1];
+            const latestStrain = sampleData.strainSeries[sampleData.strainSeries.length - 1];
+            const latestRecovery = sampleData.recoverySeries[sampleData.recoverySeries.length - 1];
+            
+            document.getElementById('currentHR').textContent = latest.avg_hr;
+            document.getElementById('currentHR').style.color = getChartColor(latest.avg_hr);
+            document.getElementById('restingHR').textContent = latest.resting_hr;
+            document.getElementById('maxHR').textContent = latest.max_hr;
+            document.getElementById('avgHR').textContent = latest.avg_hr;
+            document.getElementById('currentHRV').textContent = latest.hrv;
+            document.getElementById('avgHRV').textContent = Math.round(filtered.reduce((s, d) => s + d.hrv, 0) / filtered.length);
+            document.getElementById('currentStrain').textContent = latestStrain.strain;
+            document.getElementById('currentRecovery').textContent = latestRecovery.score;
+            
+            // HR Chart
+            const hrCtx = document.getElementById('hrChart').getContext('2d');
+            if (charts.hrChart) charts.hrChart.destroy();
+            charts.hrChart = new Chart(hrCtx, {
+                type: 'line',
+                data: {
+                    labels: filtered.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [
+                        {
+                            label: 'Avg HR',
+                            data: filtered.map(d => d.avg_hr),
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: false, min: 50, max: 180 } }
+                }
+            });
+            
+            // HRV Chart
+            const hrvCtx = document.getElementById('hrvChart').getContext('2d');
+            if (charts.hrvChart) charts.hrvChart.destroy();
+            charts.hrvChart = new Chart(hrvCtx, {
+                type: 'line',
+                data: {
+                    labels: filtered.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'HRV (RMSSD)',
+                        data: filtered.map(d => d.hrv),
+                        borderColor: '#9333ea',
+                        backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: false, min: 20, max: 60 } }
+                }
+            });
+            
+            // Strain Chart
+            const strainFiltered = sampleData.strainSeries.slice(-dateRange);
+            const strainCtx = document.getElementById('strainChart').getContext('2d');
+            if (charts.strainChart) charts.strainChart.destroy();
+            charts.strainChart = new Chart(strainCtx, {
+                type: 'bar',
+                data: {
+                    labels: strainFiltered.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'Strain Score',
+                        data: strainFiltered.map(d => d.strain),
+                        backgroundColor: strainFiltered.map(d => d.strain < 30 ? '#10b981' : d.strain < 70 ? '#f59e0b' : '#dc2626')
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 100 } }
+                }
+            });
+            
+            // Recovery Chart
+            const recoveryFiltered = sampleData.recoverySeries.slice(-dateRange);
+            const recoveryCtx = document.getElementById('recoveryChart').getContext('2d');
+            if (charts.recoveryChart) charts.recoveryChart.destroy();
+            charts.recoveryChart = new Chart(recoveryCtx, {
+                type: 'line',
+                data: {
+                    labels: recoveryFiltered.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'Recovery Score',
+                        data: recoveryFiltered.map(d => d.score),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 100 } }
+                }
+            });
+            
+            renderActivityTable();
+        }
+
+        function renderActivityTable() {
+            const tbody = document.getElementById('activityTable');
+            tbody.innerHTML = '';
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const items = sampleData.activities.slice(start, end);
+            
+            items.forEach(activity => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${new Date(activity.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
+                    <td><span class="activity-badge badge-${activity.type.toLowerCase().replace(' ', '-')}">${activity.type}</span></td>
+                    <td>${activity.duration}m</td>
+                    <td>${activity.avg_hr || '—'}</td>
+                    <td>${activity.max_hr || '—'}</td>
+                    <td>${activity.calories || '—'}</td>
+                    <td>${activity.distance > 0 ? activity.distance + 'km' : '—'}</td>
+                `;
+            });
+            
+            const totalPages = Math.ceil(sampleData.activities.length / itemsPerPage);
+            document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(sampleData.activities.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderActivityTable();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderActivityTable();
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            updateCharts();
+        });
+    </script>
+</body>
+</html>

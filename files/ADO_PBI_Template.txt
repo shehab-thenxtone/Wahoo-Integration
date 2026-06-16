@@ -1,0 +1,227 @@
+================================================================================
+WAHOO CHEST STRAP INTEGRATION SPIKE - ADO PBI TEMPLATE
+================================================================================
+
+FIELD: Title
+VALUE: Spike: Wahoo Chest Strap Integration Research & Documentation
+
+FIELD: Description
+VALUE:
+Research and document Wahoo Chest Strap integration capabilities, limitations, and competitive positioning. Deliverables include:
+1. Comprehensive integration documentation (OAuth flow, 10-step implementation guide, limitations, competitor analysis)
+2. Enriched competitor comparison matrix (5+ devices, 15+ features)
+3. Sample web application visualizing Wahoo metrics with 30-day mock data
+
+---
+
+FIELD: Work Item Type
+VALUE: Spike
+
+FIELD: Area Path
+VALUE: thenxt-doo\Cortex-Scrum
+
+FIELD: Sprint
+VALUE: Sprint 2
+
+FIELD: Iteration Path
+VALUE: thenxt-doo\Cortex Scrum\Sprint 2
+
+================================================================================
+ACCEPTANCE CRITERIA
+================================================================================
+
+CATEGORY: 1. Integration Documentation (HTML File)
+
+CRITERION 1.1: Device Overview Section
+- [ ] Technical specifications (dimensions, weight, compatibility, firmware range)
+- [ ] Supported metrics (HR, HRV, Daily Strain, Recovery Score, ECG if available) with data types and ranges
+- [ ] Data synchronization details (real-time vs. synced, battery impact, offline behavior)
+- [ ] Supported platforms (iOS, Android, web) with OS version minimums
+- [ ] Device photo/diagram and positioning guide
+
+CRITERION 1.2: Integration Know-How Section (10-Step Flow)
+- [ ] Step 1: OAuth 2.0 authentication code flow with client ID/secret acquisition
+- [ ] Step 2: API authentication headers (Bearer token, rate limit headers, error responses)
+- [ ] Step 3: User profile & initial data fetch (GET /v1/user/me with response schema)
+- [ ] Step 4: Heart rate & activity data retrieval (granularity options, pagination, response schema)
+- [ ] Step 5: HRV & recovery metrics (endpoints, aggregation methods, timestamps)
+- [ ] Step 6: Webhook configuration (optional real-time push, signature verification, retry policy)
+- [ ] Step 7: Rate limiting & quota management (free tier: 100 req/hr, best practices, backoff strategy)
+- [ ] Step 8: Error handling & recovery (401/403/429/500 scenarios, graceful degradation, logging)
+- [ ] Step 9: Data persistence & sync strategy (database schema, sync frequency, conflict resolution, backfill)
+- [ ] Step 10: Testing & validation (unit, integration, E2E test recommendations)
+- [ ] All steps include code examples (cURL requests, JSON responses, pseudocode)
+
+CRITERION 1.3: Limitations Section
+- [ ] Data latency (real-time vs. aggregated, sync windows)
+- [ ] Sampling precision (HR ±2 BPM, HRV ±5% accuracy in lab)
+- [ ] Offline behavior (device storage, sync within 30 minutes)
+- [ ] Rate limits (100 req/hr free tier, no burst allowance)
+- [ ] Device compatibility (Gen 2 only, Gen 1 limited ECG)
+- [ ] Regional restrictions (NA, EU; Asia-Pacific rollout limited)
+- [ ] Data retention (90 days raw, older data aggregated to daily)
+- [ ] Privacy requirements (explicit user consent, no data sharing without action)
+- [ ] Cost model (free tier available, $99/month premium after 1000 req/day)
+- [ ] Webhook latency (2–10 seconds from event to delivery)
+
+CRITERION 1.4: Competitor Comparison Matrix
+- [ ] Minimum 5 devices included: Wahoo, Apple Watch, Garmin Epix Gen 2, Polar Verity Sense, Fitbit Sense 2
+- [ ] Minimum 15 features per device: HR Accuracy, HRV Support, Form Factor, Battery Life, Integration API, Auth Method, Rate Limits, Cost, Webhook Support, Historical Data, GDPR Compliance, Real-time Streaming, Integration Complexity, Documentation Quality, Community/Support
+- [ ] Matrix format (table) clearly shows feature parity and differentiation
+- [ ] Key Takeaways section highlighting Wahoo strengths vs. competitors
+- [ ] Competitive positioning analysis
+
+---
+
+CATEGORY: 2. Sample Web Application (React/HTML)
+
+CRITERION 2.1: Metrics Display Dashboard Components
+- [ ] Heart Rate Widget: Current HR (large display), 7-day sparkline, color-coded zones, last updated timestamp
+- [ ] HRV Widget: Daily RMSSD (ms), 30-day trend line, status badge (Balanced/Normal/Elevated Stress)
+- [ ] Daily Strain Widget: Gauge visualization (0–100), color zones, 7-day history bar chart
+- [ ] Recovery Score Widget: Percentage display, recovery drivers breakdown pie chart (Sleep/HRV/RHR %), recommendations badge
+- [ ] Activity History Table: Sortable columns, paginated (10 per page), filterable, exportable to CSV
+
+CRITERION 2.2: Sample Data (30-Day Window)
+- [ ] 30 days of heart rate daily summaries (resting, avg, max, min, HRV, zone distribution)
+- [ ] 30 days of recovery scores (0–100%, status: Limited/Partial/Well/Excellent)
+- [ ] 30 days of strain scores (zone: Low/Moderate/High/Very High)
+- [ ] Minimum 10 sample activities (mix of Running, Cycling, Strength, Recovery, Rest Day)
+- [ ] Realistic patterns: resting HR 55–59 BPM, HRV 33–51 ms, strain peaks, recovery correlation
+
+CRITERION 2.3: Technical Implementation
+- [ ] React 18+ functional component with hooks (useState, useMemo)
+- [ ] Recharts for all visualizations (AreaChart, LineChart, BarChart, PieChart)
+- [ ] Tailwind CSS responsive design (breakpoints: 320px, 640px, 1024px)
+- [ ] Dark mode toggle (light/dark theme switch)
+- [ ] Date range selector (7/14/30 days)
+- [ ] No external API calls (mock data only)
+- [ ] Accessibility: WCAG 2.1 AA color contrast, semantic HTML, ARIA labels, keyboard navigation
+
+CRITERION 2.4: UI/UX Specifications
+- [ ] Header with title, sync timestamp, date range selector, dark mode toggle
+- [ ] Responsive grid layout (1 col mobile, 2 col tablet, 3 col desktop)
+- [ ] Color zones: Resting Green (#10B981), Aerobic Blue (#3B82F6), Threshold Yellow (#F59E0B), Max Red (#DC2626)
+- [ ] Hover interactions: Tooltips on charts, table row highlighting
+- [ ] Loading states handled (not applicable for demo, but documented)
+- [ ] Footer with data disclaimer ("This is sample data for demonstration purposes")
+
+---
+
+CATEGORY: 3. Deliverables & Artifacts
+
+CRITERION 3.1: Documentation Artifact
+- [ ] File: Wahoo_Integration_Documentation.html
+- [ ] Self-contained (no external dependencies, CSS embedded)
+- [ ] Table of contents with anchor links
+- [ ] Printable to PDF (media query for print optimization)
+- [ ] All 10 integration steps with code examples
+- [ ] Competitor matrix fully populated
+
+CRITERION 3.2: React Dashboard Component
+- [ ] File: Wahoo_Metrics_Dashboard.jsx
+- [ ] Standalone React component
+- [ ] Sample data embedded (sampleData.json imported)
+- [ ] All 5 widgets responsive and interactive
+- [ ] Can be tested locally (npm install, npm start)
+
+CRITERION 3.3: Sample Data File
+- [ ] File: sampleData.json
+- [ ] 30-day realistic dataset
+- [ ] Documented schema with comments
+- [ ] Can serve as API response template
+
+CRITERION 3.4: README & Setup Guide
+- [ ] Quick start instructions
+- [ ] Schema reference documentation
+- [ ] Integration summary (OAuth flow, API calls)
+- [ ] Testing recommendations
+- [ ] Next steps & follow-up PBIs
+- [ ] External resource links
+
+---
+
+CATEGORY: 4. Definition of Done
+
+CRITERION 4.1: Quality Checks
+- [ ] Documentation is 100% self-contained (no broken links to external sites except Wahoo API docs)
+- [ ] All 10 integration steps include working code examples
+- [ ] React component tested at 320px, 640px, 1024px viewports
+- [ ] Sample data covers full 30-day period with no gaps
+- [ ] No hardcoded credentials or API keys in any artifact
+- [ ] Color contrast checked (WCAG AA minimum 4.5:1 for text)
+
+CRITERION 4.2: Completeness
+- [ ] Competitor comparison includes ≥5 devices and ≥15 features
+- [ ] All acceptance criteria in categories 1–3 checked off
+- [ ] Artifacts committed to repository (docs/ folder or equivalent)
+- [ ] README includes all setup instructions
+
+CRITERION 4.3: Review & Approval
+- [ ] Documentation reviewed by QA lead for technical accuracy
+- [ ] React dashboard reviewed by frontend engineer for code quality
+- [ ] Product Owner sign-off on scope and deliverables
+
+================================================================================
+RELATED LINKS (For Description/Notes)
+================================================================================
+
+- Wahoo Developer Portal: https://developers.wahooligan.com
+- Wahoo Cloud API Docs: https://cloud-api.wahooligan.com
+- Apple HealthKit: https://developer.apple.com/documentation/healthkit
+- Garmin Connect IQ: https://developer.garmin.com/connect-iq
+- Polar Flow OAuth: https://www.polar.com/en/developers
+- Fitbit Web API: https://dev.fitbit.com/build/reference
+
+================================================================================
+TAGS
+================================================================================
+
+wearable-research, wahoo, integration, healthcare, spike, documentation, ado-skill
+
+================================================================================
+ESTIMATION
+================================================================================
+
+Story Points: 13 (5-8 business days, Spike time box)
+
+Breakdown:
+- Integration documentation + 10-step guide: 5 points (2-3 days)
+- Competitor research & matrix: 3 points (1-2 days)
+- Sample React dashboard: 5 points (1-2 days)
+
+================================================================================
+NOTES FOR CREATOR
+================================================================================
+
+1. **Prerequisites:** Ensure access to Wahoo Developer Portal or sandbox environment for API documentation verification
+
+2. **Documentation Format:** All deliverables should be committed to project repository (docs/ or research/ folder)
+
+3. **Realism of Sample Data:** Sample data has been generated to reflect realistic Wahoo Chest Strap patterns. Use as basis for testing framework.
+
+4. **Success Criteria:** Upon completion, the team should be able to implement production Wahoo integration with minimal back-and-forth questions.
+
+5. **Next Steps:** If approved, create follow-up PBI for "Production Wahoo Integration" (separate story with full backend OAuth implementation, database schema, real API calls)
+
+6. **Related Wearable Research:** Cross-link with existing Whoop spike (PBI #213) and Garmin spike (PBI #1646) for consistency
+
+================================================================================
+COPY-PASTE CHECKLIST FOR ADO CREATION
+================================================================================
+
+When creating this PBI in ADO, verify:
+
+☑ Work Item Type: Spike
+☑ Area Path: thenxt-doo\Cortex-Scrum
+☑ Sprint: Sprint 2
+☑ Title: Spike: Wahoo Chest Strap Integration Research & Documentation
+☑ All acceptance criteria entered (copy from Category 1–4 above)
+☑ Description populated with summary
+☑ Tags added: wearable-research, wahoo, integration, healthcare, spike, documentation
+☑ Links added to Whoop and Garmin spike PBIs (if applicable)
+☑ Story Points: 13
+☑ Assigned to: [Your name]
+☑ Marked ready for Sprint 2 backlog
+
+================================================================================
