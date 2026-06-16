@@ -29,3 +29,7 @@ frontend/.env.local
 
 # Logs
 *.log
+
+# Startup scripts
+logs/
+.pids
