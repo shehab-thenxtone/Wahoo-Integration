@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
+import { ChartInfo } from '@/components/ui/ChartInfo'
 import { type RecoveryData } from '@/lib/api'
 import { recoveryColor, shortDate } from '@/lib/utils'
 
@@ -10,6 +11,12 @@ interface Props {
 }
 
 const DRIVER_COLORS = ['#60a5fa', '#a78bfa', '#34d399']
+
+const INFO = {
+  title: 'Recovery Score',
+  description:
+    'Wahoo\'s 0–100% readiness score blending sleep quality, HRV, and resting heart rate. Green (≥67%) = go hard. Yellow (34–67%) = moderate effort only. Red (<34%) = rest or active recovery. The pie shows how each driver contributed today.',
+}
 
 function recoveryStatus(score: number): string {
   if (score >= 80) return 'Excellent'
@@ -38,7 +45,10 @@ export function RecoveryWidget({ today, history }: Props) {
 
   return (
     <Card accent={color}>
-      <p className="metric-label" style={{ color }}>Recovery</p>
+      <div className="flex items-center gap-2 mb-0">
+        <p className="metric-label" style={{ color }}>Recovery</p>
+        <ChartInfo color={color} title={INFO.title} description={INFO.description} />
+      </div>
       <div className="flex items-end justify-between mt-1 mb-4">
         <div className="flex items-end gap-2">
           <span className="font-mono text-5xl font-medium tabular-nums text-white">{score}</span>

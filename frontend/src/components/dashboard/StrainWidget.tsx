@@ -1,12 +1,19 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
+import { ChartInfo } from '@/components/ui/ChartInfo'
 import { type StrainData } from '@/lib/api'
 import { strainZoneColor, shortDate } from '@/lib/utils'
 
 interface Props {
   today?: StrainData
   history: StrainData[]
+}
+
+const INFO = {
+  title: 'Daily Strain',
+  description:
+    'Cardiovascular load on a 0–100 scale. High strain paired with high recovery = positive adaptation. High strain with low recovery = overreaching risk. Use the trend bar to pace your training week and avoid accumulating fatigue.',
 }
 
 export function StrainWidget({ today, history }: Props) {
@@ -20,11 +27,12 @@ export function StrainWidget({ today, history }: Props) {
     zone: d.zone,
   }))
 
-  const gaugeAngle = (score / 100) * 180 - 90
-
   return (
     <Card accent={color}>
-      <p className="metric-label" style={{ color }}>Daily Strain</p>
+      <div className="flex items-center gap-2 mb-0">
+        <p className="metric-label" style={{ color }}>Daily Strain</p>
+        <ChartInfo color={color} title={INFO.title} description={INFO.description} />
+      </div>
       <div className="flex items-end justify-between mt-1 mb-4">
         <div className="flex items-end gap-2">
           <span className="font-mono text-5xl font-medium tabular-nums text-white">{score}</span>

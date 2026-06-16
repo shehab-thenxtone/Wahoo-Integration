@@ -4,12 +4,21 @@ import {
 } from 'recharts'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
+import { ChartInfo } from '@/components/ui/ChartInfo'
 import { type HeartRateDailySummary } from '@/lib/api'
 import { shortDate } from '@/lib/utils'
 
 interface Props {
   today?: HeartRateDailySummary
   history: HeartRateDailySummary[]
+}
+
+const COLOR = 'oklch(70% 0.18 295)'
+
+const INFO = {
+  title: 'Heart Rate Variability (HRV)',
+  description:
+    'RMSSD measures millisecond variation between consecutive heartbeats — your autonomic nervous system\'s stress indicator. Higher values mean better recovery readiness. Watch the dashed average line: consistently above it means your body is adapting well to training load.',
 }
 
 function hrvStatus(rmssd: number): { label: string; color: string } {
@@ -32,8 +41,11 @@ export function HRVWidget({ today, history }: Props) {
   const status = hrvStatus(current)
 
   return (
-    <Card accent="oklch(70% 0.18 295)">
-      <p className="metric-label" style={{ color: 'oklch(70% 0.18 295)' }}>HRV (RMSSD)</p>
+    <Card accent={COLOR}>
+      <div className="flex items-center gap-2 mb-0">
+        <p className="metric-label" style={{ color: COLOR }}>HRV (RMSSD)</p>
+        <ChartInfo color={COLOR} title={INFO.title} description={INFO.description} />
+      </div>
       <div className="flex items-end justify-between mt-1 mb-4">
         <div className="flex items-end gap-2">
           <span className="font-mono text-5xl font-medium tabular-nums text-white">{current}</span>
@@ -51,10 +63,10 @@ export function HRVWidget({ today, history }: Props) {
               contentStyle={{ background: 'oklch(16% 0.02 260)', border: '1px solid oklch(25% 0.03 260)', borderRadius: 8 }}
               labelStyle={{ color: '#94a3b8' }}
             />
-            <ReferenceLine y={avg} stroke="oklch(70% 0.18 295)" strokeDasharray="4 2" strokeOpacity={0.5} label={{ value: `avg ${avg}`, fill: '#94a3b8', fontSize: 10 }} />
+            <ReferenceLine y={avg} stroke={COLOR} strokeDasharray="4 2" strokeOpacity={0.5} label={{ value: `avg ${avg}`, fill: '#94a3b8', fontSize: 10 }} />
             <Line
               type="monotone" dataKey="hrv"
-              stroke="oklch(70% 0.18 295)" strokeWidth={2}
+              stroke={COLOR} strokeWidth={2}
               dot={false} activeDot={{ r: 4 }}
               name="HRV ms"
             />
