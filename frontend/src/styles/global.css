@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-surface: oklch(11% 0.01 260);
+    --color-card: oklch(16% 0.02 260);
+    --color-text: oklch(92% 0 0);
+    --color-muted: oklch(55% 0.02 260);
+    --color-accent: oklch(62% 0.22 195);
+    --color-hr: oklch(65% 0.21 22);
+    --color-hrv: oklch(70% 0.18 295);
+    --color-recovery: oklch(65% 0.20 250);
+    --color-strain: oklch(72% 0.21 60);
+
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html, body, #root {
+    height: 100%;
+    min-height: 100vh;
+  }
+
+  body {
+    background-color: oklch(11% 0.01 260);
+    color: oklch(92% 0 0);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-card border border-border rounded-xl p-5;
+  }
+
+  .metric-value {
+    @apply font-mono text-4xl font-medium tabular-nums;
+  }
+
+  .metric-label {
+    @apply text-sm text-muted uppercase tracking-wider;
+  }
+}
+
+/* Recharts overrides */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: oklch(25% 0.03 260);
+}
+
+.recharts-text {
+  fill: oklch(55% 0.02 260);
+  font-size: 11px;
+}
+
+.recharts-tooltip-wrapper {
+  outline: none;
+}
