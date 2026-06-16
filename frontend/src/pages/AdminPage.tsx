@@ -1,9 +1,23 @@
 import { useState, useEffect } from 'react'
 import { adminApi, type AdminStats } from '@/lib/api'
 import { Card } from '@/components/ui/Card'
+import { ChartInfo } from '@/components/ui/ChartInfo'
+import { Footer } from '@/components/ui/Footer'
 import { RateLimitGauge } from '@/components/admin/RateLimitGauge'
 import { RateLimitHistory } from '@/components/admin/RateLimitHistory'
 import { PageLoader } from '@/components/ui/Loader'
+
+const GAUGE_INFO = {
+  title: 'Current Rate Limit Window',
+  description:
+    'Wahoo\'s free tier allows 100 API requests per hour. Each dashboard load consumes several requests. The gauge resets at the shown time. If it reaches 0, the dashboard pauses fetching until the window resets.',
+}
+
+const HISTORY_INFO = {
+  title: 'Rate Limit History',
+  description:
+    'Shows how your request budget depletes over time. Each step down is one dashboard load or refresh. A sharp drop means many requests fired at once (e.g. parallel chart fetches). Use this to tune refresh intervals or identify runaway polling.',
+}
 
 export function AdminPage() {
   const [stats, setStats] = useState<AdminStats | null>(null)
@@ -45,7 +59,7 @@ export function AdminPage() {
   if (!stats) return null
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-sm border-b border-border px-6 py-3">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -71,7 +85,7 @@ export function AdminPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* KPI row */}
         <div className="grid grid-cols-3 gap-4">
           {[
@@ -90,7 +104,10 @@ export function AdminPage() {
         {/* Gauge + info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card accent="oklch(62% 0.22 195)">
-            <h3 className="text-xs uppercase tracking-wider text-muted mb-4">Current Window</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <h3 className="text-xs uppercase tracking-wider text-muted">Current Window</h3>
+              <ChartInfo color="oklch(62% 0.22 195)" title={GAUGE_INFO.title} description={GAUGE_INFO.description} />
+            </div>
             <RateLimitGauge status={stats.current_rate_limit} />
           </Card>
 
@@ -130,9 +147,15 @@ export function AdminPage() {
 
         {/* History charts */}
         <Card>
+          <div className="flex items-center gap-2 mb-2">
+            <h3 className="text-xs uppercase tracking-wider text-muted">Rate Limit History</h3>
+            <ChartInfo title={HISTORY_INFO.title} description={HISTORY_INFO.description} />
+          </div>
           <RateLimitHistory entries={stats.rate_limit_history} />
         </Card>
       </main>
+
+      <Footer />
     </div>
   )
 }

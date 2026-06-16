@@ -7,6 +7,7 @@ import { HRVWidget } from '@/components/dashboard/HRVWidget'
 import { RecoveryWidget } from '@/components/dashboard/RecoveryWidget'
 import { StrainWidget } from '@/components/dashboard/StrainWidget'
 import { ActivityTable } from '@/components/dashboard/ActivityTable'
+import { Footer } from '@/components/ui/Footer'
 import { PageLoader } from '@/components/ui/Loader'
 
 const RANGE_OPTIONS = [7, 14, 30] as const
@@ -43,7 +44,6 @@ export function DashboardPage() {
     setRefreshing(true)
     refreshToday()
     refreshHistory()
-    // Wait a moment so the spinner is visible even when data is cached fast
     await new Promise(r => setTimeout(r, 600))
     setRefreshing(false)
   }, [refreshToday, refreshHistory])
@@ -61,7 +61,7 @@ export function DashboardPage() {
   const activities = history?.activities ?? []
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-sm border-b border-border px-6 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -104,9 +104,24 @@ export function DashboardPage() {
               <span className="hidden sm:inline">Refresh</span>
             </button>
 
+            {/* Username → profile */}
             {status?.user_name && (
-              <span className="text-sm text-muted hidden sm:block">{status.user_name}</span>
+              <button
+                onClick={() => navigate('/profile')}
+                title="View profile"
+                className="hidden sm:flex items-center gap-2 px-2 py-1 rounded-lg text-muted hover:text-white hover:bg-card/60 transition-colors text-sm"
+              >
+                <span
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, oklch(62% 0.22 195), oklch(65% 0.21 22))' }}
+                  aria-hidden
+                >
+                  {status.user_name[0]?.toUpperCase()}
+                </span>
+                {status.user_name}
+              </button>
             )}
+
             {!status?.demo_mode && (
               <button
                 onClick={handleDisconnect}
@@ -119,7 +134,7 @@ export function DashboardPage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Today summary row */}
         <section>
           <h2 className="text-xs uppercase tracking-widest text-muted mb-3">Today</h2>
@@ -160,9 +175,9 @@ export function DashboardPage() {
         </section>
       </main>
 
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-      `}</style>
+      <Footer />
+
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
 }

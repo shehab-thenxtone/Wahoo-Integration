@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Card } from '@/components/ui/Card'
+import { ChartInfo } from '@/components/ui/ChartInfo'
 import { type Activity } from '@/lib/api'
 import { formatDate } from '@/lib/utils'
 
@@ -13,6 +14,12 @@ const TYPE_COLORS: Record<string, string> = {
   Strength: '#a78bfa',
   Recovery: '#4ade80',
   'Rest Day': '#94a3b8',
+}
+
+const INFO = {
+  title: 'Activity Log',
+  description:
+    'Your full workout history. Sort by any column, filter by activity type, or export to CSV for deeper analysis in a spreadsheet or training tool. Effort scores and HR zones help identify which sessions drove the most cardiovascular adaptation.',
 }
 
 function exportCSV(activities: Activity[]) {
@@ -64,7 +71,10 @@ export function ActivityTable({ activities }: Props) {
   return (
     <Card className="col-span-full">
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">Activities</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">Activities</h3>
+          <ChartInfo title={INFO.title} description={INFO.description} />
+        </div>
         <div className="flex gap-2 items-center">
           <select
             value={filter}

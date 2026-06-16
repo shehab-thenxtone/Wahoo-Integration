@@ -26,7 +26,7 @@ export function PrivacyPage() {
     <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-10 border-b border-border bg-surface/80 backdrop-blur-md">
-        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center gap-4">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center gap-4">
           <button
             onClick={() => navigate(-1)}
             className="text-muted hover:text-white transition-colors text-sm"
@@ -40,7 +40,7 @@ export function PrivacyPage() {
       </header>
 
       {/* TOC */}
-      <div className="max-w-3xl mx-auto px-6 py-8 grid md:grid-cols-[220px_1fr] gap-12">
+      <div className="max-w-5xl mx-auto px-6 py-8 grid md:grid-cols-[240px_1fr] gap-12">
         <nav aria-label="Table of contents" className="hidden md:block">
           <p className="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Contents</p>
           <ol className="space-y-1.5 text-sm">
