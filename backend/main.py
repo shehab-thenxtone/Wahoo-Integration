@@ -1,5 +1,9 @@
-from fastapi import FastAPI
+from pathlib import Path
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from config import get_settings
 from routers import auth, metrics, admin, webhooks
@@ -20,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# API routers — all under /api prefix
 app.include_router(auth.router)
 app.include_router(metrics.router)
 app.include_router(admin.router)
@@ -33,3 +38,33 @@ async def health():
         "demo_mode": settings.is_demo,
         "webhooks_configured": bool(settings.wahoo_webhook_secret),
     }
+
+
+# ── Static frontend (production / devtunnel mode) ─────────────────────────────
+
+FRONTEND_DIST = Path(__file__).parent.parent / "frontend" / "dist"
+
+if FRONTEND_DIST.exists():
+    # Serve Vite-built asset chunks
+    _assets_dir = FRONTEND_DIST / "assets"
+    if _assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(_assets_dir)), name="static-assets")
+
+    @app.get("/favicon.svg", include_in_schema=False)
+    async def _favicon_svg():
+        return FileResponse(FRONTEND_DIST / "favicon.svg")
+
+    @app.get("/favicon-512.png", include_in_schema=False)
+    async def _favicon_png():
+        return FileResponse(FRONTEND_DIST / "favicon-512.png")
+
+    # SPA catch-all: every non-API path returns index.html so React Router works
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def _spa(full_path: str):
+        index = FRONTEND_DIST / "index.html"
+        if not index.exists():
+            raise HTTPException(
+                status_code=503,
+                detail="Frontend not built — run: cd frontend && npm run build",
+            )
+        return FileResponse(str(index))
