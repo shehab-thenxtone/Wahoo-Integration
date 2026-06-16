@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { PageLoader } from '@/components/ui/Loader'
 
 export function ConnectPage() {
-  const { status, loading, connect } = useAuth()
+  const { status, loading, connecting, connect } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -54,17 +54,25 @@ export function ConnectPage() {
           </div>
         )}
 
-        <button
-          onClick={connect}
-          className="w-full py-3 px-6 rounded-xl font-semibold text-surface text-base transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-          style={{ background: 'oklch(62% 0.22 195)' }}
-        >
-          Connect Wahoo Account
-        </button>
+        {connecting ? (
+          <div className="w-full py-3 px-6 rounded-xl font-semibold text-center text-sm border border-border text-muted bg-card">
+            <span className="inline-block animate-pulse">Redirecting to Wahoo…</span>
+            <p className="text-xs mt-1 opacity-70">You will be asked to log in on Wahoo's website</p>
+          </div>
+        ) : (
+          <button
+            onClick={connect}
+            className="w-full py-3 px-6 rounded-xl font-semibold text-surface text-base transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            style={{ background: 'oklch(62% 0.22 195)' }}
+          >
+            Connect Wahoo Account
+          </button>
+        )}
 
         <p className="mt-3 text-center text-xs text-muted">
-          No credentials yet? App runs in{' '}
-          <span className="text-primary">demo mode</span> automatically.
+          {status?.demo_mode
+            ? 'Running in demo mode — no Wahoo credentials configured on the server.'
+            : 'You will be redirected to Wahoo to authorize access.'}
         </p>
       </div>
     </main>

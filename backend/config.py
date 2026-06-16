@@ -1,5 +1,4 @@
 from pydantic_settings import BaseSettings
-from functools import lru_cache
 
 
 class Settings(BaseSettings):
@@ -25,6 +24,5 @@ class Settings(BaseSettings):
         return self.demo_mode or not self.wahoo_client_id or not self.wahoo_client_secret
 
 
-@lru_cache()
 def get_settings() -> Settings:
     return Settings()

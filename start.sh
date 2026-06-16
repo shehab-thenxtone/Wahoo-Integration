@@ -16,6 +16,16 @@ lsof -ti:5173 | xargs kill -9 2>/dev/null && echo "  ✓ killed frontend (port 5
 
 sleep 1
 
+# Build frontend so FastAPI can serve it at port 8000 (required for devtunnel)
+echo "[wahoo] Building frontend..."
+(
+  cd "$FRONTEND_DIR"
+  npm run build >> "$LOG_DIR/build.log" 2>&1
+) && echo "  ✓ frontend built → frontend/dist/" || {
+  echo "  ! frontend build failed — check logs/build.log"
+  exit 1
+}
+
 echo "[wahoo] Starting backend..."
 (
   cd "$BACKEND_DIR"
@@ -28,11 +38,13 @@ BACKEND_PID=$!
 sleep 2
 if curl -sf http://localhost:8000/health > /dev/null 2>&1; then
   echo "  ✓ backend up  → http://localhost:8000  (pid $BACKEND_PID)"
+  HEALTH=$(curl -s http://localhost:8000/health)
+  echo "  · health: $HEALTH"
 else
   echo "  ! backend may still be starting — check logs/backend.log"
 fi
 
-echo "[wahoo] Starting frontend..."
+echo "[wahoo] Starting frontend dev server (optional, for hot-reload)..."
 (
   cd "$FRONTEND_DIR"
   npm run dev >> "$LOG_DIR/frontend.log" 2>&1
@@ -40,12 +52,17 @@ echo "[wahoo] Starting frontend..."
 FRONTEND_PID=$!
 
 sleep 3
-echo "  ✓ frontend up → http://localhost:5173  (pid $FRONTEND_PID)"
-echo "  ✓ admin panel → http://localhost:5173/admin"
+echo "  ✓ frontend dev → http://localhost:5173  (pid $FRONTEND_PID)"
+echo ""
+echo "[wahoo] Access:"
+echo "  local:     http://localhost:8000"
+echo "  devtunnel: use port 8000 tunnel URL"
+echo "  admin:     http://localhost:8000/admin"
 echo ""
 echo "[wahoo] Logs:"
-echo "  backend:  logs/backend.log"
-echo "  frontend: logs/frontend.log"
+echo "  backend:   logs/backend.log"
+echo "  frontend:  logs/frontend.log"
+echo "  build:     logs/build.log"
 echo ""
 echo "[wahoo] To stop: kill $BACKEND_PID $FRONTEND_PID"
 echo "        or run:  lsof -ti:8000,5173 | xargs kill"

@@ -46,16 +46,16 @@ async def _api_get(path: str, access_token: str, user_id: str, params: dict = No
 # ── OAuth helpers ──────────────────────────────────────────────────────────────
 
 def build_auth_url(state: str) -> str:
+    from urllib.parse import urlencode
     settings = get_settings()
-    scopes = "user_read workouts_read"
-    return (
-        f"{settings.wahoo_auth_url}"
-        f"?client_id={settings.wahoo_client_id}"
-        f"&redirect_uri={settings.wahoo_redirect_uri}"
-        f"&response_type=code"
-        f"&scope={scopes.replace(' ', '+')}"
-        f"&state={state}"
-    )
+    params = {
+        "client_id": settings.wahoo_client_id,
+        "redirect_uri": settings.wahoo_redirect_uri,
+        "response_type": "code",
+        "scope": "user_read workouts_read",
+        "state": state,
+    }
+    return f"{settings.wahoo_auth_url}?{urlencode(params)}"
 
 
 async def exchange_code(code: str) -> dict:
