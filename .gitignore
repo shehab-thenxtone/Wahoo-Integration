@@ -10,6 +10,7 @@ backend/data/sessions.json
 
 # Runtime data files (JSON stores)
 backend/data/rate_limits.json
+backend/data/webhook_events.json
 
 # Frontend
 frontend/node_modules/

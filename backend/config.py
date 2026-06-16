@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     secret_key: str = "dev-secret-key-change-in-prod"
     demo_mode: bool = True
     frontend_url: str = "http://localhost:5173"
+    wahoo_webhook_secret: str = ""
 
     # Wahoo API base URLs
     wahoo_auth_url: str = "https://api.wahooligan.com/oauth/authorize"

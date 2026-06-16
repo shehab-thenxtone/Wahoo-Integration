@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import get_settings
-from routers import auth, metrics, admin
+from routers import auth, metrics, admin, webhooks
 
 settings = get_settings()
 
@@ -23,6 +23,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(metrics.router)
 app.include_router(admin.router)
+app.include_router(webhooks.router)
 
 
 @app.get("/health")
@@ -30,4 +31,5 @@ async def health():
     return {
         "status": "ok",
         "demo_mode": settings.is_demo,
+        "webhooks_configured": bool(settings.wahoo_webhook_secret),
     }
