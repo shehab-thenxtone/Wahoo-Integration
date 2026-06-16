@@ -24,7 +24,7 @@ export function useHistoricalMetrics(days: number) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
+  const refresh = useCallback(() => {
     setLoading(true)
     metricsApi.history(days)
       .then(setData)
@@ -32,5 +32,7 @@ export function useHistoricalMetrics(days: number) {
       .finally(() => setLoading(false))
   }, [days])
 
-  return { data, loading, error }
+  useEffect(() => { refresh() }, [refresh])
+
+  return { data, loading, error, refresh }
 }

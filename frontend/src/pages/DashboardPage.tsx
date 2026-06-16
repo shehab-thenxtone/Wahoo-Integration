@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTodayMetrics, useHistoricalMetrics } from '@/hooks/useWahooData'
 import { useAuth } from '@/hooks/useAuth'
@@ -12,12 +12,41 @@ import { PageLoader } from '@/components/ui/Loader'
 const RANGE_OPTIONS = [7, 14, 30] as const
 type Range = typeof RANGE_OPTIONS[number]
 
+function RefreshIcon({ spinning }: { spinning: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className="w-3.5 h-3.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ animation: spinning ? 'spin 0.7s linear infinite' : 'none' }}
+    >
+      <path d="M13.5 2.5A7 7 0 1 1 2.5 9" />
+      <polyline points="13.5 2.5 13.5 6.5 9.5 6.5" />
+    </svg>
+  )
+}
+
 export function DashboardPage() {
   const [days, setDays] = useState<Range>(30)
+  const [refreshing, setRefreshing] = useState(false)
+
   const { status, disconnect } = useAuth()
-  const { data: today, loading: todayLoading } = useTodayMetrics()
-  const { data: history, loading: histLoading } = useHistoricalMetrics(days)
+  const { data: today, loading: todayLoading, refresh: refreshToday } = useTodayMetrics()
+  const { data: history, loading: histLoading, refresh: refreshHistory } = useHistoricalMetrics(days)
   const navigate = useNavigate()
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true)
+    refreshToday()
+    refreshHistory()
+    // Wait a moment so the spinner is visible even when data is cached fast
+    await new Promise(r => setTimeout(r, 600))
+    setRefreshing(false)
+  }, [refreshToday, refreshHistory])
 
   async function handleDisconnect() {
     await disconnect()
@@ -62,6 +91,19 @@ export function DashboardPage() {
                 </button>
               ))}
             </div>
+
+            {/* Manual refresh */}
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              title="Refresh data"
+              aria-label="Refresh data"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border border-border text-muted hover:text-white hover:border-primary/60 transition-colors disabled:opacity-50"
+            >
+              <RefreshIcon spinning={refreshing} />
+              <span className="hidden sm:inline">Refresh</span>
+            </button>
+
             {status?.user_name && (
               <span className="text-sm text-muted hidden sm:block">{status.user_name}</span>
             )}
@@ -117,6 +159,10 @@ export function DashboardPage() {
           </div>
         </section>
       </main>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   )
 }
