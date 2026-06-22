@@ -1,4 +1,8 @@
+import json
+import logging
 import secrets
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
 from fastapi import APIRouter, Cookie, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from typing import Optional
@@ -7,10 +11,39 @@ from config import get_settings
 from models.schemas import AuthStatus, OAuthConnectResponse
 from services import session_store, wahoo_client
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
-# In-memory CSRF state store (simple set for local dev)
-_pending_states: set[str] = set()
+# File-backed CSRF state store — survives server reloads with --reload
+_STATES_FILE = Path(__file__).parent.parent / "data" / "pending_states.json"
+
+
+def _load_states() -> dict:
+    if not _STATES_FILE.exists():
+        return {}
+    try:
+        return json.loads(_STATES_FILE.read_text())
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def _add_state(state: str) -> None:
+    states = _load_states()
+    cutoff = (datetime.now(timezone.utc) - timedelta(minutes=15)).isoformat()
+    states = {s: ts for s, ts in states.items() if ts > cutoff}
+    states[state] = datetime.now(timezone.utc).isoformat()
+    _STATES_FILE.parent.mkdir(exist_ok=True)
+    _STATES_FILE.write_text(json.dumps(states))
+
+
+def _consume_state(state: str) -> bool:
+    states = _load_states()
+    if state not in states:
+        return False
+    del states[state]
+    _STATES_FILE.write_text(json.dumps(states))
+    return True
 
 
 @router.get("/status", response_model=AuthStatus)
@@ -51,7 +84,7 @@ async def connect():
         )
 
     state = secrets.token_urlsafe(32)
-    _pending_states.add(state)
+    _add_state(state)
     return OAuthConnectResponse(
         auth_url=wahoo_client.build_auth_url(state),
         demo_mode=False,
@@ -73,31 +106,38 @@ async def oauth_callback(
     if not code or not state:
         raise HTTPException(status_code=400, detail="Missing code or state")
 
-    if state not in _pending_states:
+    if not _consume_state(state):
         raise HTTPException(status_code=400, detail="Invalid OAuth state")
-
-    _pending_states.discard(state)
 
     try:
         token_data = await wahoo_client.exchange_code(code)
     except Exception as exc:
+        logger.error("OAuth token exchange exception: %s", exc)
         return RedirectResponse(f"{settings.frontend_url}/?error=token_exchange_failed")
 
     access_token = token_data["access_token"]
     refresh_token = token_data.get("refresh_token", "")
     expires_in = token_data.get("expires_in", 3600)
 
-    from datetime import datetime, timezone, timedelta
     expires_at = (datetime.now(timezone.utc) + timedelta(seconds=expires_in)).isoformat()
 
-    # Fetch user profile to get wahoo_user_id
+    # Fetch user profile to get wahoo_user_id — required to identify the user.
+    # If this fails we revoke the token immediately so it doesn't consume a Wahoo slot.
     try:
         profile = await wahoo_client.get_user_profile(access_token, "new")
-        wahoo_user_id = str(profile.get("id", "unknown"))
-        user_name = profile.get("first_name", "") + " " + profile.get("last_name", "")
-    except Exception:
-        wahoo_user_id = "unknown"
-        user_name = "Wahoo User"
+        wahoo_user_id = str(profile.get("id", ""))
+        if not wahoo_user_id:
+            raise ValueError(f"User profile returned no id: {profile}")
+        first = profile.get("first") or profile.get("first_name", "")
+        last = profile.get("last") or profile.get("last_name", "")
+        user_name = f"{first} {last}".strip() or "Wahoo User"
+    except Exception as exc:
+        logger.error("Failed to fetch Wahoo user profile (revoking token): %s", exc)
+        try:
+            await wahoo_client.revoke_token(access_token)
+        except Exception as revoke_exc:
+            logger.warning("Token revoke also failed: %s", revoke_exc)
+        return RedirectResponse(f"{settings.frontend_url}/?error=profile_fetch_failed")
 
     session_id = session_store.create_session(
         wahoo_user_id=wahoo_user_id,

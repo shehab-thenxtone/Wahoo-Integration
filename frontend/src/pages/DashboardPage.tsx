@@ -7,6 +7,7 @@ import { HRVWidget } from '@/components/dashboard/HRVWidget'
 import { RecoveryWidget } from '@/components/dashboard/RecoveryWidget'
 import { StrainWidget } from '@/components/dashboard/StrainWidget'
 import { ActivityTable } from '@/components/dashboard/ActivityTable'
+import { ChartInfo } from '@/components/ui/ChartInfo'
 import { Footer } from '@/components/ui/Footer'
 import { PageLoader } from '@/components/ui/Loader'
 
@@ -63,8 +64,8 @@ export function DashboardPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-sm border-b border-border px-6 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-sm border-b border-border px-4 sm:px-6 lg:px-8 py-3">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/favicon.svg" alt="Wahoo" className="w-7 h-7" />
             <span className="font-semibold text-white">Wahoo Dashboard</span>
@@ -134,19 +135,42 @@ export function DashboardPage() {
         </div>
       </header>
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* Today summary row */}
         <section>
           <h2 className="text-xs uppercase tracking-widest text-muted mb-3">Today</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: 'Resting HR', value: today?.heart_rate?.resting_hr, unit: 'bpm', color: 'oklch(65% 0.21 22)' },
-              { label: 'HRV', value: today?.heart_rate?.heart_rate_variability_rmssd, unit: 'ms', color: 'oklch(70% 0.18 295)' },
-              { label: 'Recovery', value: today?.recovery?.recovery_score, unit: '%', color: 'oklch(65% 0.20 250)' },
-              { label: 'Strain', value: today?.strain?.strain, unit: `/ 100 · ${today?.strain?.zone ?? ''}`, color: 'oklch(72% 0.21 60)' },
+              {
+                label: 'Resting HR', value: today?.heart_rate?.resting_hr, unit: 'bpm',
+                color: 'oklch(65% 0.21 22)',
+                title: 'Resting Heart Rate',
+                description: 'Your heart rate at complete rest, measured in beats per minute. A lower resting HR indicates stronger cardiovascular fitness. Watch for day-to-day spikes — an elevated resting HR often signals fatigue, dehydration, or oncoming illness before you feel symptoms.',
+              },
+              {
+                label: 'HRV', value: today?.heart_rate?.heart_rate_variability_rmssd, unit: 'ms',
+                color: 'oklch(70% 0.18 295)',
+                title: 'Heart Rate Variability (RMSSD)',
+                description: 'RMSSD measures millisecond variation between consecutive heartbeats — a proxy for autonomic nervous system balance. Higher HRV means your body is ready for load. Consistently low or declining HRV signals accumulated stress, poor sleep, or under-recovery.',
+              },
+              {
+                label: 'Recovery', value: today?.recovery?.recovery_score, unit: '%',
+                color: 'oklch(65% 0.20 250)',
+                title: 'Recovery Score',
+                description: 'A 0–100% readiness index blending sleep quality, HRV, and resting heart rate. ≥67% (green): go hard. 34–66% (yellow): moderate effort only. <34% (red): rest or active recovery. Use this alongside strain to avoid overreaching across consecutive training days.',
+              },
+              {
+                label: 'Strain', value: today?.strain?.strain, unit: `/ 100 · ${today?.strain?.zone ?? ''}`,
+                color: 'oklch(72% 0.21 60)',
+                title: 'Daily Strain',
+                description: 'Cardiovascular load accumulated today on a 0–100 scale. High strain paired with high recovery drives adaptation. High strain with low recovery means overreaching risk. Balance your weekly strain total against your recovery trend to avoid fatigue debt.',
+              },
             ].map(m => (
               <div key={m.label} className="bg-card border border-border rounded-xl p-4" style={{ borderTopColor: m.color, borderTopWidth: 2 }}>
-                <p className="text-xs uppercase tracking-wider" style={{ color: m.color }}>{m.label}</p>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-xs uppercase tracking-wider" style={{ color: m.color }}>{m.label}</p>
+                  <ChartInfo color={m.color} title={m.title} description={m.description} />
+                </div>
                 <p className="font-mono text-3xl font-medium tabular-nums text-white mt-1">
                   {m.value ?? '—'}
                 </p>

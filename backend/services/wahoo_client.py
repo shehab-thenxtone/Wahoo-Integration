@@ -4,6 +4,7 @@ Wahoo API client.
 - When connected with real OAuth token: calls live Wahoo API and records rate limits
 """
 import json
+import logging
 from datetime import datetime, date, timezone, timedelta
 from pathlib import Path
 from typing import Optional
@@ -12,6 +13,8 @@ import httpx
 
 from config import get_settings
 from services import rate_limit_store
+
+logger = logging.getLogger(__name__)
 
 SAMPLE_FILE = Path(__file__).parent.parent / "data" / "sample_data.json"
 
@@ -26,8 +29,8 @@ def _get_sample() -> dict:
 
 
 def _record_rate_limit(response: httpx.Response, user_id: str, endpoint: str) -> None:
-    remaining = int(response.headers.get("X-RateLimit-Remaining", 95))
-    limit = int(response.headers.get("X-RateLimit-Limit", 100))
+    remaining = int(response.headers.get("X-RateLimit-Remaining", "95").split(",")[0].strip())
+    limit = int(response.headers.get("X-RateLimit-Limit", "100").split(",")[0].strip())
     reset_at = response.headers.get("X-RateLimit-Reset", "")
     rate_limit_store.record(endpoint, user_id, remaining, limit, reset_at)
 
@@ -38,6 +41,8 @@ async def _api_get(path: str, access_token: str, user_id: str, params: dict = No
     headers = {"Authorization": f"Bearer {access_token}"}
     async with httpx.AsyncClient(timeout=15.0) as client:
         response = await client.get(url, headers=headers, params=params or {})
+        if response.is_error:
+            logger.error("Wahoo API %s %s → %s: %s", "GET", path, response.status_code, response.text[:500])
         response.raise_for_status()
         _record_rate_limit(response, user_id, path)
         return response.json()
@@ -71,8 +76,24 @@ async def exchange_code(code: str) -> dict:
                 "redirect_uri": settings.wahoo_redirect_uri,
             },
         )
+        if response.is_error:
+            logger.error(
+                "Wahoo token exchange failed %s: %s | redirect_uri=%s",
+                response.status_code,
+                response.text[:500],
+                settings.wahoo_redirect_uri,
+            )
         response.raise_for_status()
         return response.json()
+
+
+async def revoke_token(access_token: str) -> None:
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        resp = await client.delete(
+            "https://api.wahooligan.com/v1/permissions",
+            headers={"Authorization": f"Bearer {access_token}"},
+        )
+        logger.info("Token revoke → %s", resp.status_code)
 
 
 async def refresh_access_token(refresh_token: str) -> dict:
@@ -97,7 +118,12 @@ async def get_user_profile(access_token: str, user_id: str) -> dict:
     if get_settings().is_demo:
         sample = _get_sample()
         return sample["user"]
-    return await _api_get("/v1/user/me", access_token, user_id)
+    result = await _api_get("/v1/user", access_token, user_id)
+    logger.info("User profile raw response: %s", str(result)[:500])
+    # Wahoo may wrap the user object under a "user" key
+    if "user" in result and isinstance(result["user"], dict):
+        return result["user"]
+    return result
 
 
 # ── Metrics fetchers ──────────────────────────────────────────────────────────
@@ -212,6 +238,29 @@ async def get_strain_history(access_token: str, user_id: str, days: int = 30) ->
     return data.get("strain_data", [])
 
 
+def _normalize_activity(w: dict) -> dict:
+    summary = w.get("workout_summary") or {}
+    starts = w.get("starts", "")
+    duration_sec = summary.get("duration_in_seconds") or 0
+    distance_m = summary.get("distance_accum") or 0
+    hr_avg = summary.get("heart_rate_avg")
+    hr_max = summary.get("heart_rate_max")
+    calories = summary.get("calories_consumed")
+    ascent = summary.get("ascent_accum")
+    return {
+        "id": str(w.get("id", "")),
+        "date": starts[:10] if starts else "",
+        "type": w.get("name") or "Workout",
+        "start_time": starts,
+        "duration_minutes": int(duration_sec / 60),
+        "avg_heart_rate": int(hr_avg) if hr_avg else None,
+        "max_heart_rate": int(hr_max) if hr_max else None,
+        "calories_burned": int(calories) if calories else None,
+        "distance_km": round(distance_m / 1000, 2) if distance_m else None,
+        "elevation_gain_m": int(ascent) if ascent else None,
+    }
+
+
 async def get_activities(access_token: str, user_id: str, days: int = 30) -> list:
     sample = _get_sample()
     if get_settings().is_demo:
@@ -228,4 +277,4 @@ async def get_activities(access_token: str, user_id: str, days: int = 30) -> lis
             "end_date": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
         },
     )
-    return data.get("workouts", [])
+    return [_normalize_activity(w) for w in data.get("workouts", [])]

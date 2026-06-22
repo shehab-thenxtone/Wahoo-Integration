@@ -63,10 +63,10 @@ class Activity(BaseModel):
     date: str
     type: str
     start_time: str
-    duration_minutes: int
-    avg_heart_rate: int
-    max_heart_rate: int
-    calories_burned: int
+    duration_minutes: int = 0
+    avg_heart_rate: Optional[int] = None
+    max_heart_rate: Optional[int] = None
+    calories_burned: Optional[int] = None
     distance_km: Optional[float] = None
     elevation_gain_m: Optional[int] = None
     notes: Optional[str] = None

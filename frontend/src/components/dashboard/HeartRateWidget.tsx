@@ -90,9 +90,9 @@ export function HeartRateWidget({ today, history }: Props) {
               contentStyle={{ background: 'oklch(16% 0.02 260)', border: '1px solid oklch(25% 0.03 260)', borderRadius: 8 }}
               labelStyle={{ color: '#94a3b8' }}
             />
-            <Area type="monotone" dataKey="max" stroke="#f87171" strokeWidth={1.5} fill="url(#hrMax)" name="Max HR" />
-            <Area type="monotone" dataKey="avg" stroke="#60a5fa" strokeWidth={2} fill="url(#hrAvg)" name="Avg HR" />
-            <Area type="monotone" dataKey="resting" stroke="#4ade80" strokeWidth={1.5} fill="none" name="Resting HR" />
+            <Area type="monotone" dataKey="max" stroke="#f87171" strokeWidth={1.5} fill="url(#hrMax)" name="Max HR" isAnimationActive={false} />
+            <Area type="monotone" dataKey="avg" stroke="#60a5fa" strokeWidth={2} fill="url(#hrAvg)" name="Avg HR" isAnimationActive={false} />
+            <Area type="monotone" dataKey="resting" stroke="#4ade80" strokeWidth={1.5} fill="none" name="Resting HR" isAnimationActive={false} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

@@ -69,7 +69,7 @@ export function StrainWidget({ today, history }: Props) {
               contentStyle={{ background: 'oklch(16% 0.02 260)', border: '1px solid oklch(25% 0.03 260)', borderRadius: 8 }}
               labelStyle={{ color: '#94a3b8' }}
             />
-            <Bar dataKey="strain" name="Strain" radius={[2, 2, 0, 0]}>
+            <Bar dataKey="strain" name="Strain" radius={[2, 2, 0, 0]} isAnimationActive={false}>
               {chartData.map((d, i) => (
                 <Cell key={i} fill={strainZoneColor(d.zone)} opacity={0.8} />
               ))}

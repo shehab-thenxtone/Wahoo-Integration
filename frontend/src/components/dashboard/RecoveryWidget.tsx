@@ -61,7 +61,7 @@ export function RecoveryWidget({ today, history }: Props) {
         <div className="flex items-center gap-4 mb-4">
           <div className="w-20 h-20 flex-shrink-0">
             <PieChart width={80} height={80}>
-              <Pie data={driversData} cx={35} cy={35} innerRadius={22} outerRadius={36} dataKey="value" strokeWidth={0}>
+              <Pie data={driversData} cx={35} cy={35} innerRadius={22} outerRadius={36} dataKey="value" strokeWidth={0} isAnimationActive={false}>
                 {driversData.map((_, i) => (
                   <Cell key={i} fill={DRIVER_COLORS[i]} />
                 ))}
@@ -89,7 +89,7 @@ export function RecoveryWidget({ today, history }: Props) {
               contentStyle={{ background: 'oklch(16% 0.02 260)', border: '1px solid oklch(25% 0.03 260)', borderRadius: 8 }}
               labelStyle={{ color: '#94a3b8' }}
             />
-            <Bar dataKey="score" name="Recovery %" radius={[2, 2, 0, 0]}>
+            <Bar dataKey="score" name="Recovery %" radius={[2, 2, 0, 0]} isAnimationActive={false}>
               {chartData.map((d, i) => (
                 <Cell key={i} fill={recoveryColor(d.score)} opacity={0.85} />
               ))}

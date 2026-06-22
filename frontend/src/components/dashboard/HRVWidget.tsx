@@ -69,6 +69,7 @@ export function HRVWidget({ today, history }: Props) {
               stroke={COLOR} strokeWidth={2}
               dot={false} activeDot={{ r: 4 }}
               name="HRV ms"
+              isAnimationActive={false}
             />
           </LineChart>
         </ResponsiveContainer>

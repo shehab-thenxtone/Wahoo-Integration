@@ -1,9 +1,12 @@
+import logging
 from fastapi import APIRouter, Cookie, HTTPException, Query
 from typing import Optional
 
 from config import get_settings
 from models.schemas import TodayMetrics, HistoricalMetrics
 from services import session_store, wahoo_client
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/metrics", tags=["metrics"])
 
@@ -37,14 +40,27 @@ async def today_metrics(session_id: Optional[str] = Cookie(default=None)):
 
 async def _gather_today(token: str, uid: str):
     import asyncio
-    results = await asyncio.gather(
+    hr, recovery, strain, activities = await asyncio.gather(
         wahoo_client.get_today_heart_rate(token, uid),
         wahoo_client.get_today_recovery(token, uid),
         wahoo_client.get_today_strain(token, uid),
         wahoo_client.get_activities(token, uid, days=1),
         return_exceptions=True,
     )
-    return [r if not isinstance(r, Exception) else None for r in results]
+    if isinstance(hr, Exception):
+        logger.warning("today heart_rate failed: %s", hr)
+    if isinstance(recovery, Exception):
+        logger.warning("today recovery failed: %s", recovery)
+    if isinstance(strain, Exception):
+        logger.warning("today strain failed: %s", strain)
+    if isinstance(activities, Exception):
+        logger.warning("today activities failed: %s", activities)
+    return (
+        hr if not isinstance(hr, Exception) else None,
+        recovery if not isinstance(recovery, Exception) else None,
+        strain if not isinstance(strain, Exception) else None,
+        activities if not isinstance(activities, Exception) else [],
+    )
 
 
 @router.get("/history", response_model=HistoricalMetrics)
