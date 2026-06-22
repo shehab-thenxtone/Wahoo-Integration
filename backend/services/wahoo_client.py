@@ -35,14 +35,39 @@ def _record_rate_limit(response: httpx.Response, user_id: str, endpoint: str) ->
     rate_limit_store.record(endpoint, user_id, remaining, limit, reset_at)
 
 
-async def _api_get(path: str, access_token: str, user_id: str, params: dict = None) -> dict:
+async def _api_get(
+    path: str,
+    access_token: str,
+    user_id: str,
+    params: dict = None,
+    *,
+    session_id: str = "",
+    refresh_token: str = "",
+) -> dict:
     settings = get_settings()
     url = f"{settings.wahoo_api_base}{path}"
-    headers = {"Authorization": f"Bearer {access_token}"}
+
     async with httpx.AsyncClient(timeout=15.0) as client:
+        headers = {"Authorization": f"Bearer {access_token}"}
         response = await client.get(url, headers=headers, params=params or {})
+
+        # Expired token — refresh once and retry
+        if response.status_code == 401 and session_id and refresh_token:
+            try:
+                new_tokens = await refresh_access_token(refresh_token)
+                access_token = new_tokens["access_token"]
+                new_refresh = new_tokens.get("refresh_token", refresh_token)
+                expires_in = new_tokens.get("expires_in", 3600)
+                expires_at = (datetime.now(timezone.utc) + timedelta(seconds=expires_in)).isoformat()
+                session_store.update_tokens(session_id, access_token, new_refresh, expires_at)
+                logger.info("Access token refreshed for user %s", user_id)
+                headers = {"Authorization": f"Bearer {access_token}"}
+                response = await client.get(url, headers=headers, params=params or {})
+            except Exception as exc:
+                logger.warning("Token refresh failed for %s: %s", path, exc)
+
         if response.is_error:
-            logger.error("Wahoo API %s %s → %s: %s", "GET", path, response.status_code, response.text[:500])
+            logger.error("Wahoo API GET %s → %s: %s", path, response.status_code, response.text[:500])
         response.raise_for_status()
         _record_rate_limit(response, user_id, path)
         return response.json()
@@ -57,7 +82,7 @@ def build_auth_url(state: str) -> str:
         "client_id": settings.wahoo_client_id,
         "redirect_uri": settings.wahoo_redirect_uri,
         "response_type": "code",
-        "scope": "user_read workouts_read",
+        "scope": "user_read workouts_read power_zones_read routes_read plans_read offline_data",
         "state": state,
     }
     return f"{settings.wahoo_auth_url}?{urlencode(params)}"
@@ -114,13 +139,14 @@ async def refresh_access_token(refresh_token: str) -> dict:
 
 # ── User profile ──────────────────────────────────────────────────────────────
 
-async def get_user_profile(access_token: str, user_id: str) -> dict:
+async def get_user_profile(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> dict:
     if get_settings().is_demo:
         sample = _get_sample()
         return sample["user"]
-    result = await _api_get("/v1/user", access_token, user_id)
+    result = await _api_get("/v1/user", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
     logger.info("User profile raw response: %s", str(result)[:500])
-    # Wahoo may wrap the user object under a "user" key
     if "user" in result and isinstance(result["user"], dict):
         return result["user"]
     return result
@@ -133,12 +159,12 @@ def _filter_by_days(items: list, days: int, date_key: str = "date") -> list:
     return [i for i in items if i.get(date_key, "") >= cutoff]
 
 
-async def get_today_heart_rate(access_token: str, user_id: str) -> Optional[dict]:
+async def get_today_heart_rate(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> Optional[dict]:
     sample = _get_sample()
     if get_settings().is_demo:
-        today_str = date.today().isoformat()
         summaries = sample.get("heart_rate_daily_summary", [])
-        # In demo mode, return the latest available entry
         return summaries[-1] if summaries else None
 
     today = date.today().isoformat()
@@ -147,12 +173,16 @@ async def get_today_heart_rate(access_token: str, user_id: str) -> Optional[dict
         access_token,
         user_id,
         {"start_date": f"{today}T00:00:00Z", "end_date": f"{today}T23:59:59Z", "granularity": "daily"},
+        session_id=session_id,
+        refresh_token=refresh_token,
     )
     summaries = data.get("heart_rate_daily_summaries", [])
     return summaries[0] if summaries else None
 
 
-async def get_heart_rate_history(access_token: str, user_id: str, days: int = 30) -> list:
+async def get_heart_rate_history(
+    access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
+) -> list:
     sample = _get_sample()
     if get_settings().is_demo:
         return sample.get("heart_rate_daily_summary", [])[-days:]
@@ -168,11 +198,15 @@ async def get_heart_rate_history(access_token: str, user_id: str, days: int = 30
             "end_date": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "granularity": "daily",
         },
+        session_id=session_id,
+        refresh_token=refresh_token,
     )
     return data.get("heart_rate_daily_summaries", [])
 
 
-async def get_today_recovery(access_token: str, user_id: str) -> Optional[dict]:
+async def get_today_recovery(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> Optional[dict]:
     sample = _get_sample()
     if get_settings().is_demo:
         items = sample.get("recovery_data", [])
@@ -184,12 +218,16 @@ async def get_today_recovery(access_token: str, user_id: str) -> Optional[dict]:
         access_token,
         user_id,
         {"start_date": today, "end_date": today},
+        session_id=session_id,
+        refresh_token=refresh_token,
     )
     items = data.get("recovery_data", [])
     return items[0] if items else None
 
 
-async def get_recovery_history(access_token: str, user_id: str, days: int = 30) -> list:
+async def get_recovery_history(
+    access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
+) -> list:
     sample = _get_sample()
     if get_settings().is_demo:
         return sample.get("recovery_data", [])[-days:]
@@ -201,11 +239,15 @@ async def get_recovery_history(access_token: str, user_id: str, days: int = 30) 
         access_token,
         user_id,
         {"start_date": start, "end_date": end},
+        session_id=session_id,
+        refresh_token=refresh_token,
     )
     return data.get("recovery_data", [])
 
 
-async def get_today_strain(access_token: str, user_id: str) -> Optional[dict]:
+async def get_today_strain(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> Optional[dict]:
     sample = _get_sample()
     if get_settings().is_demo:
         items = sample.get("strain_data", [])
@@ -217,12 +259,16 @@ async def get_today_strain(access_token: str, user_id: str) -> Optional[dict]:
         access_token,
         user_id,
         {"start_date": today, "end_date": today},
+        session_id=session_id,
+        refresh_token=refresh_token,
     )
     items = data.get("strain_data", [])
     return items[0] if items else None
 
 
-async def get_strain_history(access_token: str, user_id: str, days: int = 30) -> list:
+async def get_strain_history(
+    access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
+) -> list:
     sample = _get_sample()
     if get_settings().is_demo:
         return sample.get("strain_data", [])[-days:]
@@ -234,6 +280,8 @@ async def get_strain_history(access_token: str, user_id: str, days: int = 30) ->
         access_token,
         user_id,
         {"start_date": start, "end_date": end},
+        session_id=session_id,
+        refresh_token=refresh_token,
     )
     return data.get("strain_data", [])
 
@@ -247,6 +295,14 @@ def _normalize_activity(w: dict) -> dict:
     hr_max = summary.get("heart_rate_max")
     calories = summary.get("calories_consumed")
     ascent = summary.get("ascent_accum")
+    np_ = summary.get("power_bike_np_last")
+    tss = summary.get("power_bike_tss_last")
+    cadence_avg = summary.get("cadence_avg")
+    speed_avg = summary.get("speed_avg")
+    work_accum = summary.get("work_accum")
+    power_avg = summary.get("power_avg")
+    duration_active = summary.get("duration_active_accum")
+    duration_paused = summary.get("duration_paused_accum")
     return {
         "id": str(w.get("id", "")),
         "date": starts[:10] if starts else "",
@@ -258,23 +314,49 @@ def _normalize_activity(w: dict) -> dict:
         "calories_burned": int(calories) if calories else None,
         "distance_km": round(distance_m / 1000, 2) if distance_m else None,
         "elevation_gain_m": int(ascent) if ascent else None,
+        "normalized_power": int(np_) if np_ else None,
+        "training_stress_score": round(float(tss), 1) if tss else None,
+        "cadence_avg": int(cadence_avg) if cadence_avg else None,
+        "speed_avg_kph": round(float(speed_avg) * 3.6, 2) if speed_avg else None,
+        "work_kj": round(float(work_accum) / 1000, 1) if work_accum else None,
+        "power_avg": int(power_avg) if power_avg else None,
+        "duration_active_minutes": int(duration_active / 60) if duration_active else None,
+        "duration_paused_minutes": int(duration_paused / 60) if duration_paused else None,
     }
 
 
-async def get_activities(access_token: str, user_id: str, days: int = 30) -> list:
+_MAX_WORKOUT_PAGES = 10
+
+
+async def get_activities(
+    access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
+) -> list:
     sample = _get_sample()
     if get_settings().is_demo:
         return sample.get("activities", [])
 
     end = datetime.now(timezone.utc)
     start = end - timedelta(days=days)
-    data = await _api_get(
-        "/v1/workouts",
-        access_token,
-        user_id,
-        {
-            "start_date": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "end_date": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
-        },
-    )
-    return [_normalize_activity(w) for w in data.get("workouts", [])]
+    base_params = {
+        "start_date": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "end_date": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "per_page": 30,
+    }
+
+    workouts: list = []
+    for page in range(1, _MAX_WORKOUT_PAGES + 1):
+        data = await _api_get(
+            "/v1/workouts",
+            access_token,
+            user_id,
+            {**base_params, "page": page},
+            session_id=session_id,
+            refresh_token=refresh_token,
+        )
+        batch = data.get("workouts", [])
+        workouts.extend(batch)
+        total = data.get("total", len(workouts))
+        if not batch or len(workouts) >= total:
+            break
+
+    return [_normalize_activity(w) for w in workouts]
