@@ -1,9 +1,13 @@
+import logging
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+import httpx
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+
+logger = logging.getLogger(__name__)
 
 from config import get_settings
 from routers import auth, metrics, admin, webhooks, workouts, power_zones, routes, plans
@@ -33,6 +37,28 @@ app.include_router(workouts.router)
 app.include_router(power_zones.router)
 app.include_router(routes.router)
 app.include_router(plans.router)
+
+
+@app.exception_handler(httpx.HTTPStatusError)
+async def wahoo_api_error_handler(request: Request, exc: httpx.HTTPStatusError) -> JSONResponse:
+    upstream = exc.response.status_code
+    if upstream == 401:
+        msg = "Wahoo access token expired — please reconnect your account"
+        out = 401
+    elif upstream == 403:
+        msg = "Wahoo permission denied — missing OAuth scope"
+        out = 403
+    elif upstream == 404:
+        msg = "Wahoo resource not found"
+        out = 404
+    elif upstream == 429:
+        msg = "Wahoo API rate limit reached — try again in a few minutes"
+        out = 429
+    else:
+        msg = f"Wahoo API error (upstream {upstream})"
+        out = 502
+    logger.warning("Wahoo upstream %s on %s → %s", upstream, request.url.path, msg)
+    return JSONResponse(status_code=out, content={"detail": msg, "upstream_status": upstream})
 
 
 @app.get("/health")
