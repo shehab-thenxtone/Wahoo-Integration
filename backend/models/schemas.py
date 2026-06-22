@@ -70,6 +70,15 @@ class Activity(BaseModel):
     distance_km: Optional[float] = None
     elevation_gain_m: Optional[int] = None
     notes: Optional[str] = None
+    # Performance fields — only present when a power meter was used
+    normalized_power: Optional[int] = None
+    training_stress_score: Optional[float] = None
+    cadence_avg: Optional[int] = None
+    speed_avg_kph: Optional[float] = None
+    work_kj: Optional[float] = None
+    power_avg: Optional[int] = None
+    duration_active_minutes: Optional[int] = None
+    duration_paused_minutes: Optional[int] = None
 
 
 # ── Dashboard aggregates ──────────────────────────────────────────────────────

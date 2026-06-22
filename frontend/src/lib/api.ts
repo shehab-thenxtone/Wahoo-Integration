@@ -101,6 +101,15 @@ export interface Activity {
   distance_km?: number
   elevation_gain_m?: number
   notes?: string
+  // Performance fields — only present when a power meter was used
+  normalized_power?: number
+  training_stress_score?: number
+  cadence_avg?: number
+  speed_avg_kph?: number
+  work_kj?: number
+  power_avg?: number
+  duration_active_minutes?: number
+  duration_paused_minutes?: number
 }
 
 export interface TodayMetrics {
