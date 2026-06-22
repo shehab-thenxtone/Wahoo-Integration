@@ -11,6 +11,10 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ de
 const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })))
 const ProfilePage = lazy(() => import('./pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then(m => ({ default: m.PrivacyPage })))
+const WorkoutsPage = lazy(() => import('./pages/WorkoutsPage').then(m => ({ default: m.WorkoutsPage })))
+const PowerZonesPage = lazy(() => import('./pages/PowerZonesPage').then(m => ({ default: m.PowerZonesPage })))
+const RoutesPage = lazy(() => import('./pages/RoutesPage').then(m => ({ default: m.RoutesPage })))
+const PlansPage = lazy(() => import('./pages/PlansPage').then(m => ({ default: m.PlansPage })))
 const NotFoundPage = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.NotFoundPage })))
 const ErrorPage = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.ErrorPage })))
 const Error429Page = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.Error429Page })))
@@ -27,6 +31,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/workouts" element={<WorkoutsPage />} />
+            <Route path="/power-zones" element={<PowerZonesPage />} />
+            <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/plans" element={<PlansPage />} />
 
             {/* Named error routes */}
             <Route path="/error/400" element={<ErrorPage code={400} />} />

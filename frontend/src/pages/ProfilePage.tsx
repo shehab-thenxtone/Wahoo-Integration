@@ -22,11 +22,25 @@ export function ProfilePage() {
     navigate('/')
   }
 
-  const initials = (user?.name ?? user?.first_name ?? status?.user_name ?? '?')
+  const displayName = user?.name
+    ?? (user?.first && user?.last ? `${user.first} ${user.last}` : undefined)
+    ?? user?.first_name
+    ?? status?.user_name
+    ?? 'Wahoo Athlete'
+
+  const initials = displayName
     .split(' ')
     .slice(0, 2)
     .map(w => w[0]?.toUpperCase() ?? '')
     .join('')
+
+  const ageYears = user?.birth
+    ? Math.floor((Date.now() - new Date(user.birth).getTime()) / (365.25 * 24 * 3600 * 1000))
+    : null
+
+  const memberSince = user?.created_at
+    ? new Date(user.created_at).getFullYear()
+    : null
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -56,7 +70,7 @@ export function ProfilePage() {
           </div>
           <div>
             <h2 className="text-2xl font-semibold text-white">
-              {loading ? '—' : (user?.name ?? user?.first_name ?? status?.user_name ?? 'Wahoo Athlete')}
+              {loading ? '—' : displayName}
             </h2>
             {user?.email && (
               <p className="text-muted text-sm mt-1">{user.email}</p>
@@ -68,6 +82,40 @@ export function ProfilePage() {
             )}
           </div>
         </section>
+
+        {/* Bio stats */}
+        {(user?.height || user?.weight || user?.birth || user?.gender !== undefined || memberSince) && (
+          <section className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {user?.height && (
+              <div className="bg-card border border-border rounded-xl p-4 text-center">
+                <p className="text-xs uppercase tracking-wider text-muted mb-1">Height</p>
+                <p className="text-2xl font-mono font-semibold text-white">{Math.round(user.height * 100)}</p>
+                <p className="text-xs text-muted">cm</p>
+              </div>
+            )}
+            {user?.weight && (
+              <div className="bg-card border border-border rounded-xl p-4 text-center">
+                <p className="text-xs uppercase tracking-wider text-muted mb-1">Weight</p>
+                <p className="text-2xl font-mono font-semibold text-white">{user.weight.toFixed(1)}</p>
+                <p className="text-xs text-muted">kg</p>
+              </div>
+            )}
+            {ageYears !== null && (
+              <div className="bg-card border border-border rounded-xl p-4 text-center">
+                <p className="text-xs uppercase tracking-wider text-muted mb-1">Age</p>
+                <p className="text-2xl font-mono font-semibold text-white">{ageYears}</p>
+                <p className="text-xs text-muted">years</p>
+              </div>
+            )}
+            {memberSince !== null && (
+              <div className="bg-card border border-border rounded-xl p-4 text-center">
+                <p className="text-xs uppercase tracking-wider text-muted mb-1">Member since</p>
+                <p className="text-2xl font-mono font-semibold text-white">{memberSince}</p>
+                <p className="text-xs text-muted">{user?.gender === 0 ? 'Male' : user?.gender === 1 ? 'Female' : ''}</p>
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Info cards */}
         <section className="grid sm:grid-cols-2 gap-4">

@@ -38,6 +38,29 @@ export const adminApi = {
   currentRateLimit: () => request<RateLimitStatus>('/admin/current-rate-limit'),
 }
 
+// Workouts (Phase 2)
+export const workoutsApi = {
+  analytics: (days = 30) => request<Activity[]>(`/workouts/analytics?days=${days}`),
+  detail: (id: string) => request<Activity>(`/workouts/${id}`),
+}
+
+// Power Zones (Phase 2)
+export const powerZonesApi = {
+  list: () => request<PowerZone[]>('/power-zones'),
+}
+
+// Routes (Phase 2)
+export const routesApi = {
+  list: () => request<Route[]>('/routes'),
+  detail: (id: number) => request<Route>(`/routes/${id}`),
+}
+
+// Plans (Phase 2)
+export const plansApi = {
+  list: () => request<Plan[]>('/plans'),
+  detail: (id: number) => request<Plan>(`/plans/${id}`),
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface AuthStatus {
@@ -50,10 +73,18 @@ export interface AuthStatus {
 export interface WahooUser {
   id: string
   name?: string
+  first?: string
+  last?: string
   first_name?: string
   last_name?: string
   email?: string
   device_model?: string
+  height?: number
+  weight?: number
+  birth?: string
+  gender?: number
+  created_at?: string
+  updated_at?: string
 }
 
 export interface HeartRateZones {
@@ -150,4 +181,53 @@ export interface AdminStats {
   connected_users: number
   rate_limit_history: RateLimitEntry[]
   demo_mode: boolean
+}
+
+// ── Phase 2 types ──────────────────────────────────────────────────────────────
+
+export interface PowerZone {
+  id?: number
+  user_id?: string
+  ftp?: number
+  critical_power?: number
+  zone_count?: number
+  zone_1?: number
+  zone_2?: number
+  zone_3?: number
+  zone_4?: number
+  zone_5?: number
+  zone_6?: number
+  zone_7?: number
+  workout_type_id?: number
+  workout_type_family_id?: number
+  originator_type?: string
+  created_at?: string
+  updated_at?: string
+}
+
+export interface Route {
+  id?: number
+  user_id?: string
+  name?: string
+  description?: string
+  distance?: number
+  ascent?: number
+  descent?: number
+  start_lat?: number
+  start_lng?: number
+  workout_type_family_id?: number
+  deleted?: boolean
+  created_at?: string
+  updated_at?: string
+}
+
+export interface Plan {
+  id?: number
+  user_id?: string
+  name?: string
+  description?: string
+  workout_type_family_id?: number
+  deleted?: boolean
+  created_at?: string
+  updated_at?: string
 }

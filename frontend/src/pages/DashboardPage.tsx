@@ -135,6 +135,26 @@ export function DashboardPage() {
         </div>
       </header>
 
+      {/* Secondary nav — Phase 2 pages */}
+      <nav className="border-b border-border bg-surface/60 px-4 sm:px-6 lg:px-8">
+        <div className="flex gap-1 overflow-x-auto py-1">
+          {[
+            { label: 'Workouts', path: '/workouts' },
+            { label: 'Power Zones', path: '/power-zones' },
+            { label: 'Routes', path: '/routes' },
+            { label: 'Plans', path: '/plans' },
+          ].map(({ label, path }) => (
+            <button
+              key={path}
+              onClick={() => navigate(path)}
+              className="flex-shrink-0 px-3 py-1.5 text-xs text-muted hover:text-white hover:bg-card/60 rounded-lg transition-colors whitespace-nowrap"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
       <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* Today summary row */}
         <section>
