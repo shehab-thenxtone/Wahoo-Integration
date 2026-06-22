@@ -10,6 +10,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response
 from pydantic import BaseModel
 
 from config import Settings, get_settings
+from services import workout_event_cache
 
 router = APIRouter(prefix="/api/webhooks", tags=["webhooks"])
 
@@ -133,6 +134,14 @@ async def receive_wahoo_webhook(
     }
 
     _append_event(event_record)
+
+    # TD-5: on workout_summary event, cache normalized workout so the next
+    # dashboard load picks it up immediately without a full API re-fetch.
+    if event_type == "workout_summary" and user_id:
+        normalized = workout_event_cache.normalize_webhook_event(payload)
+        if normalized:
+            workout_event_cache.store_workout(user_id, normalized)
+
     return Response(status_code=200)
 
 

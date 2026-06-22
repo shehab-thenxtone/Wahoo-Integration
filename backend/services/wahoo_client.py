@@ -12,7 +12,7 @@ from typing import Optional
 import httpx
 
 from config import get_settings
-from services import rate_limit_store
+from services import rate_limit_store, workout_event_cache
 
 logger = logging.getLogger(__name__)
 
@@ -359,7 +359,18 @@ async def get_activities(
         if not batch or len(workouts) >= total:
             break
 
-    return [_normalize_activity(w) for w in workouts]
+    normalized = [_normalize_activity(w) for w in workouts]
+
+    # Merge webhook-cached workouts that haven't appeared in the API response yet
+    cached = workout_event_cache.get_cached_workouts(user_id)
+    if cached:
+        existing_ids = {a["id"] for a in normalized}
+        fresh = [w for w in cached if w.get("id") not in existing_ids]
+        if fresh:
+            normalized = fresh + normalized
+            logger.info("Merged %d webhook-cached workout(s) for user %s", len(fresh), user_id)
+
+    return normalized
 
 
 # ── Phase 2: Power Zones ──────────────────────────────────────────────────────
