@@ -123,3 +123,56 @@ class AdminStats(BaseModel):
     connected_users: int
     rate_limit_history: list[RateLimitEntry] = []
     demo_mode: bool
+
+
+# ── Phase 2: Power Zones ──────────────────────────────────────────────────────
+
+class PowerZone(BaseModel):
+    id: Optional[int] = None
+    user_id: Optional[str] = None
+    ftp: Optional[int] = None
+    critical_power: Optional[int] = None
+    zone_count: Optional[int] = None
+    zone_1: Optional[int] = None
+    zone_2: Optional[int] = None
+    zone_3: Optional[int] = None
+    zone_4: Optional[int] = None
+    zone_5: Optional[int] = None
+    zone_6: Optional[int] = None
+    zone_7: Optional[int] = None
+    workout_type_id: Optional[int] = None
+    workout_type_family_id: Optional[int] = None
+    originator_type: Optional[str] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+
+# ── Phase 2: Routes ───────────────────────────────────────────────────────────
+
+class Route(BaseModel):
+    id: Optional[int] = None
+    user_id: Optional[str] = None
+    name: Optional[str] = None
+    description: Optional[str] = None
+    distance: Optional[float] = None
+    ascent: Optional[float] = None
+    descent: Optional[float] = None
+    start_lat: Optional[float] = None
+    start_lng: Optional[float] = None
+    workout_type_family_id: Optional[int] = None
+    deleted: Optional[bool] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+
+# ── Phase 2: Plans ────────────────────────────────────────────────────────────
+
+class Plan(BaseModel):
+    id: Optional[int] = None
+    user_id: Optional[str] = None
+    name: Optional[str] = None
+    description: Optional[str] = None
+    workout_type_family_id: Optional[int] = None
+    deleted: Optional[bool] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None

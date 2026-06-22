@@ -360,3 +360,73 @@ async def get_activities(
             break
 
     return [_normalize_activity(w) for w in workouts]
+
+
+# ── Phase 2: Power Zones ──────────────────────────────────────────────────────
+
+async def get_power_zones(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> list:
+    if get_settings().is_demo:
+        return _get_sample().get("power_zones", [])
+    data = await _api_get("/v1/power_zones", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
+    return data.get("power_zones", [])
+
+
+# ── Phase 2: Routes ───────────────────────────────────────────────────────────
+
+async def get_routes(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> list:
+    if get_settings().is_demo:
+        return _get_sample().get("routes", [])
+    data = await _api_get("/v1/routes", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
+    return data.get("routes", [])
+
+
+async def get_route(
+    access_token: str, user_id: str, route_id: int, *, session_id: str = "", refresh_token: str = ""
+) -> dict:
+    if get_settings().is_demo:
+        for r in _get_sample().get("routes", []):
+            if r.get("id") == route_id:
+                return r
+        return {}
+    return await _api_get(f"/v1/routes/{route_id}", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
+
+
+# ── Phase 2: Plans ────────────────────────────────────────────────────────────
+
+async def get_plans(
+    access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> list:
+    if get_settings().is_demo:
+        return _get_sample().get("plans", [])
+    data = await _api_get("/v1/plans", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
+    return data.get("plans", [])
+
+
+async def get_plan(
+    access_token: str, user_id: str, plan_id: int, *, session_id: str = "", refresh_token: str = ""
+) -> dict:
+    if get_settings().is_demo:
+        for p in _get_sample().get("plans", []):
+            if p.get("id") == plan_id:
+                return p
+        return {}
+    return await _api_get(f"/v1/plans/{plan_id}", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
+
+
+# ── Phase 2: Workout detail ───────────────────────────────────────────────────
+
+async def get_workout_detail(
+    access_token: str, user_id: str, workout_id: str, *, session_id: str = "", refresh_token: str = ""
+) -> dict:
+    if get_settings().is_demo:
+        for a in _get_sample().get("activities", []):
+            if str(a.get("id")) == str(workout_id):
+                return a
+        return {}
+    data = await _api_get(f"/v1/workouts/{workout_id}", access_token, user_id, session_id=session_id, refresh_token=refresh_token)
+    workout = data.get("workout", data)
+    return _normalize_activity(workout) if "workout_summary" in workout else workout

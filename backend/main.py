@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from config import get_settings
-from routers import auth, metrics, admin, webhooks
+from routers import auth, metrics, admin, webhooks, workouts, power_zones, routes, plans
 
 settings = get_settings()
 
@@ -29,6 +29,10 @@ app.include_router(auth.router)
 app.include_router(metrics.router)
 app.include_router(admin.router)
 app.include_router(webhooks.router)
+app.include_router(workouts.router)
+app.include_router(power_zones.router)
+app.include_router(routes.router)
+app.include_router(plans.router)
 
 
 @app.get("/health")
