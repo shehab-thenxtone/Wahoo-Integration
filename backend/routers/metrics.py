@@ -28,8 +28,10 @@ async def today_metrics(session_id: Optional[str] = Cookie(default=None)):
     session = _get_session_or_demo(session_id)
     token = session["access_token"]
     uid = session["wahoo_user_id"]
+    sid = session_id or ""
+    rtok = session.get("refresh_token", "")
 
-    heart_rate, recovery, strain, activities = await _gather_today(token, uid)
+    heart_rate, recovery, strain, activities = await _gather_today(token, uid, sid, rtok)
     return TodayMetrics(
         heart_rate=heart_rate,
         recovery=recovery,
@@ -38,13 +40,14 @@ async def today_metrics(session_id: Optional[str] = Cookie(default=None)):
     )
 
 
-async def _gather_today(token: str, uid: str):
+async def _gather_today(token: str, uid: str, session_id: str = "", refresh_token: str = ""):
     import asyncio
+    kw = {"session_id": session_id, "refresh_token": refresh_token}
     hr, recovery, strain, activities = await asyncio.gather(
-        wahoo_client.get_today_heart_rate(token, uid),
-        wahoo_client.get_today_recovery(token, uid),
-        wahoo_client.get_today_strain(token, uid),
-        wahoo_client.get_activities(token, uid, days=1),
+        wahoo_client.get_today_heart_rate(token, uid, **kw),
+        wahoo_client.get_today_recovery(token, uid, **kw),
+        wahoo_client.get_today_strain(token, uid, **kw),
+        wahoo_client.get_activities(token, uid, days=1, **kw),
         return_exceptions=True,
     )
     if isinstance(hr, Exception):
@@ -71,13 +74,14 @@ async def history_metrics(
     session = _get_session_or_demo(session_id)
     token = session["access_token"]
     uid = session["wahoo_user_id"]
+    kw = {"session_id": session_id or "", "refresh_token": session.get("refresh_token", "")}
 
     import asyncio
     hr, recovery, strain, activities = await asyncio.gather(
-        wahoo_client.get_heart_rate_history(token, uid, days),
-        wahoo_client.get_recovery_history(token, uid, days),
-        wahoo_client.get_strain_history(token, uid, days),
-        wahoo_client.get_activities(token, uid, days),
+        wahoo_client.get_heart_rate_history(token, uid, days, **kw),
+        wahoo_client.get_recovery_history(token, uid, days, **kw),
+        wahoo_client.get_strain_history(token, uid, days, **kw),
+        wahoo_client.get_activities(token, uid, days, **kw),
         return_exceptions=True,
     )
 
@@ -96,7 +100,10 @@ async def heart_rate(
     session_id: Optional[str] = Cookie(default=None),
 ):
     session = _get_session_or_demo(session_id)
-    return await wahoo_client.get_heart_rate_history(session["access_token"], session["wahoo_user_id"], days)
+    return await wahoo_client.get_heart_rate_history(
+        session["access_token"], session["wahoo_user_id"], days,
+        session_id=session_id or "", refresh_token=session.get("refresh_token", ""),
+    )
 
 
 @router.get("/recovery")
@@ -105,7 +112,10 @@ async def recovery(
     session_id: Optional[str] = Cookie(default=None),
 ):
     session = _get_session_or_demo(session_id)
-    return await wahoo_client.get_recovery_history(session["access_token"], session["wahoo_user_id"], days)
+    return await wahoo_client.get_recovery_history(
+        session["access_token"], session["wahoo_user_id"], days,
+        session_id=session_id or "", refresh_token=session.get("refresh_token", ""),
+    )
 
 
 @router.get("/strain")
@@ -114,7 +124,10 @@ async def strain(
     session_id: Optional[str] = Cookie(default=None),
 ):
     session = _get_session_or_demo(session_id)
-    return await wahoo_client.get_strain_history(session["access_token"], session["wahoo_user_id"], days)
+    return await wahoo_client.get_strain_history(
+        session["access_token"], session["wahoo_user_id"], days,
+        session_id=session_id or "", refresh_token=session.get("refresh_token", ""),
+    )
 
 
 @router.get("/activities")
@@ -123,4 +136,7 @@ async def activities(
     session_id: Optional[str] = Cookie(default=None),
 ):
     session = _get_session_or_demo(session_id)
-    return await wahoo_client.get_activities(session["access_token"], session["wahoo_user_id"], days)
+    return await wahoo_client.get_activities(
+        session["access_token"], session["wahoo_user_id"], days,
+        session_id=session_id or "", refresh_token=session.get("refresh_token", ""),
+    )

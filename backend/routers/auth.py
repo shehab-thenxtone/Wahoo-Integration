@@ -185,6 +185,7 @@ async def me(session_id: Optional[str] = Cookie(default=None)):
         raise HTTPException(status_code=401, detail="Session expired")
 
     profile = await wahoo_client.get_user_profile(
-        session["access_token"], session["wahoo_user_id"]
+        session["access_token"], session["wahoo_user_id"],
+        session_id=session_id or "", refresh_token=session.get("refresh_token", ""),
     )
     return profile
