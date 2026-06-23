@@ -301,6 +301,41 @@ async def get_activities(
     return normalized
 
 
+async def get_raw_workouts(
+    access_token: str, user_id: str, days: int = 90, *, session_id: str = "", refresh_token: str = ""
+) -> list:
+    """Return unprocessed workout dicts straight from the Wahoo API."""
+    if get_settings().is_demo:
+        sample = _get_sample()
+        return sample.get("workouts", sample.get("activities", []))
+
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=days)
+    base_params = {
+        "start_date": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "end_date": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "per_page": 30,
+    }
+
+    workouts: list = []
+    for page in range(1, _MAX_WORKOUT_PAGES + 1):
+        data = await _api_get(
+            "/v1/workouts",
+            access_token,
+            user_id,
+            {**base_params, "page": page},
+            session_id=session_id,
+            refresh_token=refresh_token,
+        )
+        batch = data.get("workouts", [])
+        workouts.extend(batch)
+        total = data.get("total", len(workouts))
+        if not batch or len(workouts) >= total:
+            break
+
+    return workouts
+
+
 # ── Phase 2: Power Zones ──────────────────────────────────────────────────────
 
 async def get_power_zones(

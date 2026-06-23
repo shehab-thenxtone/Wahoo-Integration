@@ -55,6 +55,11 @@ export const routesApi = {
   detail: (id: number) => request<Route>(`/routes/${id}`),
 }
 
+// Raw data
+export const rawApi = {
+  all: () => request<Record<string, unknown>>('/raw'),
+}
+
 // Plans (Phase 2)
 export const plansApi = {
   list: () => request<Plan[]>('/plans'),

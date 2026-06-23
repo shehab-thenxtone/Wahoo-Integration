@@ -10,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 logger = logging.getLogger(__name__)
 
 from config import get_settings
-from routers import auth, metrics, admin, webhooks, workouts, power_zones, routes, plans
+from routers import auth, metrics, admin, webhooks, workouts, power_zones, routes, plans, raw
 
 settings = get_settings()
 
@@ -37,6 +37,7 @@ app.include_router(workouts.router)
 app.include_router(power_zones.router)
 app.include_router(routes.router)
 app.include_router(plans.router)
+app.include_router(raw.router)
 
 
 @app.exception_handler(httpx.HTTPStatusError)

@@ -143,6 +143,7 @@ export function DashboardPage() {
             { label: 'Power Zones', path: '/power-zones' },
             { label: 'Routes', path: '/routes' },
             { label: 'Plans', path: '/plans' },
+            { label: 'Raw Data', path: '/raw-data' },
           ].map(({ label, path }) => (
             <button
               key={path}

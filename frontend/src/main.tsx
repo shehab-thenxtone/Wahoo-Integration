@@ -11,6 +11,7 @@ import { WorkoutsPage } from './pages/WorkoutsPage'
 import { PowerZonesPage } from './pages/PowerZonesPage'
 import { RoutesPage } from './pages/RoutesPage'
 import { PlansPage } from './pages/PlansPage'
+import { RawDataPage } from './pages/RawDataPage'
 import { NotFoundPage, ErrorPage, Error429Page, Error500Page } from './pages/ErrorPage'
 import { PageLoader } from './components/ui/Loader'
 import './styles/global.css'
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/power-zones" element={<PowerZonesPage />} />
             <Route path="/routes" element={<RoutesPage />} />
             <Route path="/plans" element={<PlansPage />} />
+            <Route path="/raw-data" element={<RawDataPage />} />
 
             {/* Named error routes */}
             <Route path="/error/400" element={<ErrorPage code={400} />} />
