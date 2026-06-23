@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useTodayMetrics, useHistoricalMetrics } from '@/hooks/useWahooData'
+import { useTodayMetrics, useHistoricalMetrics, useTrainingStatus } from '@/hooks/useWahooData'
+import { MyWeekCard, FitnessCard, TrainingCapacityCard } from '@/components/dashboard/TrainingStatusWidgets'
 import { useAuth } from '@/hooks/useAuth'
 import { HeartRateWidget } from '@/components/dashboard/HeartRateWidget'
 import { HRVWidget } from '@/components/dashboard/HRVWidget'
@@ -39,12 +40,14 @@ export function DashboardPage() {
   const { status, disconnect } = useAuth()
   const { data: today, loading: todayLoading, refresh: refreshToday } = useTodayMetrics()
   const { data: history, loading: histLoading, refresh: refreshHistory } = useHistoricalMetrics(days)
+  const { data: trainingStatus, refresh: refreshTraining } = useTrainingStatus()
   const navigate = useNavigate()
 
   const handleRefresh = useCallback(async () => {
     setRefreshing(true)
     refreshToday()
     refreshHistory()
+    refreshTraining()
     await new Promise(r => setTimeout(r, 600))
     setRefreshing(false)
   }, [refreshToday, refreshHistory])
@@ -157,6 +160,16 @@ export function DashboardPage() {
       </nav>
 
       <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {/* Training status — My Week / Fitness / Training Capacity */}
+        <section>
+          <h2 className="text-xs uppercase tracking-widest text-muted mb-3">This Week</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <MyWeekCard data={trainingStatus?.weekly} />
+            <FitnessCard data={trainingStatus?.fitness} />
+            <TrainingCapacityCard data={trainingStatus?.training_capacity} />
+          </div>
+        </section>
+
         {/* Today summary row */}
         <section>
           <h2 className="text-xs uppercase tracking-widest text-muted mb-3">Today</h2>

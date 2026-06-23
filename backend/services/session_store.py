@@ -65,6 +65,11 @@ def count_active_sessions() -> int:
     return len(_load())
 
 
+def get_all_sessions() -> dict:
+    """Return a shallow copy of all sessions (session_id → session dict)."""
+    return dict(_load())
+
+
 def update_tokens(session_id: str, access_token: str, refresh_token: str, expires_at: str) -> None:
     sessions = _load()
     if session_id in sessions:

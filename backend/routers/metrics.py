@@ -4,7 +4,7 @@ from typing import Optional
 
 from config import get_settings
 from models.schemas import TodayMetrics, HistoricalMetrics
-from services import session_store, wahoo_client
+from services import session_store, wahoo_client, training_metrics
 
 logger = logging.getLogger(__name__)
 
@@ -140,3 +140,34 @@ async def activities(
         session["access_token"], session["wahoo_user_id"], days,
         session_id=session_id or "", refresh_token=session.get("refresh_token", ""),
     )
+
+
+@router.get("/training-status")
+async def get_training_status(session_id: Optional[str] = Cookie(default=None)):
+    session = _get_session_or_demo(session_id)
+    token = session["access_token"]
+    uid = session["wahoo_user_id"]
+    kw = {"session_id": session_id or "", "refresh_token": session.get("refresh_token", "")}
+
+    activities = await wahoo_client.get_activities(token, uid, days=90, **kw)
+    is_demo = token == "demo"
+
+    loads = training_metrics.compute_load_metrics(activities, is_demo=is_demo)
+    weekly = training_metrics.compute_weekly_summary(
+        activities,
+        reference_date=training_metrics._DEMO_REFERENCE_DATE if is_demo else None,
+    )
+
+    return {
+        "weekly": weekly,
+        "fitness": {
+            "ctl": loads["ctl"],
+            "day_change": loads["day_change_ctl"],
+            "week_change": loads["week_change_ctl"],
+            "calibrating": loads["calibrating"],
+        },
+        "training_capacity": {
+            "value": loads["tsb"],
+            "day_change": loads["day_change_tsb"],
+        },
+    }

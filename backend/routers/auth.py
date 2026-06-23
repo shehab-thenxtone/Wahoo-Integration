@@ -7,6 +7,8 @@ from fastapi import APIRouter, Cookie, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from typing import Optional
 
+import httpx
+
 from config import get_settings
 from models.schemas import AuthStatus, OAuthConnectResponse
 from services import session_store, wahoo_client
@@ -44,6 +46,25 @@ def _consume_state(state: str) -> bool:
     del states[state]
     _STATES_FILE.write_text(json.dumps(states))
     return True
+
+
+async def _try_revoke_stored_sessions() -> int:
+    """Revoke every stored Wahoo token and delete those sessions. Returns count revoked."""
+    sessions = session_store.get_all_sessions()
+    revoked = 0
+    for sid, sess in sessions.items():
+        token = sess.get("access_token", "")
+        if not token:
+            continue
+        try:
+            await wahoo_client.revoke_token(token)
+            session_store.delete_session(sid)
+            revoked += 1
+            logger.info("Revoked stored session %s for user %s", sid[:8], sess.get("wahoo_user_id"))
+        except Exception as exc:
+            logger.warning("Could not revoke session %s: %s — deleting locally anyway", sid[:8], exc)
+            session_store.delete_session(sid)
+    return revoked
 
 
 @router.get("/status", response_model=AuthStatus)
@@ -111,6 +132,19 @@ async def oauth_callback(
 
     try:
         token_data = await wahoo_client.exchange_code(code)
+    except httpx.HTTPStatusError as exc:
+        body = exc.response.text
+        if exc.response.status_code == 400 and "unrevoked access tokens" in body:
+            logger.warning("Too many unrevoked tokens — revoking all stored sessions and retrying")
+            await _try_revoke_stored_sessions()
+            try:
+                token_data = await wahoo_client.exchange_code(code)
+            except Exception as retry_exc:
+                logger.error("Token exchange still failed after cleanup: %s", retry_exc)
+                return RedirectResponse(f"{settings.frontend_url}/?error=too_many_tokens")
+        else:
+            logger.error("OAuth token exchange exception: %s", exc)
+            return RedirectResponse(f"{settings.frontend_url}/?error=token_exchange_failed")
     except Exception as exc:
         logger.error("OAuth token exchange exception: %s", exc)
         return RedirectResponse(f"{settings.frontend_url}/?error=token_exchange_failed")
@@ -164,6 +198,12 @@ async def disconnect(
     session_id: Optional[str] = Cookie(default=None),
 ):
     if session_id:
+        session = session_store.get_session(session_id)
+        if session:
+            try:
+                await wahoo_client.revoke_token(session["access_token"])
+            except Exception as exc:
+                logger.warning("Token revoke on disconnect failed: %s", exc)
         session_store.delete_session(session_id)
     response.delete_cookie("session_id")
     return {"ok": True}

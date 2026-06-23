@@ -50,7 +50,17 @@ export function ConnectPage() {
 
         {error && (
           <div className="mb-4 p-3 rounded-lg bg-danger/10 border border-danger/30 text-danger text-sm">
-            Connection error: {error}. Please try again.
+            {error === 'too_many_tokens' ? (
+              <>
+                <p className="font-semibold mb-1">Too many active Wahoo sessions</p>
+                <p className="text-xs opacity-80">
+                  Wahoo limits the number of active tokens per app. Your old sessions have been
+                  cleaned up — please try connecting again.
+                </p>
+              </>
+            ) : (
+              <>Connection error: {error}. Please try again.</>
+            )}
           </div>
         )}
 

@@ -55,6 +55,11 @@ export const routesApi = {
   detail: (id: number) => request<Route>(`/routes/${id}`),
 }
 
+// Training Status
+export const trainingStatusApi = {
+  get: () => request<TrainingStatus>('/metrics/training-status'),
+}
+
 // Raw data
 export const rawApi = {
   all: () => request<Record<string, unknown>>('/raw'),
@@ -235,4 +240,30 @@ export interface Plan {
   deleted?: boolean
   created_at?: string
   updated_at?: string
+}
+
+// ── Training Status types ─────────────────────────────────────────────────────
+
+export interface WeeklySummary {
+  activities_count: number
+  duration_minutes: number
+  distance_km: number
+}
+
+export interface FitnessMetrics {
+  ctl: number
+  day_change: number
+  week_change: number
+  calibrating: boolean
+}
+
+export interface TrainingCapacityMetrics {
+  value: number
+  day_change: number
+}
+
+export interface TrainingStatus {
+  weekly: WeeklySummary
+  fitness: FitnessMetrics
+  training_capacity: TrainingCapacityMetrics
 }
