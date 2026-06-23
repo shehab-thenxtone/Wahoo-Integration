@@ -1,0 +1,362 @@
+{
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/.claude/settings.local.json": {
+    "mtime": 1782132414.1750786,
+    "ast_hash": "53a21f929667158151a473a56afc8fd0",
+    "semantic_hash": "53a21f929667158151a473a56afc8fd0"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/config.py": {
+    "mtime": 1782130767.394164,
+    "ast_hash": "9914a06bb001780138603ce1522f021b",
+    "semantic_hash": "9914a06bb001780138603ce1522f021b"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/data/pending_states.json": {
+    "mtime": 1782133291.6715615,
+    "ast_hash": "99914b932bd37a50b983c5e7c90ae93b",
+    "semantic_hash": "99914b932bd37a50b983c5e7c90ae93b"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/data/sample_data.json": {
+    "mtime": 1782129808.3217144,
+    "ast_hash": "a5abd3b97c8b0397358c2eebc55997b0",
+    "semantic_hash": "a5abd3b97c8b0397358c2eebc55997b0"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/main.py": {
+    "mtime": 1782130884.010032,
+    "ast_hash": "8a26e1b20c4bbe835a84c2498b361998",
+    "semantic_hash": "8a26e1b20c4bbe835a84c2498b361998"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/models/__init__.py": {
+    "mtime": 1781607752.219137,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/models/schemas.py": {
+    "mtime": 1782129834.607092,
+    "ast_hash": "1478d84fea9b816211ac752d8e8adee3",
+    "semantic_hash": "1478d84fea9b816211ac752d8e8adee3"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/__init__.py": {
+    "mtime": 1781607752.2190824,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/admin.py": {
+    "mtime": 1781608581.0701954,
+    "ast_hash": "e5a1d0726f61b769404a96c7e49b95d0",
+    "semantic_hash": "e5a1d0726f61b769404a96c7e49b95d0"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/auth.py": {
+    "mtime": 1782129186.6992407,
+    "ast_hash": "111f1fa4e505da3c2f83b8db7ada9d16",
+    "semantic_hash": "111f1fa4e505da3c2f83b8db7ada9d16"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/metrics.py": {
+    "mtime": 1782129169.236568,
+    "ast_hash": "b41e0eec0136b879c811be61560ad839",
+    "semantic_hash": "b41e0eec0136b879c811be61560ad839"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/plans.py": {
+    "mtime": 1782129927.137474,
+    "ast_hash": "db195d98b4f87688e94b21034e4bc12b",
+    "semantic_hash": "db195d98b4f87688e94b21034e4bc12b"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/power_zones.py": {
+    "mtime": 1782129854.7062924,
+    "ast_hash": "3829156ba89cb814562e45d87cce92f6",
+    "semantic_hash": "3829156ba89cb814562e45d87cce92f6"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/routes.py": {
+    "mtime": 1782129904.0199215,
+    "ast_hash": "37881fe31a78ac9d9dfc3f3357a4521a",
+    "semantic_hash": "37881fe31a78ac9d9dfc3f3357a4521a"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/webhooks.py": {
+    "mtime": 1782131963.813539,
+    "ast_hash": "cd49ba07c05d0cded550ad62f90b5ec5",
+    "semantic_hash": "cd49ba07c05d0cded550ad62f90b5ec5"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/routers/workouts.py": {
+    "mtime": 1782129875.2395217,
+    "ast_hash": "fb9747b7cf62993e01d8fb86c07cea1f",
+    "semantic_hash": "fb9747b7cf62993e01d8fb86c07cea1f"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/services/__init__.py": {
+    "mtime": 1781607752.2191124,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/services/rate_limit_store.py": {
+    "mtime": 1781608445.072586,
+    "ast_hash": "f45eadfd8ac3a81c8d25a9059fca0bba",
+    "semantic_hash": "f45eadfd8ac3a81c8d25a9059fca0bba"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/services/session_store.py": {
+    "mtime": 1781608313.548823,
+    "ast_hash": "a5d5898d2464847f203926cd64e28b65",
+    "semantic_hash": "a5d5898d2464847f203926cd64e28b65"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/services/wahoo_client.py": {
+    "mtime": 1782131984.6259887,
+    "ast_hash": "3fb40f5fffcb6be7787e931827c96df1",
+    "semantic_hash": "3fb40f5fffcb6be7787e931827c96df1"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/services/workout_event_cache.py": {
+    "mtime": 1782131936.9710371,
+    "ast_hash": "282c602b1e0da9ddc3276725de5b27b0",
+    "semantic_hash": "282c602b1e0da9ddc3276725de5b27b0"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/Wahoo_Metrics_Dashboard.jsx": {
+    "mtime": 1781369770.0,
+    "ast_hash": "57cb27a4b4122390edf7ca747d7c1eef",
+    "semantic_hash": "57cb27a4b4122390edf7ca747d7c1eef"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/sampleData.json": {
+    "mtime": 1781369770.0,
+    "ast_hash": "f5aa1cebbc21080cd842188ee601bf60",
+    "semantic_hash": "f5aa1cebbc21080cd842188ee601bf60"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/package.json": {
+    "mtime": 1781609075.4891255,
+    "ast_hash": "e1a5744f778fb9beedc89aaed36a90ff",
+    "semantic_hash": "e1a5744f778fb9beedc89aaed36a90ff"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/postcss.config.js": {
+    "mtime": 1781609102.0394754,
+    "ast_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0",
+    "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/App.tsx": {
+    "mtime": 1781610390.624828,
+    "ast_hash": "fb684a11d3f34c82afda938055ca0dfc",
+    "semantic_hash": "fb684a11d3f34c82afda938055ca0dfc"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/ErrorBoundary.tsx": {
+    "mtime": 1781611208.4888337,
+    "ast_hash": "0afb2908c267cd69c996cd17992ca49e",
+    "semantic_hash": "0afb2908c267cd69c996cd17992ca49e"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/admin/RateLimitGauge.tsx": {
+    "mtime": 1781609613.590206,
+    "ast_hash": "43bc525295baa1a62d7293f4d3146df4",
+    "semantic_hash": "43bc525295baa1a62d7293f4d3146df4"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/admin/RateLimitHistory.tsx": {
+    "mtime": 1781609696.776968,
+    "ast_hash": "5c0680e6e43146b8787f226cf38b1e59",
+    "semantic_hash": "5c0680e6e43146b8787f226cf38b1e59"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/dashboard/ActivityTable.tsx": {
+    "mtime": 1781614114.4905202,
+    "ast_hash": "c20ded71e94689bd9591584aa4867da4",
+    "semantic_hash": "c20ded71e94689bd9591584aa4867da4"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/dashboard/HRVWidget.tsx": {
+    "mtime": 1781620066.2575948,
+    "ast_hash": "07f458b2536b88f3776fc5bb7c8e3844",
+    "semantic_hash": "07f458b2536b88f3776fc5bb7c8e3844"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/dashboard/HeartRateWidget.tsx": {
+    "mtime": 1781620053.397227,
+    "ast_hash": "58d3fff696094907a7f2538494da17b6",
+    "semantic_hash": "58d3fff696094907a7f2538494da17b6"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/dashboard/RecoveryWidget.tsx": {
+    "mtime": 1781620084.849632,
+    "ast_hash": "11a0fd3f981063209841516e6be6041f",
+    "semantic_hash": "11a0fd3f981063209841516e6be6041f"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/dashboard/StrainWidget.tsx": {
+    "mtime": 1781620095.945667,
+    "ast_hash": "e1180cdbcced6e2895da985d3784ee71",
+    "semantic_hash": "e1180cdbcced6e2895da985d3784ee71"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/ui/Badge.tsx": {
+    "mtime": 1781609271.518211,
+    "ast_hash": "5a5f3c149bc32e55c1e7fa4a57ca7f5a",
+    "semantic_hash": "5a5f3c149bc32e55c1e7fa4a57ca7f5a"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/ui/Card.tsx": {
+    "mtime": 1781609271.5115063,
+    "ast_hash": "f46f6d0f2baa06adb252aab1101ad6ab",
+    "semantic_hash": "f46f6d0f2baa06adb252aab1101ad6ab"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/ui/ChartInfo.tsx": {
+    "mtime": 1781614059.5991383,
+    "ast_hash": "70c20a54057694afe037a566fa3bf729",
+    "semantic_hash": "70c20a54057694afe037a566fa3bf729"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/ui/Footer.tsx": {
+    "mtime": 1781614065.43914,
+    "ast_hash": "88b19c11c73b72f202580e47181aeddc",
+    "semantic_hash": "88b19c11c73b72f202580e47181aeddc"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/components/ui/Loader.tsx": {
+    "mtime": 1781609271.5219595,
+    "ast_hash": "38b82607e4d7c7f106fc7996f28d4083",
+    "semantic_hash": "38b82607e4d7c7f106fc7996f28d4083"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/hooks/useAuth.ts": {
+    "mtime": 1781615469.5886023,
+    "ast_hash": "1c70717edaa20d7efc86852440e2fb7f",
+    "semantic_hash": "1c70717edaa20d7efc86852440e2fb7f"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/hooks/useWahooData.ts": {
+    "mtime": 1781612281.9527874,
+    "ast_hash": "dbd4a694b90b8611b3b4d6782ac49af4",
+    "semantic_hash": "dbd4a694b90b8611b3b4d6782ac49af4"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/lib/api.ts": {
+    "mtime": 1782129995.2520742,
+    "ast_hash": "1593a7daf594bbe4c93ff4a4ae48b1b8",
+    "semantic_hash": "1593a7daf594bbe4c93ff4a4ae48b1b8"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/lib/utils.ts": {
+    "mtime": 1781609204.110706,
+    "ast_hash": "879cbc07363d13444c022c873d2c1c22",
+    "semantic_hash": "879cbc07363d13444c022c873d2c1c22"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/main.tsx": {
+    "mtime": 1782130292.859992,
+    "ast_hash": "0a6c80929365f00ae24037b7649ea11c",
+    "semantic_hash": "0a6c80929365f00ae24037b7649ea11c"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/AdminPage.tsx": {
+    "mtime": 1781614150.3670745,
+    "ast_hash": "49a9e0d6f53169f092e5ca8e113ebbf7",
+    "semantic_hash": "49a9e0d6f53169f092e5ca8e113ebbf7"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/ConnectPage.tsx": {
+    "mtime": 1781615487.178752,
+    "ast_hash": "89e023d42b15152f6681bbf91cabb5df",
+    "semantic_hash": "89e023d42b15152f6681bbf91cabb5df"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/DashboardPage.tsx": {
+    "mtime": 1782130318.4493775,
+    "ast_hash": "ed8d623b711d30c89ff9bf0c47ce1550",
+    "semantic_hash": "ed8d623b711d30c89ff9bf0c47ce1550"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/ErrorPage.tsx": {
+    "mtime": 1781611065.25776,
+    "ast_hash": "757fde65e45a4604170146de6aa3b0ec",
+    "semantic_hash": "757fde65e45a4604170146de6aa3b0ec"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/PlansPage.tsx": {
+    "mtime": 1782130264.2928185,
+    "ast_hash": "8797fbc0120a7497c9530e0e8d358fc3",
+    "semantic_hash": "8797fbc0120a7497c9530e0e8d358fc3"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/PowerZonesPage.tsx": {
+    "mtime": 1782130193.6432328,
+    "ast_hash": "42b623170ff0d87b813c6ac21061c503",
+    "semantic_hash": "42b623170ff0d87b813c6ac21061c503"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/PrivacyPage.tsx": {
+    "mtime": 1781614189.109793,
+    "ast_hash": "cc0a0411ddba01e96dd0d63a94e9441b",
+    "semantic_hash": "cc0a0411ddba01e96dd0d63a94e9441b"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/ProfilePage.tsx": {
+    "mtime": 1782130043.1003587,
+    "ast_hash": "42f78b40d74233c19c0ac8b21726fd44",
+    "semantic_hash": "42f78b40d74233c19c0ac8b21726fd44"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/RoutesPage.tsx": {
+    "mtime": 1782130227.9865372,
+    "ast_hash": "b19ce146d114e996f484ea93130852ea",
+    "semantic_hash": "b19ce146d114e996f484ea93130852ea"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/src/pages/WorkoutsPage.tsx": {
+    "mtime": 1782130135.8709428,
+    "ast_hash": "ddcd7845f29ef98a33d97ad9f206948a",
+    "semantic_hash": "ddcd7845f29ef98a33d97ad9f206948a"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/tailwind.config.ts": {
+    "mtime": 1781609102.0416043,
+    "ast_hash": "6edb40bbeb604f20d6a12f62789aa161",
+    "semantic_hash": "6edb40bbeb604f20d6a12f62789aa161"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/tsconfig.json": {
+    "mtime": 1781609102.0347605,
+    "ast_hash": "cbfc5ba03ce1831e6740aae22a5bd2e1",
+    "semantic_hash": "cbfc5ba03ce1831e6740aae22a5bd2e1"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/vite.config.ts": {
+    "mtime": 1782109566.0205605,
+    "ast_hash": "0f3ccd26b844aaed80273288dd7c2868",
+    "semantic_hash": "0f3ccd26b844aaed80273288dd7c2868"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/start.sh": {
+    "mtime": 1781615503.2509646,
+    "ast_hash": "245932fa7b0cb4945f3a1ed03a20d079",
+    "semantic_hash": "245932fa7b0cb4945f3a1ed03a20d079"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/stop.sh": {
+    "mtime": 1781610771.9158287,
+    "ast_hash": "0378e3fd5fa52a4bea1a9cea1fd0b484",
+    "semantic_hash": "0378e3fd5fa52a4bea1a9cea1fd0b484"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/README.md": {
+    "mtime": 1781611440.6399271,
+    "ast_hash": "505cdbc61c0c13d255c0bd63ca5c3599",
+    "semantic_hash": "505cdbc61c0c13d255c0bd63ca5c3599"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/Wahoo_Integration_Documentation.html": {
+    "mtime": 1781606777.6441135,
+    "ast_hash": "17dc4b32901b8203687920f625f0bef8",
+    "semantic_hash": "17dc4b32901b8203687920f625f0bef8"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/Wahoo_Metrics_Dashboard.html": {
+    "mtime": 1781370268.0,
+    "ast_hash": "76fe638dbdb0e3943c26a21dc220eaf6",
+    "semantic_hash": "76fe638dbdb0e3943c26a21dc220eaf6"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/backend/requirements.txt": {
+    "mtime": 1781608851.5810144,
+    "ast_hash": "738f1f83fb81c8edebf6f9d1380cbfe8",
+    "semantic_hash": "738f1f83fb81c8edebf6f9d1380cbfe8"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/docs/wahoo/audit-report.md": {
+    "mtime": 1782124201.852507,
+    "ast_hash": "c0505348d734af942688cadb0dfae5fb",
+    "semantic_hash": "c0505348d734af942688cadb0dfae5fb"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/ADO_PBI_Template.txt": {
+    "mtime": 1781606777.6441512,
+    "ast_hash": "e253b43e865462cb6d5544d0d8cb315e",
+    "semantic_hash": "e253b43e865462cb6d5544d0d8cb315e"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/QUICK_REFERENCE.md": {
+    "mtime": 1781606777.6441448,
+    "ast_hash": "e812a74ce8f73288c935132935a6d2c2",
+    "semantic_hash": "e812a74ce8f73288c935132935a6d2c2"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/README.md": {
+    "mtime": 1781606777.6441376,
+    "ast_hash": "42fe8634bf055c401b052724c85b8dbb",
+    "semantic_hash": "42fe8634bf055c401b052724c85b8dbb"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/SUMMARY.md": {
+    "mtime": 1781369770.0,
+    "ast_hash": "51bf3e34df4416d7f870833e826084f7",
+    "semantic_hash": "51bf3e34df4416d7f870833e826084f7"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/files/Wahoo_Chest_Strap_Spike_PBI.md": {
+    "mtime": 1781606777.64413,
+    "ast_hash": "0d2e76c39f2d67dcf2a2d913def5c989",
+    "semantic_hash": "0d2e76c39f2d67dcf2a2d913def5c989"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/index.html": {
+    "mtime": 1781609108.8462126,
+    "ast_hash": "7931380c72cc7cfa7102ba3c9f3b0877",
+    "semantic_hash": "7931380c72cc7cfa7102ba3c9f3b0877"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/public/favicon-512.png": {
+    "mtime": 1781612246.5616446,
+    "ast_hash": "600c4e658903f082c82bc15fcb3ecdaa",
+    "semantic_hash": "600c4e658903f082c82bc15fcb3ecdaa"
+  },
+  "/Users/shehabmagdy/projects/Wahoo_Chest_Strap/frontend/public/favicon.svg": {
+    "mtime": 1781610297.7935088,
+    "ast_hash": "be92ab2cd924e9d27669f4277d04f664",
+    "semantic_hash": "be92ab2cd924e9d27669f4277d04f664"
+  }
+}

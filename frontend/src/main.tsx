@@ -1,24 +1,19 @@
-import React, { lazy, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { ConnectPage } from './pages/ConnectPage'
+import { DashboardPage } from './pages/DashboardPage'
+import { AdminPage } from './pages/AdminPage'
+import { ProfilePage } from './pages/ProfilePage'
+import { PrivacyPage } from './pages/PrivacyPage'
+import { WorkoutsPage } from './pages/WorkoutsPage'
+import { PowerZonesPage } from './pages/PowerZonesPage'
+import { RoutesPage } from './pages/RoutesPage'
+import { PlansPage } from './pages/PlansPage'
+import { NotFoundPage, ErrorPage, Error429Page, Error500Page } from './pages/ErrorPage'
 import { PageLoader } from './components/ui/Loader'
 import './styles/global.css'
-
-// Heavy routes lazy-loaded so recharts is not parsed on the connect/landing page
-const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
-const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })))
-const ProfilePage = lazy(() => import('./pages/ProfilePage').then(m => ({ default: m.ProfilePage })))
-const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then(m => ({ default: m.PrivacyPage })))
-const WorkoutsPage = lazy(() => import('./pages/WorkoutsPage').then(m => ({ default: m.WorkoutsPage })))
-const PowerZonesPage = lazy(() => import('./pages/PowerZonesPage').then(m => ({ default: m.PowerZonesPage })))
-const RoutesPage = lazy(() => import('./pages/RoutesPage').then(m => ({ default: m.RoutesPage })))
-const PlansPage = lazy(() => import('./pages/PlansPage').then(m => ({ default: m.PlansPage })))
-const NotFoundPage = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.NotFoundPage })))
-const ErrorPage = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.ErrorPage })))
-const Error429Page = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.Error429Page })))
-const Error500Page = lazy(() => import('./pages/ErrorPage').then(m => ({ default: m.Error500Page })))
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -162,135 +162,60 @@ def _filter_by_days(items: list, days: int, date_key: str = "date") -> list:
 async def get_today_heart_rate(
     access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
 ) -> Optional[dict]:
-    sample = _get_sample()
     if get_settings().is_demo:
-        summaries = sample.get("heart_rate_daily_summary", [])
+        summaries = _get_sample().get("heart_rate_daily_summary", [])
         return summaries[-1] if summaries else None
-
-    today = date.today().isoformat()
-    data = await _api_get(
-        "/v1/user/me/metrics/heart_rate",
-        access_token,
-        user_id,
-        {"start_date": f"{today}T00:00:00Z", "end_date": f"{today}T23:59:59Z", "granularity": "daily"},
-        session_id=session_id,
-        refresh_token=refresh_token,
-    )
-    summaries = data.get("heart_rate_daily_summaries", [])
-    return summaries[0] if summaries else None
+    # Wahoo API does not provide a standalone heart-rate daily metrics endpoint.
+    return None
 
 
 async def get_heart_rate_history(
     access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
 ) -> list:
-    sample = _get_sample()
     if get_settings().is_demo:
-        return sample.get("heart_rate_daily_summary", [])[-days:]
-
-    end = datetime.now(timezone.utc)
-    start = end - timedelta(days=days)
-    data = await _api_get(
-        "/v1/user/me/metrics/heart_rate",
-        access_token,
-        user_id,
-        {
-            "start_date": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "end_date": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "granularity": "daily",
-        },
-        session_id=session_id,
-        refresh_token=refresh_token,
-    )
-    return data.get("heart_rate_daily_summaries", [])
+        return _get_sample().get("heart_rate_daily_summary", [])[-days:]
+    return []
 
 
 async def get_today_recovery(
     access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
 ) -> Optional[dict]:
-    sample = _get_sample()
     if get_settings().is_demo:
-        items = sample.get("recovery_data", [])
+        items = _get_sample().get("recovery_data", [])
         return items[-1] if items else None
-
-    today = date.today().isoformat()
-    data = await _api_get(
-        "/v1/user/me/metrics/recovery",
-        access_token,
-        user_id,
-        {"start_date": today, "end_date": today},
-        session_id=session_id,
-        refresh_token=refresh_token,
-    )
-    items = data.get("recovery_data", [])
-    return items[0] if items else None
+    return None
 
 
 async def get_recovery_history(
     access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
 ) -> list:
-    sample = _get_sample()
     if get_settings().is_demo:
-        return sample.get("recovery_data", [])[-days:]
-
-    end = date.today().isoformat()
-    start = (date.today() - timedelta(days=days)).isoformat()
-    data = await _api_get(
-        "/v1/user/me/metrics/recovery",
-        access_token,
-        user_id,
-        {"start_date": start, "end_date": end},
-        session_id=session_id,
-        refresh_token=refresh_token,
-    )
-    return data.get("recovery_data", [])
+        return _get_sample().get("recovery_data", [])[-days:]
+    return []
 
 
 async def get_today_strain(
     access_token: str, user_id: str, *, session_id: str = "", refresh_token: str = ""
 ) -> Optional[dict]:
-    sample = _get_sample()
     if get_settings().is_demo:
-        items = sample.get("strain_data", [])
+        items = _get_sample().get("strain_data", [])
         return items[-1] if items else None
-
-    today = date.today().isoformat()
-    data = await _api_get(
-        "/v1/user/me/metrics/strain",
-        access_token,
-        user_id,
-        {"start_date": today, "end_date": today},
-        session_id=session_id,
-        refresh_token=refresh_token,
-    )
-    items = data.get("strain_data", [])
-    return items[0] if items else None
+    return None
 
 
 async def get_strain_history(
     access_token: str, user_id: str, days: int = 30, *, session_id: str = "", refresh_token: str = ""
 ) -> list:
-    sample = _get_sample()
     if get_settings().is_demo:
-        return sample.get("strain_data", [])[-days:]
-
-    end = date.today().isoformat()
-    start = (date.today() - timedelta(days=days)).isoformat()
-    data = await _api_get(
-        "/v1/user/me/metrics/strain",
-        access_token,
-        user_id,
-        {"start_date": start, "end_date": end},
-        session_id=session_id,
-        refresh_token=refresh_token,
-    )
-    return data.get("strain_data", [])
+        return _get_sample().get("strain_data", [])[-days:]
+    return []
 
 
 def _normalize_activity(w: dict) -> dict:
     summary = w.get("workout_summary") or {}
     starts = w.get("starts", "")
-    duration_sec = summary.get("duration_in_seconds") or 0
-    distance_m = summary.get("distance_accum") or 0
+    duration_sec = float(summary.get("duration_in_seconds") or 0)
+    distance_m = float(summary.get("distance_accum") or 0)
     hr_avg = summary.get("heart_rate_avg")
     hr_max = summary.get("heart_rate_max")
     calories = summary.get("calories_consumed")
@@ -303,25 +228,28 @@ def _normalize_activity(w: dict) -> dict:
     power_avg = summary.get("power_avg")
     duration_active = summary.get("duration_active_accum")
     duration_paused = summary.get("duration_paused_accum")
+    def _int(v):
+        return int(float(v)) if v is not None else None
+
     return {
         "id": str(w.get("id", "")),
         "date": starts[:10] if starts else "",
         "type": w.get("name") or "Workout",
         "start_time": starts,
         "duration_minutes": int(duration_sec / 60),
-        "avg_heart_rate": int(hr_avg) if hr_avg else None,
-        "max_heart_rate": int(hr_max) if hr_max else None,
-        "calories_burned": int(calories) if calories else None,
+        "avg_heart_rate": _int(hr_avg),
+        "max_heart_rate": _int(hr_max),
+        "calories_burned": _int(calories),
         "distance_km": round(distance_m / 1000, 2) if distance_m else None,
-        "elevation_gain_m": int(ascent) if ascent else None,
-        "normalized_power": int(np_) if np_ else None,
+        "elevation_gain_m": _int(ascent),
+        "normalized_power": _int(np_),
         "training_stress_score": round(float(tss), 1) if tss else None,
-        "cadence_avg": int(cadence_avg) if cadence_avg else None,
+        "cadence_avg": _int(cadence_avg),
         "speed_avg_kph": round(float(speed_avg) * 3.6, 2) if speed_avg else None,
         "work_kj": round(float(work_accum) / 1000, 1) if work_accum else None,
-        "power_avg": int(power_avg) if power_avg else None,
-        "duration_active_minutes": int(duration_active / 60) if duration_active else None,
-        "duration_paused_minutes": int(duration_paused / 60) if duration_paused else None,
+        "power_avg": _int(power_avg),
+        "duration_active_minutes": int(float(duration_active) / 60) if duration_active else None,
+        "duration_paused_minutes": int(float(duration_paused) / 60) if duration_paused else None,
     }
 
 
