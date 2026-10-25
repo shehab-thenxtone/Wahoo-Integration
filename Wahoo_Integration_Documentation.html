@@ -21,1067 +21,798 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        header {
-            border-bottom: 3px solid #0066cc;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #0066cc;
-            margin-bottom: 0.5rem;
-        }
-        .metadata {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        h2 {
-            font-size: 1.8rem;
-            color: #0066cc;
-            margin: 2rem 0 1rem;
-            border-left: 4px solid #0066cc;
-            padding-left: 1rem;
-        }
-        h3 {
-            font-size: 1.3rem;
-            color: #333;
-            margin: 1.5rem 0 0.75rem;
-        }
-        h4 {
-            font-size: 1.1rem;
-            color: #555;
-            margin: 1rem 0 0.5rem;
-            font-weight: 600;
-        }
-        .toc {
-            background: #f0f8ff;
-            padding: 1.5rem;
-            border-radius: 6px;
-            margin: 2rem 0;
-            border-left: 4px solid #0066cc;
-        }
+        header { border-bottom: 3px solid #0066cc; padding-bottom: 2rem; margin-bottom: 2rem; }
+        h1 { font-size: 2.5rem; color: #0066cc; margin-bottom: 0.5rem; }
+        .metadata { font-size: 0.9rem; color: #666; }
+        h2 { font-size: 1.8rem; color: #0066cc; margin: 2rem 0 1rem; border-left: 4px solid #0066cc; padding-left: 1rem; }
+        h3 { font-size: 1.3rem; color: #333; margin: 1.5rem 0 0.75rem; }
+        h4 { font-size: 1.1rem; color: #555; margin: 1rem 0 0.5rem; font-weight: 600; }
+        .toc { background: #f0f8ff; padding: 1.5rem; border-radius: 6px; margin: 2rem 0; border-left: 4px solid #0066cc; }
         .toc h3 { margin-top: 0; }
-        .toc ul {
-            list-style: none;
-            padding-left: 1.5rem;
-        }
-        .toc li {
-            margin: 0.5rem 0;
-        }
-        .toc a {
-            color: #0066cc;
-            text-decoration: none;
-            border-bottom: 1px dotted #0066cc;
-        }
+        .toc ul { list-style: none; padding-left: 1.5rem; }
+        .toc li { margin: 0.5rem 0; }
+        .toc a { color: #0066cc; text-decoration: none; border-bottom: 1px dotted #0066cc; }
         .toc a:hover { text-decoration: underline; }
-        
-        code {
-            background: #f4f4f4;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-family: "Courier New", monospace;
-            font-size: 0.95em;
-        }
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 1rem;
-            border-radius: 6px;
-            overflow-x: auto;
-            margin: 1rem 0;
-            font-family: "Courier New", monospace;
-            line-height: 1.5;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
-        }
-        th {
-            background: #0066cc;
-            color: white;
-            padding: 0.75rem;
-            text-align: left;
-            font-weight: 600;
-        }
-        td {
-            padding: 0.75rem;
-            border-bottom: 1px solid #ddd;
-        }
+        code { background: #f4f4f4; padding: 0.2rem 0.4rem; border-radius: 3px; font-family: "Courier New", monospace; font-size: 0.95em; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; font-family: "Courier New", monospace; line-height: 1.5; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+        th { background: #0066cc; color: white; padding: 0.75rem; text-align: left; font-weight: 600; }
+        td { padding: 0.75rem; border-bottom: 1px solid #ddd; }
         tr:nth-child(even) { background: #f9f9f9; }
         tr:hover { background: #f0f8ff; }
-        
-        .step {
-            background: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 6px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #0066cc;
-        }
-        .step-number {
-            display: inline-block;
-            background: #0066cc;
-            color: white;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 2rem;
-            font-weight: bold;
-            margin-right: 0.75rem;
-        }
-        
-        .limitation {
-            background: #fff3cd;
-            padding: 0.75rem 1rem;
-            border-left: 4px solid #ff9800;
-            margin: 0.75rem 0;
-            border-radius: 3px;
-        }
-        
-        .success-box {
-            background: #d4edda;
-            padding: 1rem;
-            border-left: 4px solid #28a745;
-            margin: 1rem 0;
-            border-radius: 3px;
-        }
-        
-        .warning-box {
-            background: #f8d7da;
-            padding: 1rem;
-            border-left: 4px solid #dc3545;
-            margin: 1rem 0;
-            border-radius: 3px;
-        }
-        
-        .info-box {
-            background: #d1ecf1;
-            padding: 1rem;
-            border-left: 4px solid #17a2b8;
-            margin: 1rem 0;
-            border-radius: 3px;
-        }
-        
+        .step { background: #f9f9f9; padding: 1.5rem; border-radius: 6px; margin: 1.5rem 0; border-left: 4px solid #0066cc; }
+        .step-number { display: inline-block; background: #0066cc; color: white; width: 2rem; height: 2rem; border-radius: 50%; text-align: center; line-height: 2rem; font-weight: bold; margin-right: 0.75rem; }
+        .limitation { background: #fff3cd; padding: 0.75rem 1rem; border-left: 4px solid #ff9800; margin: 0.75rem 0; border-radius: 3px; }
+        .limitation-critical { background: #fde8e8; padding: 0.75rem 1rem; border-left: 4px solid #dc3545; margin: 0.75rem 0; border-radius: 3px; }
+        .limitation-corrected { background: #e8f4ff; padding: 0.75rem 1rem; border-left: 4px solid #0066cc; margin: 0.75rem 0; border-radius: 3px; }
+        .success-box { background: #d4edda; padding: 1rem; border-left: 4px solid #28a745; margin: 1rem 0; border-radius: 3px; }
+        .warning-box { background: #f8d7da; padding: 1rem; border-left: 4px solid #dc3545; margin: 1rem 0; border-radius: 3px; }
+        .info-box { background: #d1ecf1; padding: 1rem; border-left: 4px solid #17a2b8; margin: 1rem 0; border-radius: 3px; }
+        .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.75rem; font-weight: 700; margin-left: 0.5rem; vertical-align: middle; }
+        .badge-critical { background: #dc3545; color: white; }
+        .badge-high { background: #fd7e14; color: white; }
+        .badge-medium { background: #ffc107; color: #333; }
+        .badge-low { background: #6c757d; color: white; }
+        .badge-corrected { background: #0066cc; color: white; }
+        .badge-new { background: #28a745; color: white; }
         ul, ol { margin-left: 2rem; margin-bottom: 1rem; }
         li { margin: 0.5rem 0; }
-        
         .print-section { page-break-inside: avoid; }
-        
         @media print {
             body { padding: 0; background: white; }
             .container { box-shadow: none; }
-            .toc { page-break-inside: avoid; }
             h2 { page-break-after: avoid; }
-            .step { page-break-inside: avoid; }
         }
-        
-        footer {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #ddd;
-            font-size: 0.9rem;
-            color: #666;
-            text-align: center;
-        }
+        footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.9rem; color: #666; text-align: center; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 Wahoo Chest Strap Integration Documentation</h1>
-            <div class="metadata">
-                <p><strong>Project:</strong> thenxt-doo (Cortex-Scrum)</p>
-                <p><strong>Device:</strong> Wahoo Chest Strap Gen 2</p>
-                <p><strong>Document Version:</strong> 1.0</p>
-                <p><strong>Last Updated:</strong> June 13, 2024</p>
-            </div>
-        </header>
-
-        <!-- Table of Contents -->
-        <div class="toc">
-            <h3>📋 Table of Contents</h3>
-            <ul>
-                <li><a href="#device-overview">1. Device Overview</a></li>
-                <li><a href="#integration-flow">2. Integration Know-How (10 Steps)</a></li>
-                <li><a href="#limitations">3. Limitations & Constraints</a></li>
-                <li><a href="#competitor-matrix">4. Competitor Comparison</a></li>
-                <li><a href="#resources">5. External Resources</a></li>
-            </ul>
+<div class="container">
+    <header>
+        <h1>🚀 Wahoo Chest Strap Integration Documentation</h1>
+        <div class="metadata">
+            <p><strong>Project:</strong> thenxt-doo (Cortex-Scrum)</p>
+            <p><strong>Device:</strong> Wahoo Chest Strap Gen 2</p>
+            <p><strong>Document Version:</strong> 2.0</p>
+            <p><strong>Last Updated:</strong> June 23, 2026 — major revision: corrected rate limits &amp; token expiry, fixed webhook event types, added Section 6 (24 integration-discovered limitations from live codebase)</p>
         </div>
+    </header>
 
-        <!-- Device Overview -->
-        <section id="device-overview" class="print-section">
-            <h2>1. Device Overview</h2>
-            
-            <h3>Technical Specifications</h3>
-            <table>
-                <tr>
-                    <th>Specification</th>
-                    <th>Value</th>
-                </tr>
-                <tr>
-                    <td>Device Name</td>
-                    <td>Wahoo Chest Strap Gen 2</td>
-                </tr>
-                <tr>
-                    <td>Form Factor</td>
-                    <td>Soft Chest Strap (adjustable, one-size-fits-all)</td>
-                </tr>
-                <tr>
-                    <td>Dimensions</td>
-                    <td>35mm (height) × 24mm (width) × 10mm (depth)</td>
-                </tr>
-                <tr>
-                    <td>Weight</td>
-                    <td>22g (including 2×AAA batteries)</td>
-                </tr>
-                <tr>
-                    <td>Battery Life</td>
-                    <td>250+ hours (continuous monitoring)</td>
-                </tr>
-                <tr>
-                    <td>Wireless Connectivity</td>
-                    <td>ANT+ (primary), Bluetooth Low Energy 4.0+ (secondary)</td>
-                </tr>
-                <tr>
-                    <td>Supported Platforms</td>
-                    <td>iOS 12+, Android 8+, Web (REST API)</td>
-                </tr>
-                <tr>
-                    <td>Firmware Version Range</td>
-                    <td>v2.0 - v3.5 (Gen 2 compatible)</td>
-                </tr>
-                <tr>
-                    <td>Water Resistance</td>
-                    <td>IPX7 (splash proof, NOT submersible)</td>
-                </tr>
-                <tr>
-                    <td>Operating Temperature</td>
-                    <td>-10°C to +50°C</td>
-                </tr>
-            </table>
+    <div class="toc">
+        <h3>📋 Table of Contents</h3>
+        <ul>
+            <li><a href="#device-overview">1. Device Overview</a></li>
+            <li><a href="#integration-flow">2. Integration Know-How (10 Steps)</a></li>
+            <li><a href="#limitations">3. Limitations &amp; Constraints</a>
+                <ul>
+                    <li><a href="#limitations-api">3a. Official API-Level Limitations</a></li>
+                    <li><a href="#limitations-corrected">3b. Corrections to v1.0 Documentation</a></li>
+                </ul>
+            </li>
+            <li><a href="#competitor-matrix">4. Competitor Comparison</a></li>
+            <li><a href="#resources">5. External Resources</a></li>
+            <li><a href="#integration-technical">6. Integration-Discovered Technical Limitations</a>
+                <ul>
+                    <li><a href="#missing-endpoints">6a. Missing API Endpoints</a></li>
+                    <li><a href="#training-metrics-limits">6b. Training Metrics Constraints</a></li>
+                    <li><a href="#oauth-limits">6c. OAuth &amp; Token Management</a></li>
+                    <li><a href="#data-model-limits">6d. Data Model &amp; Normalization</a></li>
+                    <li><a href="#webhook-limits">6e. Webhook Reliability &amp; Security</a></li>
+                    <li><a href="#storage-limits">6f. Storage &amp; Operational</a></li>
+                    <li><a href="#summary-table">6g. Summary Table</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
-            <h3>Supported Metrics</h3>
-            <table>
-                <tr>
-                    <th>Metric</th>
-                    <th>Unit</th>
-                    <th>Range</th>
-                    <th>Accuracy</th>
-                    <th>Update Frequency</th>
-                </tr>
-                <tr>
-                    <td>Heart Rate (HR)</td>
-                    <td>BPM</td>
-                    <td>30–220 BPM</td>
-                    <td>±2 BPM (field), ±1 BPM (lab)</td>
-                    <td>1Hz (real-time)</td>
-                </tr>
-                <tr>
-                    <td>Heart Rate Variability (HRV)</td>
-                    <td>RMSSD (ms)</td>
-                    <td>0–200 ms</td>
-                    <td>±5% (baseline dependent)</td>
-                    <td>Daily aggregates</td>
-                </tr>
-                <tr>
-                    <td>Daily Strain Score</td>
-                    <td>0–100 scale</td>
-                    <td>0–100</td>
-                    <td>Algorithm-based</td>
-                    <td>1–5 min delay</td>
-                </tr>
-                <tr>
-                    <td>Recovery Score</td>
-                    <td>% (0–100)</td>
-                    <td>0–100</td>
-                    <td>Composite metric</td>
-                    <td>Daily (morning)</td>
-                </tr>
-                <tr>
-                    <td>Workout Duration</td>
-                    <td>Minutes</td>
-                    <td>1–999 min</td>
-                    <td>Exact timing</td>
-                    <td>Real-time</td>
-                </tr>
-                <tr>
-                    <td>Calories Burned</td>
-                    <td>kcal</td>
-                    <td>1–9999 kcal</td>
-                    <td>±5–10%</td>
-                    <td>Per activity</td>
-                </tr>
-            </table>
+    <!-- 1. Device Overview -->
+    <section id="device-overview" class="print-section">
+        <h2>1. Device Overview</h2>
 
-            <h3>Data Synchronization</h3>
-            <ul>
-                <li><strong>Real-time Data:</strong> HR available <1 second after measurement via BLE</li>
-                <li><strong>Synced Data:</strong> Aggregated metrics (strain, recovery) synced within 1–5 minutes</li>
-                <li><strong>Offline Behavior:</strong> Strap stores last 7 days of raw data; syncs within 30 minutes of connectivity</li>
-                <li><strong>Battery Impact:</strong> BLE continuous sync reduces battery from 250h to ~40h; ANT+ only extends to 300h</li>
-                <li><strong>Sync Windows:</strong> Optimal sync at night (low activity); avoid high-intensity workouts during sync</li>
-            </ul>
+        <h3>Technical Specifications</h3>
+        <table>
+            <tr><th>Specification</th><th>Value</th></tr>
+            <tr><td>Device Name</td><td>Wahoo Chest Strap Gen 2</td></tr>
+            <tr><td>Form Factor</td><td>Soft Chest Strap (adjustable, one-size-fits-all)</td></tr>
+            <tr><td>Dimensions</td><td>35mm (height) × 24mm (width) × 10mm (depth)</td></tr>
+            <tr><td>Weight</td><td>22g (including 2×AAA batteries)</td></tr>
+            <tr><td>Battery Life</td><td>250+ hours (continuous monitoring)</td></tr>
+            <tr><td>Wireless Connectivity</td><td>ANT+ (primary), Bluetooth Low Energy 4.0+ (secondary)</td></tr>
+            <tr><td>Supported Platforms</td><td>iOS 12+, Android 8+, Web (REST API)</td></tr>
+            <tr><td>Firmware Version Range</td><td>v2.0 - v3.5 (Gen 2 compatible)</td></tr>
+            <tr><td>Water Resistance</td><td>IPX7 (splash proof, NOT submersible)</td></tr>
+            <tr><td>Operating Temperature</td><td>-10°C to +50°C</td></tr>
+        </table>
 
-            <h3>Device Positioning</h3>
-            <p>The Wahoo Chest Strap should be worn:</p>
-            <ul>
-                <li><strong>Location:</strong> Directly across the chest, 2–3 cm below nipple line</li>
-                <li><strong>Tightness:</strong> Snug but not restrictive (one-finger gap when fastened)</li>
-                <li><strong>Contact:</strong> Wet chest or electrode gel improves skin contact and signal quality</li>
-                <li><strong>Orientation:</strong> LED indicator facing outward for visibility</li>
-            </ul>
+        <h3>Supported Metrics</h3>
+        <table>
+            <tr><th>Metric</th><th>Unit</th><th>Range</th><th>Accuracy</th><th>Update Frequency</th></tr>
+            <tr><td>Heart Rate (HR)</td><td>BPM</td><td>30–220 BPM</td><td>±2 BPM (field), ±1 BPM (lab)</td><td>1Hz via BLE (device-level only)</td></tr>
+            <tr><td>Heart Rate Variability (HRV)</td><td>RMSSD (ms)</td><td>0–200 ms</td><td>±5% (baseline dependent)</td><td>Per workout (embedded in summary)</td></tr>
+            <tr><td>Daily Strain Score</td><td>0–100 scale</td><td>0–100</td><td>Algorithm-based</td><td>Per workout (embedded in summary)</td></tr>
+            <tr><td>Recovery Score</td><td>% (0–100)</td><td>0–100</td><td>Composite metric</td><td>Per workout (embedded in summary)</td></tr>
+            <tr><td>Workout Duration</td><td>Minutes</td><td>1–999 min</td><td>Exact timing</td><td>Real-time</td></tr>
+            <tr><td>Calories Burned</td><td>kcal</td><td>1–9999 kcal</td><td>±5–10%</td><td>Per activity</td></tr>
+        </table>
 
-            <div class="success-box">
-                <strong>✓ Optimal Signal Conditions:</strong> Wet skin, tight fit, minimal movement, low electrical interference
-            </div>
-        </section>
+        <h3>Data Synchronization</h3>
+        <ul>
+            <li><strong>Real-time Data:</strong> HR available &lt;1 second via BLE directly from device — not via Cloud REST API</li>
+            <li><strong>Synced Data:</strong> Workout summaries appear in the Cloud API 1–5 minutes after device sync</li>
+            <li><strong>Offline Behavior:</strong> Strap stores last 7 days of raw data; syncs within 30 minutes of connectivity</li>
+            <li><strong>Battery Impact:</strong> BLE continuous sync reduces battery from 250h to ~40h; ANT+ only extends to 300h</li>
+        </ul>
 
-        <!-- Integration Know-How -->
-        <section id="integration-flow" class="print-section">
-            <h2>2. Integration Know-How (10-Step Implementation Flow)</h2>
+        <h3>Device Positioning</h3>
+        <ul>
+            <li><strong>Location:</strong> Directly across the chest, 2–3 cm below nipple line</li>
+            <li><strong>Tightness:</strong> Snug but not restrictive (one-finger gap when fastened)</li>
+            <li><strong>Contact:</strong> Wet chest or electrode gel improves skin contact and signal quality</li>
+            <li><strong>Orientation:</strong> LED indicator facing outward for visibility</li>
+        </ul>
 
-            <div class="step">
-                <span class="step-number">1</span>
-                <h3>Steps to integrate with Wahoo Cloud API</h3>
-                <p><strong>Goal:</strong> Create a Cloud API app, obtain OAuth credentials, authorize users, and call Wahoo endpoints.</p>
+        <div class="success-box">
+            <strong>✓ Optimal Signal Conditions:</strong> Wet skin, tight fit, minimal movement, low electrical interference
+        </div>
+    </section>
 
-                <ol>
-                    <li>
-                        <h4>Create a developer account</h4>
-                        <p>Go to the Wahoo Developer Portal and sign in with your Wahoo account.</p>
-                        <p><a href="https://developers.wahooligan.com" target="_blank">Wahoo Developer Portal</a></p>
-                    </li>
-                    <li>
-                        <h4>Create a new application</h4>
-                        <p>In the Developer Portal:</p>
-                        <ul>
-                            <li>Open <strong>My Developer Apps</strong></li>
-                            <li>Click <strong>Create App</strong></li>
-                            <li>Enter <strong>App Name</strong></li>
-                            <li>Enter <strong>Description</strong></li>
-                            <li>Enter <strong>Redirect URI</strong></li>
-                            <li>Select requested scopes</li>
-                            <li>Submit the application</li>
-                        </ul>
-                        <div class="info-box">
-                            <strong>Note:</strong> Wahoo manually reviews Cloud API applications before granting production access.
-                            <br>
-                            <a href="https://developers.wahooligan.com/cloud?utm_source=chatgpt.com" target="_blank">developers.wahooligan.com/cloud</a>
-                        </div>
-                    </li>
-                    <li>
-                        <h4>Obtain Client ID and Client Secret</h4>
-                        <p>After the application is created, the Developer Portal displays:</p>
-                        <ul>
-                            <li><code>Client ID</code></li>
-                            <li><code>Client Secret</code></li>
-                            <li><strong>Redirect URI</strong></li>
-                        </ul>
-                        <p>These credentials are required for OAuth authentication.</p>
-                        <p><a href="https://cloud-api.wahooligan.com" target="_blank">Wahoo Cloud API Docs</a></p>
-                    </li>
-                    <li>
-                        <h4>Implement OAuth 2.0</h4>
-                        <p>Redirect users to authorize access:</p>
-                        <pre>https://api.wahooligan.com/oauth/authorize?\
-client_id=YOUR_CLIENT_ID\
-&redirect_uri=YOUR_REDIRECT_URI\
-&scope=user_read workouts_read\
+    <!-- 2. Integration Know-How -->
+    <section id="integration-flow" class="print-section">
+        <h2>2. Integration Know-How (10-Step Implementation Flow)</h2>
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <h3>Create App &amp; Obtain Credentials</h3>
+            <p><strong>Goal:</strong> Create a Cloud API app, obtain OAuth credentials, authorize users, and call Wahoo endpoints.</p>
+            <ol>
+                <li>
+                    <h4>Create a developer account</h4>
+                    <p>Go to <a href="https://developers.wahooligan.com" target="_blank">developers.wahooligan.com</a> and sign in with your Wahoo account.</p>
+                </li>
+                <li>
+                    <h4>Create a new application</h4>
+                    <p>Open <strong>My Developer Apps</strong> → <strong>Create App</strong> → enter App Name, Description, Redirect URI, and select scopes.</p>
+                    <div class="warning-box">
+                        <strong>⚠ Gated Access:</strong> Wahoo manually reviews all applications. New apps start in sandbox mode (250 req/day). Production access requires explicit approval — there is no self-serve upgrade.
+                    </div>
+                </li>
+                <li>
+                    <h4>Obtain Client ID and Client Secret</h4>
+                    <p>After creation the Developer Portal shows <code>Client ID</code>, <code>Client Secret</code>, and Redirect URI. See <a href="https://cloud-api.wahooligan.com" target="_blank">cloud-api.wahooligan.com</a>.</p>
+                </li>
+                <li>
+                    <h4>Implement OAuth 2.0</h4>
+                    <pre>https://api.wahooligan.com/oauth/authorize?
+client_id=YOUR_CLIENT_ID
+&redirect_uri=YOUR_REDIRECT_URI
+&scope=user_read workouts_read offline_data
 &response_type=code</pre>
-                        <p>User logs in and approves access. Wahoo redirects back with:</p>
-                        <pre>https://your-app.com/callback?code=AUTH_CODE</pre>
-                    </li>
-                    <li>
-                        <h4>Exchange authorization code for tokens</h4>
-                        <p>POST to the token endpoint:</p>
-                        <pre>POST https://api.wahooligan.com/oauth/token</pre>
-                        <p>Example payload:</p>
-                        <pre>{
+                    <div class="info-box"><strong>PKCE:</strong> For public/non-confidential apps, Wahoo also supports the PKCE OAuth flow.</div>
+                </li>
+                <li>
+                    <h4>Exchange authorization code for tokens</h4>
+                    <pre>POST https://api.wahooligan.com/oauth/token
+{
   "client_id": "...",
   "client_secret": "...",
   "grant_type": "authorization_code",
   "code": "...",
   "redirect_uri": "..."
-}</pre>
-                        <p>Successful response includes:</p>
-                        <pre>{
-  "access_token": "...",
-  "refresh_token": "...",
-  "expires_in": 3600
-}</pre>
-                    </li>
-                    <li>
-                        <h4>Call the API</h4>
-                        <p>Use the access token in request headers:</p>
-                        <pre>GET /v1/user
+}
+// Response:
+{ "access_token": "...", "refresh_token": "...", "expires_in": 7200 }</pre>
+                    <div class="warning-box">
+                        <strong>⚠ Token accumulation cap:</strong> Starting January 2026, max 10 unrevoked tokens per user per app. HTTP 400 "too many unrevoked access tokens" means you must revoke old tokens via <code>DELETE /v1/permissions</code> then retry. Always revoke on user logout.
+                    </div>
+                </li>
+                <li>
+                    <h4>Call the API</h4>
+                    <pre>GET /v1/workouts
 Authorization: Bearer ACCESS_TOKEN</pre>
-                        <p>Available resources include:</p>
-                        <ul>
-                            <li>User profile</li>
-                            <li>Workouts</li>
-                            <li>Routes</li>
-                            <li>Plans</li>
-                            <li>Power zones</li>
-                            <li>Workout files</li>
-                        </ul>
-                        <p><a href="https://cloud-api.wahooligan.com" target="_blank">Wahoo Cloud API Docs</a></p>
-                    </li>
-                </ol>
-            </div>
+                    <p>Available resources: <code>/v1/user</code>, <code>/v1/workouts</code>, <code>/v1/routes</code>, <code>/v1/plans</code>, <code>/v1/power_zones</code></p>
+                    <div class="warning-box">
+                        <strong>⚠ No standalone HR / Recovery / Strain endpoints:</strong> These metrics are only available embedded inside <code>workout_summary</code> objects within <code>/v1/workouts</code>. See Section 6a.
+                    </div>
+                </li>
+            </ol>
+        </div>
 
-            <div class="step">
-                <span class="step-number">2</span>
-                <h3>API Authentication & Headers</h3>
-                <p><strong>Goal:</strong> Authenticate all API requests with Bearer token.</p>
-                
-                <h4>Required Headers</h4>
-                <pre>Authorization: Bearer &lt;access_token&gt;
-User-Agent: MyApp/1.0
+        <div class="step">
+            <span class="step-number">2</span>
+            <h3>API Authentication &amp; Headers</h3>
+            <h4>Required Headers</h4>
+            <pre>Authorization: Bearer &lt;access_token&gt;
 Content-Type: application/json
 Accept: application/json</pre>
-                
-                <h4>Rate Limiting Headers (Response)</h4>
-                <pre>X-RateLimit-Limit: 100
-X-RateLimit-Remaining: 87
-X-RateLimit-Reset: 1623451200</pre>
-                
-                <h4>Error Status Codes</h4>
-                <table>
-                    <tr><th>Status</th><th>Meaning</th><th>Action</th></tr>
-                    <tr><td>401 Unauthorized</td><td>Invalid/expired token</td><td>Refresh token or re-authenticate</td></tr>
-                    <tr><td>403 Forbidden</td><td>Insufficient scopes</td><td>Request new user consent with required scopes</td></tr>
-                    <tr><td>429 Too Many Requests</td><td>Rate limit exceeded</td><td>Exponential backoff + retry</td></tr>
-                    <tr><td>500 Server Error</td><td>Wahoo API issue</td><td>Retry with jitter (max 3 attempts)</td></tr>
-                </table>
-            </div>
+            <h4>Error Status Codes</h4>
+            <table>
+                <tr><th>Status</th><th>Meaning</th><th>Action</th></tr>
+                <tr><td>400</td><td>Invalid params or too many unrevoked tokens</td><td>Check body; if "too many unrevoked" → revoke old tokens, retry</td></tr>
+                <tr><td>401</td><td>Token expired (2h TTL) or revoked</td><td>Refresh token or re-authenticate</td></tr>
+                <tr><td>403</td><td>Insufficient scopes; user_read missing causes all user endpoints to 403</td><td>Re-request consent with required scopes</td></tr>
+                <tr><td>429</td><td>Rate limit exceeded</td><td>Exponential backoff; check X-RateLimit-Reset header</td></tr>
+                <tr><td>500</td><td>Wahoo API issue</td><td>Retry with jitter (max 3 attempts)</td></tr>
+            </table>
+        </div>
 
-            <div class="step">
-                <span class="step-number">3</span>
-                <h3>User Profile & Initial Data Fetch</h3>
-                <p><strong>Goal:</strong> Retrieve authenticated user profile and device IDs.</p>
-                
-                <h4>API Call</h4>
-                <pre>GET /v1/user/me
+        <div class="step">
+            <span class="step-number">3</span>
+            <h3>User Profile</h3>
+            <pre>GET /v1/user/me
 Authorization: Bearer &lt;access_token&gt;</pre>
-                
-                <h4>Response Schema</h4>
-                <pre>{
-  "id": "550e8400-e29b-41d4-a716-446655440000",
+            <pre>{
+  "id": "550e8400-...",
   "first_name": "John",
   "last_name": "Doe",
-  "email": "john.doe@example.com",
-  "created_at": "2022-01-15T10:30:00Z",
-  "updated_at": "2024-06-13T14:20:00Z",
-  "device_ids": [
-    "device-uuid-001",
-    "device-uuid-002"
-  ],
+  "email": "john@example.com",
   "timezone": "America/New_York"
 }</pre>
-                
-                <h4>Key Extractions</h4>
-                <ul>
-                    <li>Store <code>user.id</code> for analytics/logging</li>
-                    <li>Extract first <code>device_id</code> for subsequent calls (or let user select)</li>
-                    <li>Use <code>timezone</code> for daily summary aggregation windows</li>
-                </ul>
+            <div class="warning-box">
+                <strong>⚠ Field name inconsistency:</strong> Some responses use <code>first</code>/<code>last</code>; others use <code>first_name</code>/<code>last_name</code>. Implement both fallbacks. Missing <code>user_read</code> scope → 403 on all user endpoints.
             </div>
+        </div>
 
-            <div class="step">
-                <span class="step-number">4</span>
-                <h3>Fetch Heart Rate & Activity Data</h3>
-                <p><strong>Goal:</strong> Retrieve historical and real-time heart rate metrics.</p>
-                
-                <h4>API Endpoint</h4>
-                <pre>GET /v1/user/me/metrics/heart_rate</pre>
-                
-                <h4>Query Parameters</h4>
-                <table>
-                    <tr><th>Parameter</th><th>Type</th><th>Example</th><th>Notes</th></tr>
-                    <tr><td>start_date</td><td>ISO 8601</td><td>2024-06-01T00:00:00Z</td><td>Required</td></tr>
-                    <tr><td>end_date</td><td>ISO 8601</td><td>2024-06-13T23:59:59Z</td><td>Required</td></tr>
-                    <tr><td>granularity</td><td>string</td><td>minute | day | raw</td><td>Default: day</td></tr>
-                    <tr><td>limit</td><td>integer</td><td>100–1000</td><td>Pagination size</td></tr>
-                    <tr><td>offset</td><td>integer</td><td>0, 100, 200...</td><td>For pagination</td></tr>
-                </table>
-                
-                <h4>Example Request</h4>
-                <pre>GET /v1/user/me/metrics/heart_rate?start_date=2024-06-01T00:00:00Z&end_date=2024-06-13T23:59:59Z&granularity=minute&limit=500</pre>
-                
-                <h4>Response Schema (Minute-Granularity)</h4>
-                <pre>{
-  "data": [
-    {
-      "timestamp": "2024-06-13T06:30:00Z",
-      "heart_rate": 72,
-      "confidence": 0.95
-    },
-    {
-      "timestamp": "2024-06-13T06:31:00Z",
-      "heart_rate": 73,
-      "confidence": 0.94
+        <div class="step">
+            <span class="step-number">4</span>
+            <h3>Fetch Workout Data (Includes Embedded HR)</h3>
+            <pre>GET /v1/workouts?page=1&per_page=30</pre>
+            <pre>{
+  "workouts": [{
+    "id": 12345,
+    "name": "Morning Run",
+    "workout_type_family_id": 2,
+    "starts": "2024-06-13T06:30:00.000Z",
+    "workout_summary": {
+      "duration_in_seconds": 2700,
+      "distance_accum": "8500.0",    // ⚠ Decimal values returned as strings
+      "calories_accum": 420,
+      "heart_rate_avg": 148,
+      "heart_rate_max": 172,
+      "power_bike_tss_last": null,   // null without power meter
+      "power_bike_np_last": null     // null without power meter
     }
-  ],
-  "pagination": {
-    "next_cursor": "eyJvZmZzZXQiOiAxMDB9",
-    "has_more": true,
-    "total_count": 15840
-  }
+  }],
+  "total": 87, "page": 1, "per_page": 30
 }</pre>
-                
-                <h4>Granularity Options</h4>
-                <ul>
-                    <li><strong>raw:</strong> 1Hz samples (60/min) — huge data volume</li>
-                    <li><strong>minute:</strong> 1-minute aggregates (min, max, avg) — recommended</li>
-                    <li><strong>day:</strong> Daily summary (resting HR, avg, max, HRV) — lightweight</li>
-                </ul>
-            </div>
+        </div>
 
-            <div class="step">
-                <span class="step-number">5</span>
-                <h3>Fetch HRV & Recovery Metrics</h3>
-                <p><strong>Goal:</strong> Retrieve heart rate variability and recovery scores.</p>
-                
-                <h4>HRV Endpoint</h4>
-                <pre>GET /v1/user/me/metrics/hrv?start_date=2024-06-01&end_date=2024-06-13</pre>
-                
-                <h4>HRV Response Schema</h4>
-                <pre>{
-  "data": [
-    {
-      "date": "2024-06-13",
-      "rmssd": 42,
-      "status": "Balanced"
-    }
-  ]
-}</pre>
-                
-                <h4>Recovery Score Endpoint</h4>
-                <pre>GET /v1/user/me/metrics/recovery?start_date=2024-06-01&end_date=2024-06-13</pre>
-                
-                <h4>Recovery Response Schema</h4>
-                <pre>{
-  "data": [
-    {
-      "date": "2024-06-13",
-      "recovery_score": 65,
-      "status": "Partially Recovered",
-      "drivers": {
-        "sleep_quality": 0.47,
-        "hrv_trend": 0.31,
-        "resting_hr_trend": 0.22
-      },
-      "recommendation": "Moderate intensity recommended"
-    }
-  ]
-}</pre>
-                
-                <h4>HRV Interpretation</h4>
-                <ul>
-                    <li><strong>RMSSD (Root Mean Square of Successive Differences):</strong> ms-based parasympathetic tone indicator</li>
-                    <li><strong>&lt;30 ms:</strong> Elevated stress, fatigue</li>
-                    <li><strong>30–50 ms:</strong> Normal, balanced state</li>
-                    <li><strong>&gt;50 ms:</strong> High recovery, ready for intensity</li>
-                </ul>
-            </div>
+        <div class="step">
+            <span class="step-number">5</span>
+            <h3>HRV &amp; Power Metrics</h3>
+            <p>HRV is embedded per-workout. Power fields require an ANT+/BLE power meter:</p>
+            <pre>// Only populated when power meter present during workout:
+"power_bike_np_last": 215,    // Normalized Power (W)
+"power_bike_tss_last": 68.5,  // Training Stress Score
+"power_avg": 198,
+"work_accum": 32000,          // joules
+"cadence_avg": 87</pre>
+            <div class="warning-box"><strong>⚠ Power meter required</strong> for CTL/ATL/TSB training load metrics. See Section 6b.</div>
+        </div>
 
-            <div class="step">
-                <span class="step-number">6</span>
-                <h3>Webhook Configuration (Optional, Real-Time)</h3>
-                <p><strong>Goal:</strong> Receive real-time push notifications for new metrics.</p>
-                
-                <h4>Webhook Registration</h4>
-                <pre>POST /v1/webhooks
+        <div class="step">
+            <span class="step-number">6</span>
+            <h3>Webhook Configuration (workout_summary events only)</h3>
+            <pre>POST /v1/webhooks
 Authorization: Bearer &lt;access_token&gt;
-
-{
-  "url": "https://your-app.com/wahoo/webhook",
-  "events": ["heart_rate.updated", "activity.completed", "recovery.updated"],
-  "secret": "your_webhook_secret_key"
-}</pre>
-                
-                <h4>Supported Events</h4>
-                <ul>
-                    <li><code>heart_rate.updated</code> — New HR reading (every 1–5 seconds during activity)</li>
-                    <li><code>activity.completed</code> — Workout finished</li>
-                    <li><code>recovery.updated</code> — Recovery score recalculated (daily)</li>
-                </ul>
-                
-                <h4>Webhook Payload Example</h4>
-                <pre>{
-  "event_type": "heart_rate.updated",
-  "user_id": "550e8400-e29b-41d4-a716-446655440000",
-  "timestamp": "2024-06-13T06:30:00Z",
-  "data": {
-    "heart_rate": 72,
-    "confidence": 0.95
+{ "webhook_token": { "url": "https://your-app.com/wahoo/webhook" } }</pre>
+            <div class="warning-box">
+                <strong>⚠ Only workout_summary events are supported.</strong> Events such as <code>heart_rate.updated</code>, <code>activity.completed</code>, and <code>recovery.updated</code> are <strong>not Wahoo Cloud API webhook events</strong>.
+            </div>
+            <h4>Webhook Payload Example</h4>
+            <pre>{
+  "event_type": "workout_summary",
+  "user_id": "550e8400-...",
+  "workout_summary": {
+    "workout": {
+      "id": 12345, "name": "Morning Run",
+      "workout_summary": { "duration_in_seconds": 2700, "heart_rate_avg": 148 }
+    }
   }
 }</pre>
-                
-                <h4>Webhook Signature Verification</h4>
-                <pre>// Compute HMAC-SHA256(payload, secret)
-const crypto = require('crypto');
-const hmac = crypto.createHmac('sha256', WEBHOOK_SECRET);
+            <div class="info-box"><strong>Payload ambiguity:</strong> Wahoo may use nested (<code>workout_summary.workout.workout_summary</code>) or flat (<code>workout_summary</code>) structure. Parse both defensively.</div>
+            <h4>Requirements &amp; Retry Policy</h4>
+            <ul>
+                <li><code>offline_data</code> scope required</li>
+                <li>Endpoint must respond HTTP 200 within 30 seconds</li>
+                <li>Delivery is <strong>NOT exactly-once</strong> — duplicates are possible</li>
+                <li>Retry schedule: 30 min → 4 h → 24 h → 72 h (5 attempts then dropped)</li>
+            </ul>
+            <h4>Signature Verification</h4>
+            <pre>const hmac = crypto.createHmac('sha256', WEBHOOK_SECRET);
 hmac.update(rawPayload);
 const computed = hmac.digest('hex');
+if (computed !== request.headers['x-wahoo-signature']) return 401;</pre>
+        </div>
 
-// Compare with X-Wahoo-Signature header
-if (computed !== request.headers['x-wahoo-signature']) {
-  return 401; // Unauthorized
-}</pre>
-                
-                <h4>Retry Policy</h4>
-                <ul>
-                    <li><strong>Max Retries:</strong> 5 attempts</li>
-                    <li><strong>Backoff:</strong> Exponential (1s, 2s, 4s, 8s, 16s)</li>
-                    <li><strong>Timeout:</strong> 30-second socket timeout</li>
-                </ul>
-            </div>
-
-            <div class="step">
-                <span class="step-number">7</span>
-                <h3>Rate Limiting & Quota Management</h3>
-                <p><strong>Goal:</strong> Respect API rate limits and optimize request volume.</p>
-                
-                <h4>Free Tier Limits</h4>
-                <ul>
-                    <li><strong>100 requests/hour</strong></li>
-                    <li><strong>1,000 requests/day</strong></li>
-                    <li><strong>No burst allowance</strong> (strict per-second rate limiting)</li>
-                </ul>
-                
-                <h4>Paid Tier</h4>
-                <ul>
-                    <li><strong>1,000 requests/hour</strong></li>
-                    <li><strong>100,000 requests/day</strong></li>
-                    <li><strong>$99/month</strong></li>
-                </ul>
-                
-                <h4>Best Practices</h4>
-                <ul>
-                    <li><strong>Batch Queries:</strong> Fetch 30 days at once rather than daily</li>
-                    <li><strong>Cache Results:</strong> Local storage for 5+ minutes (respect user privacy)</li>
-                    <li><strong>Conditional Requests:</strong> Use ETag for cache revalidation</li>
-                    <li><strong>Polling Interval:</strong> Every 15 minutes for recent data, nightly for historical</li>
-                </ul>
-                
-                <h4>Handling Rate Limit (429)</h4>
-                <pre>// If you receive HTTP 429:
-1. Read X-RateLimit-Reset header (Unix timestamp)
-2. Calculate wait_time = reset_timestamp - now()
-3. Exponential backoff: wait(jittered), then retry
-4. After 3 failed retries, queue for later
-
-Example exponential backoff:
-wait = (2 ^ attempt_count - 1) * 1000 + random(0, 1000)
-// Attempt 1: 0–1000ms
-// Attempt 2: 1000–2000ms
-// Attempt 3: 3000–4000ms</pre>
-            </div>
-
-            <div class="step">
-                <span class="step-number">8</span>
-                <h3>Error Handling & Recovery</h3>
-                <p><strong>Goal:</strong> Gracefully handle API failures and network errors.</p>
-                
-                <h4>Common Error Scenarios</h4>
-                <table>
-                    <tr>
-                        <th>Scenario</th>
-                        <th>Cause</th>
-                        <th>Recovery</th>
-                    </tr>
-                    <tr>
-                        <td>401 Unauthorized</td>
-                        <td>Token expired or revoked</td>
-                        <td>Refresh token or trigger re-authentication</td>
-                    </tr>
-                    <tr>
-                        <td>403 Forbidden</td>
-                        <td>Scope insufficient for endpoint</td>
-                        <td>Request new user consent with <code>read:heart_rate</code> scope</td>
-                    </tr>
-                    <tr>
-                        <td>429 Too Many Requests</td>
-                        <td>Rate limit exceeded</td>
-                        <td>Exponential backoff, then retry</td>
-                    </tr>
-                    <tr>
-                        <td>500 Server Error</td>
-                        <td>Wahoo API issue</td>
-                        <td>Retry up to 3x with exponential backoff</td>
-                    </tr>
-                    <tr>
-                        <td>Network Timeout</td>
-                        <td>Connection lost / slow network</td>
-                        <td>Queue request, retry on reconnect</td>
-                    </tr>
-                </table>
-                
-                <h4>Graceful Degradation</h4>
-                <ul>
-                    <li><strong>API Down?</strong> Display last-cached metrics with "stale data" badge</li>
-                    <li><strong>Partial Failure?</strong> Show available metrics (e.g., HR available but recovery unavailable)</li>
-                    <li><strong>Log Everything:</strong> Timestamp, error code, stack trace, retry count for debugging</li>
-                </ul>
-                
-                <h4>Logging Strategy</h4>
-                <pre>// Log structure (NO FULL TOKENS/CREDENTIALS):
-{
-  "timestamp": "2024-06-13T06:30:00Z",
-  "method": "GET",
-  "endpoint": "/v1/user/me/metrics/heart_rate",
-  "status": 429,
-  "error_code": "rate_limit_exceeded",
-  "retry_count": 2,
-  "duration_ms": 1250,
-  "user_id": "550e8400..." // hashed or anonymized
-}</pre>
-            </div>
-
-            <div class="step">
-                <span class="step-number">9</span>
-                <h3>Data Persistence & Sync Strategy</h3>
-                <p><strong>Goal:</strong> Store metrics locally and keep in sync with Wahoo.</p>
-                
-                <h4>Database Schema (Example: PostgreSQL)</h4>
-                <pre>CREATE TABLE user_metrics (
-  id UUID PRIMARY KEY,
-  user_id UUID NOT NULL,
-  metric_date DATE NOT NULL,
-  resting_hr INTEGER,
-  avg_hr INTEGER,
-  max_hr INTEGER,
-  hrv_rmssd FLOAT,
-  recovery_score INTEGER,
-  strain_score INTEGER,
-  sync_timestamp TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE heart_rate_raw (
-  id UUID PRIMARY KEY,
-  user_id UUID NOT NULL,
-  timestamp TIMESTAMP NOT NULL,
-  bpm INTEGER,
-  confidence FLOAT,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE INDEX idx_user_metric_date ON user_metrics(user_id, metric_date);
-CREATE INDEX idx_user_timestamp ON heart_rate_raw(user_id, timestamp);</pre>
-                
-                <h4>Sync Strategy</h4>
-                <ul>
-                    <li><strong>On App Launch:</strong> Fetch last 7 days of summary data (lightweight)</li>
-                    <li><strong>Polling (Recommended):</strong> Every 5–15 minutes for recent data</li>
-                    <li><strong>Background Sync:</strong> Nightly at 2 AM for previous day's full history</li>
-                    <li><strong>Backfill:</strong> First-time: fetch 1 year of historical data (paginated)</li>
-                </ul>
-                
-                <h4>Conflict Resolution</h4>
-                <ul>
-                    <li><strong>Trust Source of Truth:</strong> Wahoo API is always authoritative</li>
-                    <li><strong>Local Discrepancy?</strong> Re-fetch from Wahoo, update local copy</li>
-                    <li><strong>Timestamp Comparison:</strong> If local `sync_timestamp` is newer than Wahoo's, Wahoo wins</li>
-                </ul>
-            </div>
-
-            <div class="step">
-                <span class="step-number">10</span>
-                <h3>Testing & Validation</h3>
-                <p><strong>Goal:</strong> Validate integration with automated and manual tests.</p>
-                
-                <h4>Unit Tests</h4>
-                <ul>
-                    <li>Token refresh logic (happy path + expiry edge case)</li>
-                    <li>Error response parsing (401, 403, 429, 500)</li>
-                    <li>Data transformation (raw API response → UI model)</li>
-                    <li>Pagination cursor handling</li>
-                </ul>
-                
-                <h4>Integration Tests</h4>
-                <ul>
-                    <li>OAuth flow in Wahoo sandbox environment</li>
-                    <li>Full API endpoint calls with mock responses (VCR/Cassette)</li>
-                    <li>Rate limit header parsing and backoff behavior</li>
-                    <li>Database persistence and sync logic</li>
-                </ul>
-                
-                <h4>E2E Tests</h4>
-                <ul>
-                    <li>Auth → fetch HR → store → display lifecycle</li>
-                    <li>Error recovery (simulate API timeout, 429, etc.)</li>
-                    <li>Offline functionality (use cached data when API unavailable)</li>
-                    <li>Multiple device support (user has 2+ Wahoo straps)</li>
-                </ul>
-                
-                <h4>Test Data</h4>
-                <ul>
-                    <li>Use Wahoo Sandbox API (separate from production)</li>
-                    <li>Create test user account with historical data</li>
-                    <li>Mock API responses in fixtures for offline testing</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Limitations -->
-        <section id="limitations" class="print-section">
-            <h2>3. Limitations & Constraints</h2>
-            <p>Understand these limitations before integrating Wahoo into your platform:</p>
-            
-            <div class="limitation">
-                <strong>⏱️ Data Latency:</strong> Real-time HR available <1 second via BLE; aggregated metrics (strain, recovery) delayed by 1–5 minutes. Daily summaries finalized at midnight UTC.
-            </div>
-            
-            <div class="limitation">
-                <strong>📊 Sampling Precision:</strong> HR accuracy ±2 BPM in field conditions, ±1 BPM in lab. HRV accuracy ±5% (subject to baseline fitness). Strain score is algorithm-derived, not directly measured.
-            </div>
-            
-            <div class="limitation">
-                <strong>📱 Offline Behavior:</strong> Strap stores data locally; syncs within 30 minutes of re-connecting. Extended offline (>7 days) leads to data loss on strap.
-            </div>
-            
-            <div class="limitation">
-                <strong>🚦 Rate Limits:</strong> Free tier: 100 req/hour, 1,000 req/day. No burst allowance. Strict per-request rate limiting (no sliding window).
-            </div>
-            
-            <div class="limitation">
-                <strong>🔧 Device Compatibility:</strong> Only Wahoo Gen 2 officially supported. Gen 1 has limited ECG functionality. Older firmware (<v2.0) may have API bugs.
-            </div>
-            
-            <div class="limitation">
-                <strong>🌍 Regional Restrictions:</strong> API available in North America and EU. Asia-Pacific rollout limited (Singapore, Tokyo only). China/Russia not supported.
-            </div>
-            
-            <div class="limitation">
-                <strong>💾 Data Retention:</strong> Wahoo retains raw 1Hz samples for 90 days. Older data automatically aggregated to daily summaries. No way to retrieve >90 day old raw HR.
-            </div>
-            
-            <div class="limitation">
-                <strong>🔐 Privacy & Consent:</strong> Requires explicit user consent for each scope. Cannot share user data without action. GDPR-compliant data deletion available (30-day window).
-            </div>
-            
-            <div class="limitation">
-                <strong>💰 Cost Model:</strong> Free tier (100 req/hr) sufficient for <10 users. Premium tier ($99/month) required for production use. No per-request pricing.
-            </div>
-            
-            <div class="limitation">
-                <strong>⚡ Webhook Latency:</strong> Real-time webhooks have 2–10 second latency from device event to API delivery. Not suitable for ultra-low-latency use cases.
-            </div>
-            
-            <div class="limitation">
-                <strong>🔋 Battery & Connectivity:</strong> Continuous BLE sync drains battery from 250h to ~40h. ANT+ only extends to 300h. WiFi not supported (Bluetooth/ANT+ only).
-            </div>
-            
-            <div class="limitation">
-                <strong>🎯 Accuracy Degradation:</strong> HR accuracy drops with motion artifacts (running on treadmill), poor chest contact, or high sweat. Confidence score helps (>0.85 recommended).
-            </div>
-            
-            <div class="limitation">
-                <strong>📡 Wireless Interference:</strong> ANT+ operates on 2.4 GHz (shared with WiFi, Bluetooth). Interference in crowded RF environments may cause data loss.
-            </div>
-            
-            <div class="limitation">
-                <strong>🔄 API Versioning:</strong> Currently on v1. No backwards compatibility guarantee if v2 released. Migration window: 6–12 months.
-            </div>
-            
-            <div class="limitation">
-                <strong>🛠️ Support SLA:</strong> Wahoo provides no SLA on API uptime. Status page: <a href="https://status.wahooligan.com" target="_blank">https://status.wahooligan.com</a>. Community support via forums.
-            </div>
-        </section>
-
-        <!-- Competitor Matrix -->
-        <section id="competitor-matrix" class="print-section">
-            <h2>4. Competitor Comparison Matrix</h2>
-            <p>How does Wahoo stack up against alternatives?</p>
-            
+        <div class="step">
+            <span class="step-number">7</span>
+            <h3>Rate Limiting &amp; Quota Management</h3>
             <table>
-                <tr>
-                    <th>Feature</th>
-                    <th><strong style="color: #0066cc;">Wahoo</strong></th>
-                    <th>Apple Watch</th>
-                    <th>Garmin Epix Gen 2</th>
-                    <th>Polar Verity Sense</th>
-                    <th>Fitbit Sense 2</th>
-                </tr>
-                <tr>
-                    <td><strong>HR Accuracy</strong></td>
-                    <td>±2 BPM (field), ±1 BPM (lab)</td>
-                    <td>±1 BPM</td>
-                    <td>±2 BPM</td>
-                    <td>±1 BPM</td>
-                    <td>±3 BPM</td>
-                </tr>
-                <tr>
-                    <td><strong>HRV Support</strong></td>
-                    <td>✅ RMSSD</td>
-                    <td>✅ HRV, RR Interval</td>
-                    <td>✅ HRV, Stress</td>
-                    <td>✅ HRV Trend</td>
-                    <td>✅ HRV Trend</td>
-                </tr>
-                <tr>
-                    <td><strong>Form Factor</strong></td>
-                    <td>Chest Strap (ANT+/BLE)</td>
-                    <td>Wearable (watch)</td>
-                    <td>Watch + Strap optional</td>
-                    <td>Armband (ANT+/BLE)</td>
-                    <td>Watch + Strap</td>
-                </tr>
-                <tr>
-                    <td><strong>Battery Life</strong></td>
-                    <td>250+ hours</td>
-                    <td>18 hours</td>
-                    <td>14 days (watch)</td>
-                    <td>5 days</td>
-                    <td>6+ days</td>
-                </tr>
-                <tr>
-                    <td><strong>Integration API</strong></td>
-                    <td>Wahoo OAuth 2.0 REST</td>
-                    <td>HealthKit, WorkoutKit (native)</td>
-                    <td>Garmin Connect IQ + OAuth</td>
-                    <td>Polar Flow OAuth</td>
-                    <td>Google Fit, Fitbit Cloud</td>
-                </tr>
-                <tr>
-                    <td><strong>Authentication</strong></td>
-                    <td>OAuth 2.0 code flow</td>
-                    <td>Native iOS framework</td>
-                    <td>OAuth 2.0 + API key</td>
-                    <td>OAuth 2.0</td>
-                    <td>OAuth 2.0</td>
-                </tr>
-                <tr>
-                    <td><strong>API Rate Limits</strong></td>
-                    <td>100 req/hr (free)</td>
-                    <td>N/A (local)</td>
-                    <td>30 req/min</td>
-                    <td>60 req/min</td>
-                    <td>150 req/hr</td>
-                </tr>
-                <tr>
-                    <td><strong>Cost</strong></td>
-                    <td>Free tier available, $99/mo premium</td>
-                    <td>$0 (requires Apple Watch)</td>
-                    <td>Free tier available</td>
-                    <td>Free tier available</td>
-                    <td>Free tier available</td>
-                </tr>
-                <tr>
-                    <td><strong>Webhook Support</strong></td>
-                    <td>✅ Yes</td>
-                    <td>❌ No (polling only)</td>
-                    <td>❌ Limited (widgets only)</td>
-                    <td>✅ Yes</td>
-                    <td>✅ Yes</td>
-                </tr>
-                <tr>
-                    <td><strong>Historical Data Depth</strong></td>
-                    <td>90 days raw, full lifetime summary</td>
-                    <td>Configurable (HealthKit)</td>
-                    <td>Full lifetime</td>
-                    <td>60 days</td>
-                    <td>180 days</td>
-                </tr>
-                <tr>
-                    <td><strong>GDPR Compliance</strong></td>
-                    <td>✅ Yes (EU servers)</td>
-                    <td>✅ Yes</td>
-                    <td>✅ Yes</td>
-                    <td>✅ Yes (Nordic HQ)</td>
-                    <td>✅ Yes</td>
-                </tr>
-                <tr>
-                    <td><strong>Real-time Streaming</strong></td>
-                    <td>✅ Webhooks</td>
-                    <td>❌ No</td>
-                    <td>⚠️ Limited (widgets)</td>
-                    <td>✅ Webhooks</td>
-                    <td>✅ Cloud API</td>
-                </tr>
-                <tr>
-                    <td><strong>Integration Complexity</strong></td>
-                    <td>🟡 Medium (10-step flow)</td>
-                    <td>🟢 Low (native framework)</td>
-                    <td>🟡 Medium (OAuth + SDK)</td>
-                    <td>🟡 Medium (OAuth, webhooks)</td>
-                    <td>🟢 Low (REST API)</td>
-                </tr>
-                <tr>
-                    <td><strong>Documentation Quality</strong></td>
-                    <td>🟡 Good (developer portal)</td>
-                    <td>🟢 Excellent (Apple docs)</td>
-                    <td>🟡 Moderate (Connect IQ)</td>
-                    <td>🟢 Good</td>
-                    <td>🟢 Excellent</td>
-                </tr>
-                <tr>
-                    <td><strong>Community Support</strong></td>
-                    <td>🟡 Active (fitness community)</td>
-                    <td>🟢 Large (iOS dev)</td>
-                    <td>🟡 Active (Connect IQ)</td>
-                    <td>🟢 Strong (Nordic region)</td>
-                    <td>🟡 Moderate</td>
-                </tr>
+                <tr><th>Window</th><th>Sandbox</th><th>Production</th></tr>
+                <tr><td>Per 5 minutes</td><td>25 requests</td><td>200 requests</td></tr>
+                <tr><td>Per hour</td><td>100 requests</td><td>1,000 requests</td></tr>
+                <tr><td>Per day</td><td>250 requests</td><td>5,000 requests</td></tr>
             </table>
+            <div class="info-box"><strong>Exempt from rate limits:</strong> Authentication, token refresh, and FIT-file downloads.</div>
+            <h4>Handling 429</h4>
+            <pre>// Read X-RateLimit-Reset (Unix timestamp), wait, then retry
+wait = (2 ^ attempt - 1) * 1000 + random(0, 1000)</pre>
+        </div>
 
-            <h3>Key Takeaways</h3>
-            <div class="success-box">
-                <strong>✓ Wahoo is Best For:</strong> Chest strap form factor, webhook real-time capability, strong HRV support, medium integration complexity, fitness-focused community
+        <div class="step">
+            <span class="step-number">8</span>
+            <h3>Error Handling &amp; Recovery</h3>
+            <div class="warning-box">
+                <strong>⚠ Refreshing a token does NOT immediately revoke the previous one.</strong> The old token is only invalidated after the first successful API call with the new token. Always refresh immediately before an API call — never speculatively.
             </div>
-            <div class="info-box">
-                <strong>ℹ Apple Watch is Best For:</strong> Lowest integration effort (native iOS HealthKit), widest device compatibility, no API calls needed, best for Apple ecosystem
-            </div>
-            <div class="info-box">
-                <strong>ℹ Garmin Epix is Best For:</strong> Multi-sport tracking, excellent battery life (14 days), full lifetime data, high-end features, professional athletes
-            </div>
-            <div class="info-box">
-                <strong>ℹ Polar Verity Sense is Best For:</strong> Nordic region users, strong HRV expertise, armband form factor, webhook real-time, professional training
-            </div>
-            <div class="info-box">
-                <strong>ℹ Fitbit Sense 2 is Best For:</strong> Simplest REST API, widest device compatibility (watch + strap), best general consumer experience
-            </div>
-        </section>
+            <h4>Graceful Degradation</h4>
+            <ul>
+                <li><strong>API Down?</strong> Display last-cached metrics with "stale data" badge</li>
+                <li><strong>Partial Failure?</strong> Show available widgets; hide those that failed</li>
+                <li><strong>Never log full tokens</strong> — log hashed/anonymized user IDs only</li>
+            </ul>
+        </div>
 
-        <!-- Resources -->
-        <section id="resources" class="print-section">
-            <h2>5. External Resources</h2>
-            
-            <h3>Wahoo Official</h3>
+        <div class="step">
+            <span class="step-number">9</span>
+            <h3>Data Persistence &amp; Sync Strategy</h3>
+            <pre>CREATE TABLE user_metrics (
+  id UUID PRIMARY KEY, user_id UUID NOT NULL,
+  metric_date DATE NOT NULL, resting_hr INTEGER,
+  avg_hr INTEGER, max_hr INTEGER, hrv_rmssd FLOAT,
+  recovery_score INTEGER, strain_score INTEGER,
+  sync_timestamp TIMESTAMP DEFAULT NOW()
+);</pre>
             <ul>
-                <li><a href="https://developers.wahooligan.com" target="_blank">Wahoo Developer Portal</a></li>
-                <li><a href="https://cloud-api.wahooligan.com" target="_blank">Wahoo Cloud API Docs</a></li>
-                <li><a href="https://status.wahooligan.com" target="_blank">Wahoo API Status Page</a></li>
-                <li><a href="https://github.com/wahooligans" target="_blank">Wahoo GitHub (SDKs, samples)</a></li>
+                <li><strong>On Launch:</strong> Fetch last 7 days of workouts</li>
+                <li><strong>Polling:</strong> Every 5–15 minutes for recent data</li>
+                <li><strong>Webhook-driven:</strong> Trigger cache refresh on workout_summary events</li>
+                <li><strong>Backfill:</strong> Paginate through history (note: max 300 workouts per fetch window)</li>
             </ul>
-            
-            <h3>Competitor Documentation</h3>
-            <ul>
-                <li><a href="https://developer.apple.com/documentation/healthkit" target="_blank">Apple HealthKit Documentation</a></li>
-                <li><a href="https://developer.garmin.com/connect-iq" target="_blank">Garmin Connect IQ SDK</a></li>
-                <li><a href="https://www.polar.com/en/developers" target="_blank">Polar Flow OAuth</a></li>
-                <li><a href="https://dev.fitbit.com/build/reference" target="_blank">Fitbit Web API</a></li>
-            </ul>
-            
-            <h3>Standards & Best Practices</h3>
-            <ul>
-                <li><a href="https://tools.ietf.org/html/rfc6749" target="_blank">OAuth 2.0 RFC 6749</a></li>
-                <li><a href="https://tools.ietf.org/html/rfc7231" target="_blank">HTTP/1.1 Semantics (Status Codes)</a></li>
-                <li><a href="https://tools.ietf.org/html/rfc6090" target="_blank">HMAC-SHA256 (Webhook Signatures)</a></li>
-            </ul>
-        </section>
+        </div>
 
-        <footer>
-            <p>📄 <strong>Wahoo Chest Strap Integration Documentation v1.0</strong></p>
-            <p>Generated: June 13, 2024 | Project: thenxt-doo (Cortex-Scrum)</p>
-            <p>For questions or updates, contact: <code>qa@thenxtone.com</code></p>
-            <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;">
-            <p><small>This document is confidential and intended for internal use within thenxtone QA team only. Do not share with external parties without authorization.</small></p>
-        </footer>
-    </div>
+        <div class="step">
+            <span class="step-number">10</span>
+            <h3>Testing &amp; Validation</h3>
+            <ul>
+                <li>Unit: token refresh, 400-too-many-tokens error parsing, decimal-as-string coercion, pagination cap behavior</li>
+                <li>Integration: full OAuth flow in sandbox, token revocation flow, webhook delivery simulation</li>
+                <li>E2E: Auth → fetch workouts → display; simulate API down (stale data badge); 429 backoff flow</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 3. Limitations -->
+    <section id="limitations" class="print-section">
+        <h2>3. Limitations &amp; Constraints</h2>
+        <p>Items marked <span class="badge badge-corrected">CORRECTED</span> supersede v1.0. Items marked <span class="badge badge-new">NEW</span> were not in v1.0.</p>
+
+        <h3 id="limitations-api">3a. Official API-Level Limitations</h3>
+
+        <div class="limitation">
+            <strong>⏱️ Data Latency:</strong> Real-time HR is available &lt;1 second via BLE directly from device — not via the Cloud REST API. Workout summaries appear in the Cloud API 1–5 minutes after device sync. Daily summaries finalize at midnight UTC. There is no live HR streaming through the REST API.
+        </div>
+
+        <div class="limitation">
+            <strong>📊 Sampling Precision:</strong> HR accuracy ±2 BPM field / ±1 BPM lab. HRV accuracy ±5% (baseline dependent). Strain score is algorithm-derived, not directly measured.
+        </div>
+
+        <div class="limitation">
+            <strong>📱 Offline Behavior:</strong> Strap stores last 7 days locally; syncs within 30 minutes of reconnection. Extended offline (&gt;7 days) leads to data loss on strap.
+        </div>
+
+        <div class="limitation limitation-corrected">
+            <strong>🚦 Rate Limits <span class="badge badge-corrected">CORRECTED</span></strong>
+            <table style="margin-top:0.75rem">
+                <tr><th>Window</th><th>Sandbox</th><th>Production</th></tr>
+                <tr><td>Per 5 min</td><td>25</td><td>200</td></tr>
+                <tr><td>Per hour</td><td>100</td><td>1,000</td></tr>
+                <tr><td>Per day</td><td>250</td><td>5,000</td></tr>
+            </table>
+            Authentication, token refresh, and FIT-file downloads are <em>exempt</em>. <em>v1.0 incorrectly stated "100/hr free, 1,000/day; $99/mo for 100,000/day". Correct production daily limit is 5,000. Access is approval-based, not subscription-based.</em>
+        </div>
+
+        <div class="limitation limitation-critical">
+            <strong>🔑 Token Accumulation Cap <span class="badge badge-new">NEW</span> <span class="badge badge-critical">CRITICAL</span></strong>
+            <p style="margin-top:0.5rem">Starting January 1, 2026 each application is limited to <strong>10 unrevoked tokens per user</strong>.</p>
+            <ul>
+                <li>Access tokens expire 2 hours after issuance (<code>expires_in: 7200</code>)</li>
+                <li>Unrevoked tokens auto-deleted 60 days after creation</li>
+                <li><strong>Critical:</strong> Refreshing a token does NOT revoke the previous one until the first successful API call with the new token is made. Refresh-without-call leaves both tokens active</li>
+                <li>Cap hit → OAuth callback returns HTTP 400 "too many unrevoked access tokens"</li>
+                <li>Mitigation: revoke via <code>DELETE /v1/permissions</code> on every logout; refresh immediately before API calls, not speculatively</li>
+            </ul>
+        </div>
+
+        <div class="limitation">
+            <strong>🔧 Device Compatibility:</strong> Only Wahoo Gen 2 officially supported. Gen 1 has limited ECG functionality. Firmware &lt;v2.0 may have API bugs.
+        </div>
+
+        <div class="limitation">
+            <strong>🌍 Regional Restrictions:</strong> API available in North America and EU. Asia-Pacific limited (Singapore, Tokyo only). China/Russia not supported.
+        </div>
+
+        <div class="limitation">
+            <strong>💾 Data Retention:</strong> Workout summaries retained for the lifetime of the account. Raw 1Hz HR samples are device-level only and not accessible via the Cloud API. No published retention policy for granular data.
+        </div>
+
+        <div class="limitation">
+            <strong>🔐 Privacy &amp; Consent:</strong> Requires explicit user consent per scope. GDPR-compliant data deletion available (30-day window).
+        </div>
+
+        <div class="limitation limitation-corrected">
+            <strong>💰 Access Model <span class="badge badge-corrected">CORRECTED</span></strong>
+            <p style="margin-top:0.5rem">API access is <strong>gated by approval</strong>, not purchased. All applications submit via the Wahoo API Agreement. Sandbox apps get 250 req/day. Production approval (at Wahoo's discretion) grants 5,000 req/day. <em>v1.0 incorrectly described a "$99/month paid tier".</em></p>
+        </div>
+
+        <div class="limitation limitation-corrected">
+            <strong>🔔 Webhook Event Types <span class="badge badge-corrected">CORRECTED</span></strong>
+            <p style="margin-top:0.5rem">Only <code>workout_summary</code> webhook events are officially supported. The events <code>heart_rate.updated</code>, <code>activity.completed</code>, and <code>recovery.updated</code> listed in v1.0 are <strong>not real Wahoo Cloud API events</strong>. Delivery is not exactly-once; duplicates are possible. Retry: 30 min → 4 h → 24 h → 72 h → dropped. The <code>offline_data</code> scope is required.</p>
+        </div>
+
+        <div class="limitation">
+            <strong>📋 Plan File Access Window <span class="badge badge-new">NEW</span></strong>
+            <p style="margin-top:0.5rem">Plan files are only retrievable <strong>3 days before through 1 day after</strong> the workout's scheduled start time. Outside this window → no data returned. Requires active Wahoo subscription + <code>plans_read</code> scope. Plans scheduled &gt;6 days out don't appear on ELEMNT devices.</p>
+        </div>
+
+        <div class="limitation">
+            <strong>🏃 Third-Party Workout Data Unavailable <span class="badge badge-new">NEW</span></strong>
+            <p style="margin-top:0.5rem">Wahoo does not share workout data originating from third-party applications (Zwift, Strava, TrainingPeaks, etc.) through its API. Only workouts recorded by Wahoo hardware or the Wahoo app are accessible via <code>/v1/workouts</code>.</p>
+        </div>
+
+        <div class="limitation">
+            <strong>🔢 Decimal Values Returned as Strings <span class="badge badge-new">NEW</span></strong>
+            <p style="margin-top:0.5rem">The Wahoo API returns certain decimal fields as JSON strings (e.g., <code>"distance_accum": "8500.0"</code> instead of <code>8500.0</code>). Integrations must explicitly cast these to numbers before arithmetic — otherwise string concatenation silently produces wrong values.</p>
+        </div>
+
+        <div class="limitation">
+            <strong>🔒 Gated Production Access <span class="badge badge-new">NEW</span></strong>
+            <p style="margin-top:0.5rem">API is not openly available. All apps must submit through the Wahoo API Agreement and be approved. New apps start in sandbox. No self-serve upgrade path.</p>
+        </div>
+
+        <div class="limitation">
+            <strong>⚡ Webhook Latency:</strong> 2–10 second latency from device event to delivery. Events can arrive out-of-order when retries overlap with new events. Not suitable for ultra-low-latency use cases.
+        </div>
+
+        <div class="limitation">
+            <strong>🔋 Battery &amp; Connectivity:</strong> Continuous BLE sync reduces battery from 250h to ~40h. ANT+ only extends to 300h. No WiFi support.
+        </div>
+
+        <div class="limitation">
+            <strong>🎯 Accuracy Degradation:</strong> HR accuracy drops with motion artifacts, poor chest contact, or high sweat. Use confidence score &gt;0.85 as a reliability threshold.
+        </div>
+
+        <div class="limitation">
+            <strong>📡 Wireless Interference:</strong> ANT+ on 2.4 GHz (shared with WiFi, BT). Crowded RF environments may cause data loss.
+        </div>
+
+        <div class="limitation">
+            <strong>🔄 API Versioning:</strong> Currently v1. No documented backwards-compatibility guarantee. Contact Wahoo API Support via Zendesk for versioning questions.
+        </div>
+
+        <div class="limitation">
+            <strong>🛠️ Support SLA:</strong> No SLA on API uptime. Status: <a href="https://status.wahooligan.com" target="_blank">status.wahooligan.com</a>. Community support via forums.
+        </div>
+
+        <h3 id="limitations-corrected">3b. Corrections to v1.0 Documentation</h3>
+        <table>
+            <tr><th>Topic</th><th>v1.0 (Incorrect)</th><th>v2.0 (Correct)</th></tr>
+            <tr><td>Token expiry</td><td>expires_in: 3600 (1 hour)</td><td>expires_in: 7200 (2 hours)</td></tr>
+            <tr><td>Sandbox rate limit</td><td>100 req/hr, 1,000 req/day</td><td>100 req/hr, 250 req/day, 25 req/5min</td></tr>
+            <tr><td>Production rate limit</td><td>$99/mo → 1,000/hr, 100,000/day</td><td>Approval-based → 1,000/hr, 5,000/day</td></tr>
+            <tr><td>Webhook events</td><td>heart_rate.updated, activity.completed, recovery.updated</td><td>Only <strong>workout_summary</strong> officially supported</td></tr>
+            <tr><td>Webhook body</td><td>events[] array listing event types</td><td>webhook_token.url only; no event type selection</td></tr>
+            <tr><td>Standalone HR endpoint</td><td>GET /v1/user/me/metrics/heart_rate</td><td>Does not exist in Wahoo Cloud API</td></tr>
+            <tr><td>Standalone Recovery endpoint</td><td>GET /v1/user/me/metrics/recovery</td><td>Does not exist in Wahoo Cloud API</td></tr>
+            <tr><td>HR granularity query param</td><td>?granularity=minute|day|raw</td><td>No such parameter; per-workout aggregates only</td></tr>
+            <tr><td>Data retention</td><td>90 days raw, then aggregated</td><td>Not publicly documented; raw 1Hz not accessible via REST</td></tr>
+        </table>
+    </section>
+
+    <!-- 4. Competitor Matrix -->
+    <section id="competitor-matrix" class="print-section">
+        <h2>4. Competitor Comparison Matrix</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th><strong style="color:#fff">Wahoo</strong></th>
+                <th>Apple Watch</th>
+                <th>Garmin Epix Gen 2</th>
+                <th>Polar Verity Sense</th>
+                <th>Fitbit Sense 2</th>
+            </tr>
+            <tr><td><strong>HR Accuracy</strong></td><td>±2 BPM field, ±1 BPM lab</td><td>±1 BPM</td><td>±2 BPM</td><td>±1 BPM</td><td>±3 BPM</td></tr>
+            <tr><td><strong>HRV Support</strong></td><td>✅ RMSSD (per-workout only)</td><td>✅ HRV, RR Interval</td><td>✅ HRV, Stress</td><td>✅ HRV Trend</td><td>✅ HRV Trend</td></tr>
+            <tr><td><strong>Form Factor</strong></td><td>Chest Strap (ANT+/BLE)</td><td>Watch</td><td>Watch + optional strap</td><td>Armband (ANT+/BLE)</td><td>Watch + Strap</td></tr>
+            <tr><td><strong>Battery Life</strong></td><td>250+ hours</td><td>18 hours</td><td>14 days</td><td>5 days</td><td>6+ days</td></tr>
+            <tr><td><strong>Standalone HR API</strong></td><td>❌ Embedded in workout only</td><td>✅ HealthKit queries</td><td>✅ Connect IQ</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+            <tr><td><strong>API Rate Limits</strong></td><td>100/hr sandbox, 1,000/hr prod</td><td>N/A (local)</td><td>30 req/min</td><td>60 req/min</td><td>150 req/hr</td></tr>
+            <tr><td><strong>Cost Model</strong></td><td>Sandbox free (gated), prod via approval</td><td>$0 (needs Apple Watch)</td><td>Free tier available</td><td>Free tier available</td><td>Free tier available</td></tr>
+            <tr><td><strong>Webhook Support</strong></td><td>✅ workout_summary only</td><td>❌ Polling only</td><td>❌ Limited</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+            <tr><td><strong>Token Management</strong></td><td>🔴 Complex (10-token cap, non-obvious revocation)</td><td>🟢 Handled by iOS</td><td>🟡 Standard OAuth</td><td>🟡 Standard OAuth</td><td>🟡 Standard OAuth</td></tr>
+            <tr><td><strong>Historical Data</strong></td><td>Full lifetime workout summaries</td><td>Configurable (HealthKit)</td><td>Full lifetime</td><td>60 days</td><td>180 days</td></tr>
+            <tr><td><strong>GDPR Compliance</strong></td><td>✅ EU servers</td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Nordic HQ</td><td>✅ Yes</td></tr>
+            <tr><td><strong>Real-time Streaming</strong></td><td>❌ Webhooks 2-10s delay, workout_summary only</td><td>❌ No</td><td>⚠️ Limited</td><td>✅ Webhooks</td><td>✅ Cloud API</td></tr>
+            <tr><td><strong>Integration Complexity</strong></td><td>🟡 Medium (gated, token overhead)</td><td>🟢 Low (native framework)</td><td>🟡 Medium</td><td>🟡 Medium</td><td>🟢 Low</td></tr>
+            <tr><td><strong>Undocumented Behaviors</strong></td><td>🔴 Several (see Section 6)</td><td>🟢 Well-documented</td><td>🟡 Some</td><td>🟡 Some</td><td>🟢 Well-documented</td></tr>
+        </table>
+
+        <div class="success-box"><strong>✓ Wahoo is Best For:</strong> Chest strap form factor, ANT+ compatibility, high HR accuracy, webhook delivery of completed workouts</div>
+        <div class="warning-box"><strong>⚠ Wahoo Limitations vs Competitors:</strong> No standalone HR/recovery/strain REST endpoints, no real-time HR streaming via Cloud API, complex 10-token OAuth cap, gated production approval, only workout_summary webhooks, third-party workout data blocked</div>
+        <div class="info-box"><strong>ℹ Apple Watch:</strong> Lowest integration effort (HealthKit), standalone HR/HRV endpoints, best for Apple ecosystem</div>
+        <div class="info-box"><strong>ℹ Garmin Epix:</strong> Best battery (14 days), full lifetime data, multi-sport, dedicated Connect IQ SDK</div>
+        <div class="info-box"><strong>ℹ Polar Verity Sense:</strong> Best HRV expertise, dedicated HR endpoints, armband form factor, webhook support</div>
+        <div class="info-box"><strong>ℹ Fitbit Sense 2:</strong> Simplest REST API, 180-day history, best general consumer experience</div>
+    </section>
+
+    <!-- 5. Resources -->
+    <section id="resources" class="print-section">
+        <h2>5. External Resources</h2>
+        <h3>Wahoo Official</h3>
+        <ul>
+            <li><a href="https://developers.wahooligan.com" target="_blank">Wahoo Developer Portal</a></li>
+            <li><a href="https://cloud-api.wahooligan.com" target="_blank">Wahoo Cloud API Docs</a></li>
+            <li><a href="https://status.wahooligan.com" target="_blank">Wahoo API Status Page</a></li>
+            <li><a href="https://github.com/wahooligans" target="_blank">Wahoo GitHub (SDKs, samples)</a></li>
+            <li><a href="https://www.wahoofitness.com/wahoo-api-agreement" target="_blank">Wahoo API Agreement</a></li>
+        </ul>
+        <h3>Competitor Documentation</h3>
+        <ul>
+            <li><a href="https://developer.apple.com/documentation/healthkit" target="_blank">Apple HealthKit Documentation</a></li>
+            <li><a href="https://developer.garmin.com/connect-iq" target="_blank">Garmin Connect IQ SDK</a></li>
+            <li><a href="https://www.polar.com/en/developers" target="_blank">Polar Flow OAuth</a></li>
+            <li><a href="https://dev.fitbit.com/build/reference" target="_blank">Fitbit Web API</a></li>
+        </ul>
+        <h3>Standards &amp; Best Practices</h3>
+        <ul>
+            <li><a href="https://tools.ietf.org/html/rfc6749" target="_blank">OAuth 2.0 RFC 6749</a></li>
+            <li><a href="https://tools.ietf.org/html/rfc7231" target="_blank">HTTP/1.1 Semantics (Status Codes)</a></li>
+            <li><a href="https://tools.ietf.org/html/rfc6090" target="_blank">HMAC-SHA256 (Webhook Signatures)</a></li>
+        </ul>
+    </section>
+
+    <!-- 6. Integration-Discovered Technical Limitations -->
+    <section id="integration-technical" class="print-section">
+        <h2>6. Integration-Discovered Technical Limitations</h2>
+        <p>Real-world constraints discovered while building this dashboard integration. These are not covered in official Wahoo documentation and represent practical engineering findings from the live codebase at <code>backend/</code> and <code>frontend/src/</code>.</p>
+
+        <div class="info-box">
+            <strong>Severity:</strong>
+            <span class="badge badge-critical">CRITICAL</span> Functional blocker &nbsp;
+            <span class="badge badge-high">HIGH</span> Data integrity / security &nbsp;
+            <span class="badge badge-medium">MEDIUM</span> Operational / UX &nbsp;
+            <span class="badge badge-low">LOW</span> Minor / edge-case
+        </div>
+
+        <!-- 6a -->
+        <h3 id="missing-endpoints">6a. Missing API Endpoints</h3>
+
+        <div class="limitation-critical">
+            <strong>Heart Rate, Recovery, and Strain Have No Standalone Cloud API Endpoints <span class="badge badge-critical">CRITICAL</span></strong>
+            <p style="margin-top:0.5rem">The Wahoo Cloud API does not expose:</p>
+            <ul>
+                <li><code>GET /v1/user/me/metrics/heart_rate</code> — does not exist</li>
+                <li><code>GET /v1/user/me/metrics/recovery</code> — does not exist</li>
+                <li><code>GET /v1/user/me/metrics/strain</code> — does not exist</li>
+                <li>Any dedicated HRV history endpoint — does not exist</li>
+            </ul>
+            <p>All such metrics are only available embedded inside <code>workout_summary</code> objects within <code>GET /v1/workouts</code>. On a rest day with no recorded workout, these metrics are inaccessible for that day.</p>
+            <p><strong>Dashboard impact:</strong> In production (non-demo) mode, the Today's HR, Recovery, Strain, and HRV widgets are always empty unless the user completed a recorded workout that day. All demo mode data is synthetic.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py</code> — <code>get_today_heart_rate()</code>, <code>get_today_recovery()</code>, <code>get_today_strain()</code> all explicitly return <code>None</code> in real mode.</p>
+        </div>
+
+        <div class="limitation">
+            <strong>No HR Granularity via REST <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">Minute-by-minute or raw 1Hz HR data requires BLE streaming directly from the device — not available via Cloud REST. The API only surfaces per-workout aggregates (avg HR, max HR).</p>
+        </div>
+
+        <!-- 6b -->
+        <h3 id="training-metrics-limits">6b. Training Metrics Constraints</h3>
+
+        <div class="limitation-critical">
+            <strong>Power Meter Required for CTL / ATL / TSB — All Null Without One <span class="badge badge-critical">CRITICAL</span></strong>
+            <p style="margin-top:0.5rem">Training Stress Score (TSS) — the input for Chronic Training Load (CTL), Acute Training Load (ATL), and Training Stress Balance (TSB/Form) — is only populated when the user has an ANT+ or BLE power meter connected during the workout. Without one, these fields are <code>null</code>:</p>
+            <ul>
+                <li><code>workout_summary.power_bike_tss_last</code></li>
+                <li><code>workout_summary.power_bike_np_last</code></li>
+                <li><code>workout_summary.power_avg</code></li>
+                <li><code>workout_summary.work_accum</code></li>
+            </ul>
+            <p><strong>Impact:</strong> Users without a power meter see zeroed or "Calibrating" fitness/form metrics. CTL does not build. The Training Capacity gauge stays at 0.</p>
+            <p><strong>Potential mitigation (not implemented):</strong> HR-based TSS (hrTSS) estimation requires the user's Lactate Threshold HR — not exposed by the Wahoo API, must be user-configured.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/training_metrics.py</code>, <code>backend/services/wahoo_client.py:214–253</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Demo Training Status Frozen at June 2024 <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">Synthetic TSS history is generated with <code>random.Random(42)</code> anchored to <code>2024-06-13</code>. The "This Week" card always shows June 9–15, 2024 regardless of current date. Switching demo → real mode causes a sudden drop to zero CTL/ATL/TSB (no real TSS history).</p>
+            <p><strong>Codebase:</strong> <code>backend/services/training_metrics.py:18</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Training Status Fetches 90 Days on Every Page Load — No Cache <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">The training-status endpoint fetches 90 days of workouts on every request (multiple paginated API calls), consuming a significant portion of the daily rate limit. No server-side caching exists for this computation.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/metrics.py:152</code></p>
+        </div>
+
+        <!-- 6c -->
+        <h3 id="oauth-limits">6c. OAuth &amp; Token Management</h3>
+
+        <div class="limitation-critical">
+            <strong>Too Many Tokens Triggers Destructive Revoke-All (All Users Affected) <span class="badge badge-critical">CRITICAL</span></strong>
+            <p style="margin-top:0.5rem">When the 10-token cap is hit, the current recovery strategy revokes and deletes <em>all</em> stored sessions — not just the triggering user's. This:</p>
+            <ul>
+                <li>Forces all users in a multi-user deployment to re-authenticate</li>
+                <li>Is irreversible without re-auth</li>
+                <li>Breaks simultaneous multi-browser access</li>
+            </ul>
+            <p><strong>Proper fix (not yet implemented):</strong> Track tokens per <code>wahoo_user_id</code>; revoke only that user's old tokens.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/auth.py</code> — <code>_try_revoke_stored_sessions()</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Token Refresh Is Reactive Only — No Proactive Expiry Check <span class="badge badge-high">HIGH</span></strong>
+            <p style="margin-top:0.5rem">Refresh triggers only on a 401. <code>expires_at</code> is stored per-session but never checked proactively. A user with a valid session cookie but a 2h-expired Wahoo token will hit silent failures on the first API call.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py:54–67</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>CSRF OAuth State Expires After 15 Minutes — No User Feedback <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">The CSRF state is pruned after 15 minutes. A slow authorization flow returns "Invalid OAuth state" with no timeout explanation. Hardcoded; not configurable.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/auth.py:33–39</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Token Revocation Returns No Success/Failure Signal <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem"><code>revoke_token()</code> returns <code>None</code> on both success and failure. If the Wahoo API is down during logout, the user appears disconnected locally but the token remains active on Wahoo's servers until the 2h TTL or 60-day expiry.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py:115–121</code></p>
+        </div>
+
+        <!-- 6d -->
+        <h3 id="data-model-limits">6d. Data Model &amp; Normalization</h3>
+
+        <div class="limitation">
+            <strong>Workout Pagination Silently Capped at 300 Items <span class="badge badge-high">HIGH</span></strong>
+            <p style="margin-top:0.5rem">Hardcoded maximum of 10 pages × 30 items = 300 workouts. Athletes who train twice daily can exceed 300 workouts in a 90-day window. Overflow is silently dropped with no warning in logs or response.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py</code> — <code>_MAX_WORKOUT_PAGES = 10</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Activity Normalization Permanently Drops GPS, Tags, and Raw Sensor Data <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem"><code>_normalize_activity()</code> drops: <code>workout.map_polyline</code> (GPS), <code>workout.tags</code> (annotations), <code>workout.samples</code> (raw time-series). The <code>/api/raw</code> endpoint preserves the full payload; normalized workout views do not.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py:214–253</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Activity Type Derived From User-Editable Name, Not Canonical Type ID <span class="badge badge-low">LOW</span></strong>
+            <p style="margin-top:0.5rem">Type is set from <code>workout.name</code> (string, user-editable) instead of <code>workout_type_family_id</code> (integer). "Morning Run" and "Easy Run" appear as different activity types despite being the same workout type.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py:237</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>HRV Field Required in Schema But May Be Absent in Real API Responses <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem"><code>HeartRateDailySummary.heart_rate_variability_rmssd</code> is non-Optional in the Pydantic schema. If absent from a real response (workout too short for RMSSD, unsupported device), Pydantic raises 422 and the entire metrics response fails.</p>
+            <p><strong>Codebase:</strong> <code>backend/models/schemas.py:29–37</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Power Zones Not Indexed by Activity Type <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">Wahoo supports per-activity-type FTP (cycling vs running) but the API returns a flat list with no query-by-type parameter. Users with multiple FTPs see all zones without a way to match zones to specific activities.</p>
+            <p><strong>Codebase:</strong> <code>backend/models/schemas.py:130–147</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Recovery Status and Strain Zone Have No Enum Validation <span class="badge badge-low">LOW</span></strong>
+            <p style="margin-top:0.5rem">Both fields are plain strings with no enum constraint. If Wahoo changes label values, the frontend must handle them without breaking chart rendering.</p>
+            <p><strong>Codebase:</strong> <code>backend/models/schemas.py:42–56</code></p>
+        </div>
+
+        <!-- 6e -->
+        <h3 id="webhook-limits">6e. Webhook Reliability &amp; Security</h3>
+
+        <div class="limitation">
+            <strong>Webhook Signature Verification Optional — Unverified Events Marked as Verified <span class="badge badge-high">HIGH</span></strong>
+            <p style="margin-top:0.5rem">If <code>WAHOO_WEBHOOK_SECRET</code> is not set, any POST to <code>/api/webhooks/wahoo</code> is accepted without HMAC-SHA256 verification. Due to a logic flaw, events accepted without a configured secret are stored with <code>"verified": true</code>, making the flag unreliable for audit.</p>
+            <p><strong>Fix:</strong> Always set <code>WAHOO_WEBHOOK_SECRET</code> in production. Return 401 (not 200) when no secret is configured.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/webhooks.py:100–106, 132</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Webhook Payload Ambiguous — Two Delivery Structures Possible <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">Wahoo delivers payloads in two structures (nested <code>workout_summary.workout.workout_summary</code> vs flat <code>workout_summary</code>). Both are parsed defensively. A third format variant would silently produce <code>None</code> and drop the workout from the cache.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/workout_event_cache.py:56–64</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Replay Attack Window 5 Minutes With Lenient Timestamp Parsing <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">Timestamp validation uses a 5-minute window. If the timestamp field is present but unparseable, the request is silently allowed. If no timestamp is provided, the replay check is skipped entirely.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/webhooks.py:114–122</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Webhook Event Log Silently Truncates at 500 Entries <span class="badge badge-low">LOW</span></strong>
+            <p style="margin-top:0.5rem">Events in <code>backend/data/webhook_events.json</code> are silently truncated to 500 when the limit is exceeded (oldest dropped). No alert, log, or metric is emitted at truncation time.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/webhooks.py:19, 56–57</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Malformed Webhook Events Silently Dropped <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">Payloads missing either a workout <code>id</code> or <code>starts</code> timestamp are silently discarded with no error response and no log entry. The user must wait for the next scheduled poll.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/workout_event_cache.py:62–64</code></p>
+        </div>
+
+        <!-- 6f -->
+        <h3 id="storage-limits">6f. Storage &amp; Operational Limitations</h3>
+
+        <div class="limitation-critical">
+            <strong>OAuth Tokens Stored Plaintext on Disk <span class="badge badge-critical">CRITICAL</span></strong>
+            <p style="margin-top:0.5rem">Access tokens, refresh tokens, and expiry timestamps for all users are stored in plaintext JSON at <code>backend/data/sessions.json</code>. A server compromise, misconfigured filesystem permission, or backup leak exposes all user tokens — usable to call the Wahoo API on behalf of users without consent.</p>
+            <p><strong>Production requirement:</strong> Encrypt tokens at rest (e.g., Fernet with an env-stored key, or a secrets manager like AWS Secrets Manager / HashiCorp Vault).</p>
+            <p><strong>Codebase:</strong> <code>backend/services/session_store.py:37–47</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Demo Mode Auto-Activates Without Startup Logging <span class="badge badge-medium">MEDIUM</span></strong>
+            <p style="margin-top:0.5rem">If either <code>WAHOO_CLIENT_ID</code> or <code>WAHOO_CLIENT_SECRET</code> is missing, demo mode activates silently — regardless of <code>DEMO_MODE=false</code>. No server startup log indicates which mode is active. A misconfigured credential causes real OAuth to be silently bypassed.</p>
+            <p><strong>Codebase:</strong> <code>backend/config.py:24–26</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Admin "Connected Users" Counts Sessions, Not Unique Wahoo Users <span class="badge badge-low">LOW</span></strong>
+            <p style="margin-top:0.5rem">Connected-users count reflects active session cookies, not unique <code>wahoo_user_id</code> values. One user with 3 browser sessions shows as 3 connected users.</p>
+            <p><strong>Codebase:</strong> <code>backend/routers/admin.py:15</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Rate Limit Display Defaults to 100/100 Before First API Call <span class="badge badge-low">LOW</span></strong>
+            <p style="margin-top:0.5rem">Before any API call in a fresh session, the admin panel shows hardcoded defaults (<code>remaining: 100, limit: 100</code>) which do not reflect actual sandbox limits (250/day) or prior-session consumption.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/rate_limit_store.py:64–70</code></p>
+        </div>
+
+        <div class="limitation">
+            <strong>Rate Limit Headers Parsed Fragily With Silent Fallback <span class="badge badge-low">LOW</span></strong>
+            <p style="margin-top:0.5rem">Headers parsed with <code>.split(",")[0].strip()</code>; on any parse failure the code silently falls back to hardcoded defaults (95 remaining, 100 limit) with no log message.</p>
+            <p><strong>Codebase:</strong> <code>backend/services/wahoo_client.py:31–35</code></p>
+        </div>
+
+        <!-- 6g -->
+        <h3 id="summary-table">6g. Summary Table</h3>
+        <table>
+            <tr><th>#</th><th>Limitation</th><th>Severity</th><th>Codebase Reference</th></tr>
+            <tr><td>1</td><td>HR / Recovery / Strain endpoints do not exist in Wahoo Cloud API</td><td><span class="badge badge-critical">CRITICAL</span></td><td>wahoo_client.py:162–211</td></tr>
+            <tr><td>2</td><td>OAuth tokens stored plaintext on disk</td><td><span class="badge badge-critical">CRITICAL</span></td><td>session_store.py:37–47</td></tr>
+            <tr><td>3</td><td>Too many tokens triggers destructive revoke-all, logging out all users</td><td><span class="badge badge-critical">CRITICAL</span></td><td>auth.py:133–144</td></tr>
+            <tr><td>4</td><td>Power meter required for CTL/ATL/TSB; all null without one</td><td><span class="badge badge-critical">CRITICAL</span></td><td>wahoo_client.py:214–253</td></tr>
+            <tr><td>5</td><td>Webhook signature verification optional; unverified events marked verified</td><td><span class="badge badge-high">HIGH</span></td><td>webhooks.py:100–106, 132</td></tr>
+            <tr><td>6</td><td>Token refresh only on 401; no proactive expiry check</td><td><span class="badge badge-high">HIGH</span></td><td>wahoo_client.py:54–67</td></tr>
+            <tr><td>7</td><td>Workout pagination capped at 300 items; overflow silently dropped</td><td><span class="badge badge-high">HIGH</span></td><td>wahoo_client.py (_MAX_WORKOUT_PAGES)</td></tr>
+            <tr><td>8</td><td>HRV field required in schema but may be absent in real API responses</td><td><span class="badge badge-medium">MEDIUM</span></td><td>schemas.py:29–37</td></tr>
+            <tr><td>9</td><td>Webhook payload has two possible structures; third variant = silent null</td><td><span class="badge badge-medium">MEDIUM</span></td><td>workout_event_cache.py:56–64</td></tr>
+            <tr><td>10</td><td>Demo mode auto-activates without startup log when credentials missing</td><td><span class="badge badge-medium">MEDIUM</span></td><td>config.py:24–26</td></tr>
+            <tr><td>11</td><td>CSRF state expires after 15 min; no user-visible timeout message</td><td><span class="badge badge-medium">MEDIUM</span></td><td>auth.py:33–39</td></tr>
+            <tr><td>12</td><td>Token revocation returns None on success and failure; no signal to callers</td><td><span class="badge badge-medium">MEDIUM</span></td><td>wahoo_client.py:115–121</td></tr>
+            <tr><td>13</td><td>Replay attack window 5 min; unparseable timestamps silently allowed</td><td><span class="badge badge-medium">MEDIUM</span></td><td>webhooks.py:114–122</td></tr>
+            <tr><td>14</td><td>Activity normalization permanently drops GPS, tags, raw sensor data</td><td><span class="badge badge-medium">MEDIUM</span></td><td>wahoo_client.py:214–253</td></tr>
+            <tr><td>15</td><td>Power zones not indexed by workout type; multi-FTP users see unmatched zones</td><td><span class="badge badge-medium">MEDIUM</span></td><td>schemas.py:130–147</td></tr>
+            <tr><td>16</td><td>Training status triggers 90-day fetch on every page load with no cache</td><td><span class="badge badge-medium">MEDIUM</span></td><td>metrics.py:152</td></tr>
+            <tr><td>17</td><td>Demo training status frozen at June 2024 reference date</td><td><span class="badge badge-medium">MEDIUM</span></td><td>training_metrics.py:18</td></tr>
+            <tr><td>18</td><td>Malformed webhook events (missing id/starts) silently dropped</td><td><span class="badge badge-medium">MEDIUM</span></td><td>workout_event_cache.py:62–64</td></tr>
+            <tr><td>19</td><td>Webhook events silently truncate at 500 entries; oldest dropped</td><td><span class="badge badge-low">LOW</span></td><td>webhooks.py:19, 56–57</td></tr>
+            <tr><td>20</td><td>Activity type from user-editable name, not canonical workout_type_family_id</td><td><span class="badge badge-low">LOW</span></td><td>wahoo_client.py:237</td></tr>
+            <tr><td>21</td><td>Admin "connected users" counts sessions, not unique Wahoo user IDs</td><td><span class="badge badge-low">LOW</span></td><td>admin.py:15</td></tr>
+            <tr><td>22</td><td>Rate limit display defaults 100/100 before first API call</td><td><span class="badge badge-low">LOW</span></td><td>rate_limit_store.py:64–70</td></tr>
+            <tr><td>23</td><td>Rate limit headers parsed fragily; silent fallback on format change</td><td><span class="badge badge-low">LOW</span></td><td>wahoo_client.py:31–35</td></tr>
+            <tr><td>24</td><td>Recovery status and strain zone have no enum validation</td><td><span class="badge badge-low">LOW</span></td><td>schemas.py:42–56</td></tr>
+        </table>
+    </section>
+
+    <footer>
+        <p>📄 <strong>Wahoo Chest Strap Integration Documentation v2.0</strong></p>
+        <p>Original: June 13, 2024 | Revised: June 23, 2026 | Project: thenxt-doo (Cortex-Scrum)</p>
+        <p>For questions or updates, contact: <code>qa@thenxtone.com</code></p>
+        <hr style="margin:1rem 0;border:none;border-top:1px solid #ddd;">
+        <p><small>This document is confidential and intended for internal use within thenxtone QA team only. Do not share with external parties without authorization.</small></p>
+    </footer>
+</div>
 </body>
 </html>
